@@ -17,51 +17,55 @@ import { coreConfig } from 'app/app-config';
 
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
+import { HomeModule } from './main/private/home/home.module';
 
 const appRoutes: Routes = [
-  {
-    path: 'pages',
-    loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule)
-  },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: '/pages/miscellaneous/error' //Error 404 - Page not found
-  }
+   {
+      path: 'auth',
+      loadChildren: () => import('./main/private/auth/auth.module').then(m => m.AuthModule)
+   },
+   {
+      path: 'error',
+      loadChildren: () => import('./main/shared/error/error.module').then(m => m.ErrorModule)
+   },
+   {
+      path: '',
+      redirectTo: '/home',
+      pathMatch: 'full'
+   },
+   {
+      path: '**',
+      redirectTo: '/error/404' //Error 404 - Page not found
+   }
 ];
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes, {
-      scrollPositionRestoration: 'enabled', // Add options right here
-      relativeLinkResolution: 'legacy'
-    }),
-    TranslateModule.forRoot(),
+   declarations: [AppComponent],
+   imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      HttpClientModule,
+      RouterModule.forRoot(appRoutes, {
+         scrollPositionRestoration: 'enabled', // Add options right here
+         relativeLinkResolution: 'legacy'
+      }),
+      TranslateModule.forRoot(),
 
-    //NgBootstrap
-    NgbModule,
-    ToastrModule.forRoot(),
+      //NgBootstrap
+      NgbModule,
+      ToastrModule.forRoot(),
 
-    // Core modules
-    CoreModule.forRoot(coreConfig),
-    CoreCommonModule,
-    CoreSidebarModule,
-    CoreThemeCustomizerModule,
+      // Core modules
+      CoreModule.forRoot(coreConfig),
+      CoreCommonModule,
+      CoreSidebarModule,
+      CoreThemeCustomizerModule,
 
-    // App modules
-    LayoutModule,
-    SampleModule
-  ],
+      // App modules
+      LayoutModule,
+      HomeModule,
+   ],
 
-  bootstrap: [AppComponent]
+   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
