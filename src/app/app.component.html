@@ -1,19 +1,28 @@
-<body>
-  <div class="container  text-center mt-5 mb-5">
-    <h1>Bootstrap 5 is working fine with Angular 13!!</h1>
+<!-- vertical-layout -->
+<ng-container *ngIf="coreConfig.layout.type === 'vertical'">
+  <vertical-layout></vertical-layout>
+</ng-container>
+<!-- / vertical-layout -->
 
-  </div>
-  <div class="row">
-    <div class="col-md-12 form-group">
-      <button type="button" class="btn btn-primary mr-1">Primary</button>
-      <button type="button" class="btn btn-secondary mr-1">Secondary</button>
-      <button type="button" class="btn btn-success mr-1">Success</button>
-      <button type="button" class="btn btn-danger mr-1">Danger</button>
-      <button type="button" class="btn btn-warning mr-1">Warning</button>
-      <button type="button" class="btn btn-info mr-1">Info</button>
-      <button type="button" class="btn btn-light mr-1">Light</button>
-      <button type="button" class="btn btn-dark mr-1">Dark</button>
-      <button type="button" class="btn btn-link mr-1">Link</button>
-    </div>
-  </div>
-</body>
+<!-- horizontal-layout -->
+<ng-container *ngIf="coreConfig.layout.type === 'horizontal'">
+  <horizontal-layout></horizontal-layout>
+</ng-container>
+<!-- / horizontal-layout -->
+
+<!-- theme customizer -->
+<core-sidebar
+  name="themeCustomizer"
+  class="customizer d-none d-md-block"
+  [invisibleOverlay]="true"
+  *ngIf="coreConfig.layout.customizer"
+>
+  <a
+    class="customizer-toggle d-flex align-items-center justify-content-center"
+    (click)="toggleSidebar('themeCustomizer')"
+  >
+    <span [data-feather]="'settings'" [class]="'spinner'"></span>
+  </a>
+  <core-theme-customizer></core-theme-customizer>
+</core-sidebar>
+<!-- / theme customizer -->
