@@ -20,14 +20,14 @@ export const menu: CoreMenu[] = [
             title: 'Roles',
             type: 'item',
             icon: 'bookmark',
-            url: 'security/roles'
+            url: 'security/role'
          },
          {
             id: 'user',
             title: 'Users',
             type: 'item',
             icon: 'user',
-            url: 'security/users'
+            url: 'security/user'
          },
       ]
    },

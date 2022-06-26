@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 
 @Component({
-   selector: 'app-home',
-   templateUrl: './home.component.html',
-   styleUrls: ['./home.component.scss']
+   selector: 'app-security-user',
+   templateUrl: './user.component.html',
+   styleUrls: ['./user.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class UserComponent implements OnInit {
    constructor() { }
 
    public contentHeader: object
@@ -18,13 +18,22 @@ export class HomeComponent implements OnInit {
     */
    ngOnInit() {
       this.contentHeader = {
-         headerTitle: 'Home',
+         headerTitle: 'Users',
          actionButton: false,
          breadcrumb: {
             type: '',
             links: [
                {
                   name: 'Home',
+                  isLink: true,
+                  link: '/',
+               },
+               {
+                  name: 'Security',
+                  isLink: false,
+               },
+               {
+                  name: 'User',
                   isLink: false,
                }
             ]

@@ -8,6 +8,7 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 
 import { HomeComponent } from './home.component';
 
+// routing
 const routes = [
    {
       path: 'home',
