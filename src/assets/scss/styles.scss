@@ -8,3 +8,88 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.main-menu .navbar-header {
+   padding-left: 1rem;
+}
+
+.main-menu .navbar-header .navbar-brand {
+   margin-top: 1rem;
+}
+
+.nav .modern-nav-toggle {
+   margin-top: 1.25rem;
+}
+
+.main-menu .collapse-toggle-icon {
+   color: $menu-dark-bg-color  !important;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-logo img {
+   max-width: 25px;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-text {
+   color: $menu-dark-bg-color;
+}
+
+.main-menu .navigation>li>a {
+   margin: 0 10px !important;
+}
+
+.main-menu ul.navigation-main {
+   padding-top: 0.75rem;
+}
+
+.main-menu ul.navigation-main>li {
+   margin-bottom: 0.5rem;
+}
+
+.dark-layout .main-menu .navbar-header .navbar-brand .brand-text,
+.semi-dark-layout .main-menu .navbar-header .navbar-brand .brand-text {
+   color: #fff !important;
+}
+
+.dark-layout .main-menu .collapse-toggle-icon,
+.semi-dark-layout .main-menu .collapse-toggle-icon {
+   color: #fff !important;
+}
+
+.dark-layout .main-menu-content .navigation-main,
+.semi-dark-layout .main-menu-content .navigation-main {
+   background-color: $menu-dark-bg-color  !important;
+}
+
+.dark-layout .menu-collapsed .main-menu:not(.expanded) .navigation-main li.active>a,
+.semi-dark-layout .menu-collapsed .main-menu:not(.expanded) .navigation-main li.active>a {
+   background-color: $menu-dark-active-bg-color  !important;
+}
+
+.dark-layout .main-menu-content .navigation-main .nav-item.open>a,
+.semi-dark-layout .main-menu-content .navigation-main .nav-item.open>a {
+   background-color: $menu-dark-active-bg-color  !important;
+}
+
+.dark-layout .main-menu-content .navigation-main .nav-item .menu-content,
+.semi-dark-layout .main-menu-content .navigation-main .nav-item .menu-content {
+   background-color: $menu-dark-bg-color  !important;
+}
+
+.dark-layout .main-menu-content .navigation-main .nav-item .menu-content li:not(.active) a,
+.semi-dark-layout .main-menu-content .navigation-main .nav-item .menu-content li:not(.active) a {
+   background-color: $menu-dark-bg-color  !important;
+}
+
+body.dark-layout {
+   background-color: $menu-dark-active-bg-color;
+}
+
+.dark-layout .card {
+   background-color: $menu-dark-bg-color;
+}
+
+@media (min-width: 576px) {
+   .header-navbar .navbar-container {
+      padding: 0.5rem 1rem;
+   }
+}

@@ -3,4 +3,19 @@
 //  ================================================================================================
 
 // Custom variables
-// $base-font-size: 15px;
+$base-font-size: 12px;
+$content-padding: 1.5rem;
+
+//  ------------------------------
+//    Main Menu
+//  ------------------------------
+
+//main menu dark
+$menu-dark-bg-color: #343a40 !default;
+$menu-dark-active-bg-color: #212223 !default;
+
+$menu-padding: 6px 5px 8px 5px !default;
+$menu-second-level-padding: 5px 5px 5px 20px !default;
+
+// vertical menu
+$menu-collapsed-width: 50px !default;
