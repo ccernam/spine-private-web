@@ -1,20 +1,31 @@
-<div class="content-wrapper container-xxl p-0">
-   <div class="content-body">
-      <app-content-header [contentHeader]="contentHeader"></app-content-header>
-
-      <section id="security-role">
-         <div class="row">
-            <div class="col-12">
-               <div class="card">
-                  <div class="card-header">
-                     <h4 class="card-title">Roles</h4>
-                  </div>
-                  <div class="card-body">
-                     List of Roles
-                  </div>
-               </div>
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+    <button type="button" class="close" aria-label="Close" (click)="close();">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="card card-fluid">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Nombre</label>
+                    <input type="text" [(ngModel)]="role.name" class="form-control form-control-sm" maxlength="50" />
+                </div>
             </div>
-         </div>
-      </section>
-   </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label>Descripción</label>
+                    <textarea type="text" [(ngModel)]="role.description" class="form-control form-control-sm"
+                        maxlength="250" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-primary" (click)="saveRole();"><span class="fas fa-save mr-1"></span>
+        Guardar</button>
+    <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" (click)="close();"><span
+            class="fas fa-times  mr-1"></span> Cerrar</button>
 </div>

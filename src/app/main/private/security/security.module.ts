@@ -6,25 +6,27 @@ import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RoleComponent } from './role/role.component';
 import { UserComponent } from './user/user.component';
+import { RolesComponent } from './roles/roles.component';
+import { RoleComponent } from './role/role.component';
 
 // routing
 const routes: Routes = [
    {
-      path: 'role',
-      component: RoleComponent,
+      path: 'roles',
+      component: RolesComponent,
    },
    {
-      path: 'user',
-      component: RoleComponent,
+      path: 'users',
+      component: RolesComponent,
    }
 ];
 
 @NgModule({
    declarations: [
-      RoleComponent,
+      RolesComponent,
       UserComponent,
+      RoleComponent,
    ],
    imports: [
       RouterModule.forChild(routes),
