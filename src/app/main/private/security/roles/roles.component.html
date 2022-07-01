@@ -12,8 +12,9 @@
                   <div class="card-body">
                      <div class="row">
                         <div class="col-md-12 form-group">
-                           <button class="btn btn-primary btn-sm" (click)="createRole();" style="margin-left: 0;"><span
-                                 class="fas fa-plus mr-1"></span> Nuevo</button>
+                           <button class="btn btn-primary btn-sm" (click)="createRole();" style="margin-left: 0;">
+                              <i data-feather="plus" class="mr-1"></i>Nuevo
+                           </button>
                         </div>
                      </div>
                      <div class="row">
@@ -44,12 +45,14 @@
                                        <td class="align-middle text-center" style="text-align: center; width: 32px;">
                                           <a href="javascript: void(0);" (click)="editRole(item, role)"
                                              title="Editar rol">
-                                             <i class="fa-solid fa-pencil"></i></a>
+                                             <i data-feather="edit"></i>
+                                          </a>
                                        </td>
                                        <td class="align-middle text-center" style="text-align: center; width: 32px;">
                                           <a href="javascript: void(0);" (click)="configureOptions(item, role)"
                                              title="Editar opciones">
-                                             <i class="fas fa-list"></i></a>
+                                             <i data-feather="list"></i>
+                                          </a>
                                        </td>
                                     </tr>
                                  </tbody>
