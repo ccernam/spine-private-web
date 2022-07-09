@@ -26,11 +26,11 @@ export class CommonsService extends ServiceBase {
         return this._httpClient.get<CategoryDto[]>(`${this.getPartialUrl()}/category`, { params: queryString });
     }
 
-    public createCategory(categoryDto: CategoryDto): Observable<ApiResponseDto<CategoryDto>> {
-        return this._httpClient.post<ApiResponseDto<CategoryDto>>(`${this.getPartialUrl()}/category`, categoryDto);
+    public createCategory(categoryDto: CategoryDto): Observable<CategoryDto> {
+        return this._httpClient.post<CategoryDto>(`${this.getPartialUrl()}/category`, categoryDto);
     }
 
-    public editCategory(categoryDto: CategoryDto): Observable<ApiResponseDto<CategoryDto>> {
-        return this._httpClient.put<ApiResponseDto<CategoryDto>>(`${this.getPartialUrl()}/category`, categoryDto);
+    public editCategory(categoryDto: CategoryDto): Observable<CategoryDto> {
+        return this._httpClient.put<CategoryDto>(`${this.getPartialUrl()}/category`, categoryDto);
     }
 }

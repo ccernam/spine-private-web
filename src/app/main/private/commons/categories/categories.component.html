@@ -12,8 +12,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <button class="btn btn-primary btn-sm" (click)="createCategory();"
-                                        style="margin-left: 0;">
+                                    <button class="btn btn-primary btn-sm" (click)="create();" style="margin-left: 0;">
                                         <i data-feather="plus" class="mr-1"></i>Nuevo
                                     </button>
                                 </div>
@@ -55,8 +54,7 @@
                                                     </td>
                                                     <td class="align-middle text-center"
                                                         style="text-align: center; width: 32px;">
-                                                        <a href="javascript: void(0);"
-                                                            (click)="editCategory(item, category)"
+                                                        <a href="javascript: void(0);" (click)="edit(item, category)"
                                                             title="Editar categoría">
                                                             <i data-feather="edit"></i>
                                                         </a>
