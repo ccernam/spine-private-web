@@ -14,7 +14,6 @@ export class CategoriesComponent implements OnInit {
   constructor(
     private _commonsService: CommonsService,
     private _globalService: GlobalService
-
   ) { }
 
   categories: CategoryDto[] = [];
