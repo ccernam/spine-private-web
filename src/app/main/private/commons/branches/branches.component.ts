@@ -32,7 +32,7 @@ export class BranchesComponent implements OnInit {
     modal.result.then((modalResultModel: ModalResultModel<BranchDto>) => {
       if (modalResultModel != null && modalResultModel.success == true) {
         this.branchDtos.push(modalResultModel.data);
-        this.branchDtos = this.branchDtos.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        this.branchDtos = this.branchDtos.sort((a, b) => (a.name.localeCompare(b.name)))
       }
     });
   }
@@ -43,6 +43,7 @@ export class BranchesComponent implements OnInit {
     modal.result.then((modalResultModel: ModalResultModel<BranchDto>) => {
       if (modalResultModel != null && modalResultModel.success == true) {
         this.branchDtos[item] = modalResultModel.data;
+        this.branchDtos = this.branchDtos.sort((a, b) => (a.name.localeCompare(b.name)))
       }
     });
   }

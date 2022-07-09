@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+  },
+  {
+    path: 'warehouses',
+    component: WarehousesComponent,
   }
 ];
 

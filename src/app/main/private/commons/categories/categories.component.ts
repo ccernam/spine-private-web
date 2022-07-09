@@ -20,7 +20,7 @@ export class CategoriesComponent implements OnInit {
     private _modalService: NgbModal
   ) { }
 
-  categoryDtos: CategoryDto[] = [];
+  public categoryDtos: CategoryDto[] = [];
 
   ngOnInit(): void {
     this._commonsService.findCategory({ companyId: 1 }).subscribe(data => {
@@ -33,7 +33,7 @@ export class CategoriesComponent implements OnInit {
     modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
       if (modalResultModel != null && modalResultModel.success == true) {
         this.categoryDtos.push(modalResultModel.data);
-        this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
       }
     });
   }
@@ -44,6 +44,7 @@ export class CategoriesComponent implements OnInit {
     modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
       if (modalResultModel != null && modalResultModel.success == true) {
         this.categoryDtos[item] = modalResultModel.data;
+        this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
       }
     });
   }
