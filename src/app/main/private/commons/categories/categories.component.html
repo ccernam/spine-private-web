@@ -35,26 +35,26 @@
                                                         Opciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody *ngIf="categories.length > 0;else ListaVacia">
-                                                <tr *ngFor="let category of categories; let item = index;" id="{{item}}"
-                                                    class="btn-off">
+                                            <tbody *ngIf="categoriesDto.length > 0;else ListaVacia">
+                                                <tr *ngFor="let categoryDto of categoriesDto; let item = index;"
+                                                    id="{{item}}" class="btn-off">
                                                     <td class="align-middle text-center">{{item + 1}}</td>
                                                     <td class="align-middle" style="white-space: nowrap;">
-                                                        {{category.name}}
+                                                        {{categoryDto.name}}
                                                     </td>
                                                     <td class="text-center">
                                                         <span
-                                                            [ngClass]="_globalService.getStatusClass(category.status)">{{
-                                                            category.statusName}}</span>
+                                                            [ngClass]="_globalService.getStatusClass(categoryDto.status)">{{
+                                                            categoryDto.statusName}}</span>
                                                     </td>
                                                     <td class="text-center">
                                                         <span
-                                                            [ngClass]="_globalService.getStatusClass(category.reportingStatus)">{{
-                                                            category.reportingStatusName}}</span>
+                                                            [ngClass]="_globalService.getStatusClass(categoryDto.reportingStatus)">{{
+                                                            categoryDto.reportingStatusName}}</span>
                                                     </td>
                                                     <td class="align-middle text-center"
                                                         style="text-align: center; width: 32px;">
-                                                        <a href="javascript: void(0);" (click)="edit(item, category)"
+                                                        <a href="javascript: void(0);" (click)="edit(item, categoryDto)"
                                                             title="Editar categoría">
                                                             <i data-feather="edit"></i>
                                                         </a>

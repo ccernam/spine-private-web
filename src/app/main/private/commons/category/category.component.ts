@@ -13,43 +13,40 @@ import { GlobalService } from 'app/core/services/global.service';
 })
 export class CategoryComponent implements OnInit {
 
-  public title: string = "Crear Categoría";
-
-  public category: CategoryDto = new CategoryDto();
-  public statuses: SelectItemModel[] = [];
-  public reportingStatuses: SelectItemModel[] = [];
+  public title: string = "";
+  public categoryDto: CategoryDto = new CategoryDto();
+  public statusModels: SelectItemModel[] = [];
+  public reportingStatusModels: SelectItemModel[] = [];
 
   constructor(
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
     private _activeModalService: NgbActiveModal
   ) {
-    this.category.id = 0;
-    this.category.status = -1;
-    this.category.reportingStatus = -1;
+    this.categoryDto.id = 0;
+    this.categoryDto.status = -1;
+    this.categoryDto.reportingStatus = -1;
   }
 
   ngOnInit(): void {
-    if (this.category.id > 0) {
-      this.title = "Editar Categoría";
-    }
-    this.statuses = this._globalService.getStatuses();
-    this.reportingStatuses = this._globalService.getReportingStatuses();
+    this.title = ((this.categoryDto.id ?? 0) == 0 ? "Crear" : "Editar") + " Sucursal";
+    this.statusModels = this._globalService.getStatusModels();
+    this.reportingStatusModels = this._globalService.getReportingStatusModels();
   }
 
   save(): void {
     if (this.validate()) {
-      this.category.companyId = 1; // TODO:
-      if ((this.category.id ?? 0) == 0) {
-        this._commonsService.createCategory(this.category).subscribe(data => {
-          this.category = data;
-          this._activeModalService.close(this._globalService.getSuccessModalResult(this.category));
+      this.categoryDto.companyId = 1; // TODO:
+      if ((this.categoryDto.id ?? 0) == 0) {
+        this._commonsService.createCategory(this.categoryDto).subscribe(data => {
+          this.categoryDto = data;
+          this._activeModalService.close(this._globalService.getSuccessModalResult(this.categoryDto));
         });
       }
       else {
-        this._commonsService.editCategory(this.category).subscribe(data => {
-          this.category = data;
-          this._activeModalService.close(this._globalService.getSuccessModalResult(this.category));
+        this._commonsService.editCategory(this.categoryDto).subscribe(data => {
+          this.categoryDto = data;
+          this._activeModalService.close(this._globalService.getSuccessModalResult(this.categoryDto));
         });
       }
     }

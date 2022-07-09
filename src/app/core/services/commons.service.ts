@@ -2,9 +2,8 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { Observable } from "rxjs";
-import { ApiResponseDto } from "../dtos/api-response.dto";
+import { BranchDto } from "../dtos/commons/branch.dto";
 import { CategoryDto } from "../dtos/commons/category.dto";
-import { RoleDto } from "../dtos/security/role.dto";
 import { ServiceBase } from "./base.service";
 
 @Injectable({
@@ -30,7 +29,26 @@ export class CommonsService extends ServiceBase {
         return this._httpClient.post<CategoryDto>(`${this.getPartialUrl()}/category`, categoryDto);
     }
 
-    public editCategory(categoryDto: CategoryDto): Observable<CategoryDto> {
-        return this._httpClient.put<CategoryDto>(`${this.getPartialUrl()}/category`, categoryDto);
+    public editCategory(category: CategoryDto): Observable<CategoryDto> {
+        return this._httpClient.put<CategoryDto>(`${this.getPartialUrl()}/category`, category);
+    }
+
+
+    public findBranch(parameters?: { id?: number, status?: number, reportingStatus?: number }): Observable<BranchDto[]> {
+        if (parameters == null)
+            parameters = {};
+        let queryString: HttpParams = new HttpParams()
+            .set("id", (parameters.id ?? -1).toString())
+            .set("status", (parameters.status ?? -1).toString())
+            .set("reportingStatus", (parameters.reportingStatus ?? -1).toString());
+        return this._httpClient.get<BranchDto[]>(`${this.getPartialUrl()}/branch`, { params: queryString });
+    }
+
+    public createBranch(branch: BranchDto): Observable<BranchDto> {
+        return this._httpClient.post<BranchDto>(`${this.getPartialUrl()}/branch`, branch);
+    }
+
+    public editBranch(branch: BranchDto): Observable<BranchDto> {
+        return this._httpClient.put<BranchDto>(`${this.getPartialUrl()}/branch`, branch);
     }
 }

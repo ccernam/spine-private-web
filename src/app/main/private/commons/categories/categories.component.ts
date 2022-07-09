@@ -20,41 +20,31 @@ export class CategoriesComponent implements OnInit {
     private _modalService: NgbModal
   ) { }
 
-  categories: CategoryDto[] = [];
+  categoriesDto: CategoryDto[] = [];
 
   ngOnInit(): void {
-    this._commonsService.findCategory().subscribe(data => {
-      this.categories = data;
+    this._commonsService.findCategory().subscribe(categoriesDto => {
+      this.categoriesDto = categoriesDto;
     });
   }
 
   create(): void {
     const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
-    modal.result.then((result: ModalResultModel<CategoryDto>) => {
-      if (result != null && result.success == true) {
-        this.categories.push(result.data);
-        this.categories = this.categories.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
+      if (modalResultModel != null && modalResultModel.success == true) {
+        this.categoriesDto.push(modalResultModel.data);
+        this.categoriesDto = this.categoriesDto.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
       }
     });
   }
 
-  edit(item: number, category: CategoryDto): void {
+  edit(item: number, categoryDto: CategoryDto): void {
     const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
-    modal.componentInstance.category = { ...category }
-    modal.result.then((result: ModalResultModel<CategoryDto>) => {
-      if (result != null && result.success == true) {
-        this.categories[item] = result.data;
+    modal.componentInstance.categoryDto = { ...categoryDto }
+    modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
+      if (modalResultModel != null && modalResultModel.success == true) {
+        this.categoriesDto[item] = modalResultModel.data;
       }
     });
   }
-
-
-
-
-
-
-
-
-
-
 }

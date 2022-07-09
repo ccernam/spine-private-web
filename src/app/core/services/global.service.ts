@@ -13,7 +13,7 @@ export class GlobalService {
         return (status == 1 ? "badge badge-success" : "badge badge-danger");
     }
 
-    getStatuses(): SelectItemModel[] {
+    getStatusModels(): SelectItemModel[] {
         let activated = new SelectItemModel();
         activated.value = 1;
         activated.display = "Activado";
@@ -23,7 +23,7 @@ export class GlobalService {
         return [activated, deactivated];
     }
 
-    getReportingStatuses(): SelectItemModel[] {
+    getReportingStatusModels(): SelectItemModel[] {
         let activated = new SelectItemModel();
         activated.value = 1;
         activated.display = "Activado";

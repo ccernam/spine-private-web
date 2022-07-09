@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BranchesComponent } from './branches/branches.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './category/category.component';
+import { BranchComponent } from './branch/branch.component';
 
 // routing
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   declarations: [
     BranchesComponent,
     CategoriesComponent,
-    CategoryComponent
+    CategoryComponent,
+    BranchComponent
   ],
   imports: [
     RouterModule.forChild(routes),
