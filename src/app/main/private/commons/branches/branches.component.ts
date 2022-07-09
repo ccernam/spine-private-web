@@ -22,7 +22,7 @@ export class BranchesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._commonsService.findBranch().subscribe(data => {
+    this._commonsService.findBranch({ companyId: 1 }).subscribe(data => {
       this.branchDtos = data;
     });
   }

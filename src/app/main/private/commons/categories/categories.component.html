@@ -35,8 +35,8 @@
                                                         Opciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody *ngIf="categoriesDto.length > 0;else ListaVacia">
-                                                <tr *ngFor="let categoryDto of categoriesDto; let item = index;"
+                                            <tbody *ngIf="categoryDtos.length > 0;else ListaVacia">
+                                                <tr *ngFor="let categoryDto of categoryDtos; let item = index;"
                                                     id="{{item}}" class="btn-off">
                                                     <td class="align-middle text-center">{{item + 1}}</td>
                                                     <td class="align-middle" style="white-space: nowrap;">
