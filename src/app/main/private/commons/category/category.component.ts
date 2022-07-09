@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryDto } from 'app/core/dtos/commons/category.dto';
+import { ModalResultModel } from 'app/core/models/modal-result.model';
+import { SelectItemModel } from 'app/core/models/select-item.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
 
@@ -14,8 +16,8 @@ export class CategoryComponent implements OnInit {
   public title: string = "Crear Categoría";
 
   public category: CategoryDto = new CategoryDto();
-  public statuses: Object[] = [];
-  public reportingStatuses: Object[] = [];
+  public statuses: SelectItemModel[] = [];
+  public reportingStatuses: SelectItemModel[] = [];
 
   constructor(
     private _commonsService: CommonsService,
@@ -41,13 +43,13 @@ export class CategoryComponent implements OnInit {
       if ((this.category.id ?? 0) == 0) {
         this._commonsService.createCategory(this.category).subscribe(data => {
           this.category = data;
-          this._activeModalService.close({ success: true, data: this.category });
+          this._activeModalService.close(this._globalService.getSuccessModalResult(this.category));
         });
       }
       else {
         this._commonsService.editCategory(this.category).subscribe(data => {
           this.category = data;
-          this._activeModalService.close({ success: true, data: this.category });
+          this._activeModalService.close(this._globalService.getSuccessModalResult(this.category));
         });
       }
     }
@@ -58,7 +60,7 @@ export class CategoryComponent implements OnInit {
   }
 
   close(): void {
-    this._activeModalService.close({ success: false });
+    this._activeModalService.close(this._globalService.getCloseModalResult());
   }
 
 }
