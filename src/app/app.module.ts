@@ -29,6 +29,10 @@ const appRoutes: Routes = [
       loadChildren: () => import('./main/shared/error/error.module').then(m => m.ErrorModule)
    },
    {
+      path: 'commons',
+      loadChildren: () => import('./main/private/commons/commons.module').then(m => m.CommonsModule)
+   },
+   {
       path: 'security',
       loadChildren: () => import('./main/private/security/security.module').then(m => m.SecurityModule)
    },
