@@ -88,6 +88,20 @@ body.dark-layout {
    background-color: $menu-dark-bg-color;
 }
 
+textarea {
+   resize: none;
+}
+
+.btn-sm,
+.btn-group-sm>.btn {
+   line-height: 1.2;
+}
+
+.table thead th {
+   text-align: center;
+   vertical-align: middle;
+}
+
 .card .card-header {
    border-bottom: $card-border-width solid $card-border-color;
    padding: 0.8rem 1rem !important;
@@ -95,6 +109,11 @@ body.dark-layout {
 
 .card .card-body {
    padding: 0.8rem 1rem !important;
+}
+
+.modal .modal-header .close {
+   background: transparent !important;
+   transform: translate(0px, 5px) !important;
 }
 
 @media (min-width: 576px) {

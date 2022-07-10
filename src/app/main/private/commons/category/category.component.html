@@ -1,49 +1,44 @@
 <div class="modal-header">
-    <h4 class="modal-title">{{title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="close();">
-        <span aria-hidden="true">&times;</span>
-    </button>
+   <h4 class="modal-title">{{title}}</h4>
+   <button type="button" class="close" aria-label="Close" (click)="close();">
+      <span aria-hidden="true">&times;</span>
+   </button>
 </div>
 <div class="modal-body">
-    <div class="card card-fluid">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Nombre</label>
-                    <input type="text" [(ngModel)]="categoryDto.name" class="form-control form-control-sm"
-                        maxlength="50" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Estado</label>
-                    <select class="form-control form-control-sm" [(ngModel)]="categoryDto.status">
-                        <option [ngValue]="-1">- Seleccione -</option>
-                        <option *ngFor="let item of statusModels;" [ngValue]="item.value">
-                            {{item.display}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Estado de Reportería</label>
-                    <select class="form-control form-control-sm" [(ngModel)]="categoryDto.reportingStatus">
-                        <option [ngValue]="-1">- Seleccione -</option>
-                        <option *ngFor="let item of reportingStatusModels;" [ngValue]="item.value">
-                            {{item.display}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
+   <div class="row">
+      <div class="col-md-12 form-group">
+         <label>Nombre</label>
+         <input type="text" [(ngModel)]="categoryDto.name" class="form-control form-control-sm" maxlength="50" />
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 form-group">
+         <label>Estado</label>
+         <select class="form-control form-control-sm" [(ngModel)]="categoryDto.status">
+            <option [ngValue]="-1">- Seleccione -</option>
+            <option *ngFor="let item of statusModels;" [ngValue]="item.value">
+               {{item.display}}
+            </option>
+         </select>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 form-group">
+         <label>Estado de Reportería</label>
+         <select class="form-control form-control-sm" [(ngModel)]="categoryDto.reportingStatus">
+            <option [ngValue]="-1">- Seleccione -</option>
+            <option *ngFor="let item of reportingStatusModels;" [ngValue]="item.value">
+               {{item.display}}
+            </option>
+         </select>
+      </div>
+   </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-primary" (click)="save();">
-        <i data-feather="save" class="mr-1"></i>Guardar
-    </button>
-    <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" (click)="close();">
-        <i data-feather="x-circle" class="mr-1"></i>Cerrar
-    </button>
+   <button type="button" class="btn btn-sm btn-primary" (click)="save();">
+      <i data-feather="save" class="mr-1"></i>Guardar
+   </button>
+   <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" (click)="close();">
+      <i data-feather="x-circle" class="mr-1"></i>Cerrar
+   </button>
 </div>

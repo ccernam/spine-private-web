@@ -31,4 +31,33 @@ export const menu: CoreMenu[] = [
          },
       ]
    },
+   {
+      id: 'common',
+      title: 'Commons',
+      type: 'collapsible',
+      icon: 'clipboard',
+      children: [
+         {
+            id: 'category',
+            title: 'Categories',
+            type: 'item',
+            icon: 'check-circle',
+            url: 'commons/categories'
+         },
+         {
+            id: 'branch',
+            title: 'Branches',
+            type: 'item',
+            icon: 'check-circle',
+            url: 'commons/branches'
+         },
+         {
+            id: 'warehouse',
+            title: 'Warehouses',
+            type: 'item',
+            icon: 'check-circle',
+            url: 'commons/warehouses'
+         },
+      ]
+   },
 ]

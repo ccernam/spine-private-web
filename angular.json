@@ -40,7 +40,6 @@
                   "polyfills": "src/polyfills.ts",
                   "tsConfig": "src/tsconfig.app.json",
                   "assets": [
-                     "src/favicon.ico",
                      "src/assets"
                   ],
                   "styles": [
@@ -147,7 +146,6 @@
                      "node_modules/apexcharts/dist/apexcharts.min.js"
                   ],
                   "assets": [
-                     "src/favicon.ico",
                      "src/assets"
                   ]
                }
