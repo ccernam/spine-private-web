@@ -4,6 +4,7 @@ import { environment } from "environments/environment";
 import { Observable } from "rxjs";
 import { BranchDto } from "../dtos/commons/branch.dto";
 import { CategoryDto } from "../dtos/commons/category.dto";
+import { ProductDto } from "../dtos/commons/product.dto";
 import { WarehouseDto } from "../dtos/commons/warehouse.dto";
 import { ServiceBase } from "./base.service";
 
@@ -75,5 +76,19 @@ export class CommonsService extends ServiceBase {
 
     public editWarehouse(warehouseDto: WarehouseDto): Observable<WarehouseDto> {
         return this._httpClient.put<WarehouseDto>(`${this.getPartialUrl()}/warehouse`, warehouseDto);
+    }
+
+
+
+    public findProduct(parameters?: { id?: number, companyId?: number, code?: string, status?: number, reportingStatus?: number }): Observable<ProductDto[]> {
+        if (parameters == null)
+            parameters = {};
+        let queryString: HttpParams = new HttpParams()
+            .set("id", (parameters.id ?? -1).toString())
+            .set("companyId", (parameters.companyId ?? -1).toString())
+            .set("code", (parameters.code ?? "").toString())
+            .set("status", (parameters.status ?? -1).toString())
+            .set("reportingStatus", (parameters.reportingStatus ?? -1).toString());
+        return this._httpClient.get<ProductDto[]>(`${this.getPartialUrl()}/product`, { params: queryString });
     }
 }
