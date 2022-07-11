@@ -26,8 +26,8 @@ export class RolesComponent implements OnInit {
     * On init
     */
    ngOnInit() {
-      this._securityService.findRole().subscribe(apiResponseDto => {
-         this.roles = apiResponseDto.data;
+      this._securityService.findRole().subscribe(data => {
+         this.roles = data;
       });
    }
 

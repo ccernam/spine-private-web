@@ -28,7 +28,7 @@ export class RoleComponent implements OnInit {
    saveRole(): void {
       let isValid: boolean = false;
 
-      if(!this.role.name || !this.role.name.trim()) {
+      if (!this.role.name || !this.role.name.trim()) {
          this._toastrService.warning("'Nombre' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
       } else if (!this.role.description || !this.role.description.trim()) {
          this._toastrService.warning("'Descripción' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
@@ -41,19 +41,15 @@ export class RoleComponent implements OnInit {
       if ((this.role.id ?? 0) == 0) {
          this.role.status = 1;
          this.role.reportingStatus = 1;
-         this._securityService.createRole(this.role).subscribe(apiResponseDto => {
-            if (apiResponseDto.type == 1) {
-               this.role = apiResponseDto.data;
-               this._activeModal.close({ success: true, role: this.role });
-            }
+         this._securityService.createRole(this.role).subscribe(data => {
+            this.role = data;
+            this._activeModal.close({ success: true, role: this.role });
          });
       }
       else {
-         this._securityService.editRole(this.role).subscribe(apiResponseDto => {
-            if (apiResponseDto.type == 1) {
-               this.role = apiResponseDto.data;
-               this._activeModal.close({ success: true, role: this.role });
-            }
+         this._securityService.editRole(this.role).subscribe(data => {
+            this.role = data;
+            this._activeModal.close({ success: true, role: this.role });
          });
       }
    }
