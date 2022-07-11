@@ -5,6 +5,7 @@ import { ModalResultModel } from 'app/core/models/modal-result.model';
 import { SelectItemModel } from 'app/core/models/select-item.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -21,6 +22,7 @@ export class CategoryComponent implements OnInit {
   constructor(
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
+    private _toastrService: ToastrService,
     private _activeModalService: NgbActiveModal
   ) {
     this.categoryDto.id = 0;
@@ -40,12 +42,14 @@ export class CategoryComponent implements OnInit {
       if ((this.categoryDto.id ?? 0) == 0) {
         this._commonsService.createCategory(this.categoryDto).subscribe(data => {
           this.categoryDto = data;
+          this._toastrService.success("Se creó categoría exitosamente", "Ok");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.categoryDto));
         });
       }
       else {
         this._commonsService.editCategory(this.categoryDto).subscribe(data => {
           this.categoryDto = data;
+          this._toastrService.success("Se editó categoría exitosamente", "Ok");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.categoryDto));
         });
       }
