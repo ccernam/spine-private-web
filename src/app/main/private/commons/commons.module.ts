@@ -12,6 +12,7 @@ import { CategoryComponent } from './category/category.component';
 import { BranchComponent } from './branch/branch.component';
 import { WarehousesComponent } from './warehouses/warehouses.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
+import { ProductsComponent } from './products/products.component';
 
 // routing
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
   },
   {
     path: 'warehouses',
@@ -36,7 +41,8 @@ const routes: Routes = [
     CategoryComponent,
     BranchComponent,
     WarehousesComponent,
-    WarehouseComponent
+    WarehouseComponent,
+    ProductsComponent
   ],
   imports: [
     RouterModule.forChild(routes),

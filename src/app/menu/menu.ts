@@ -57,6 +57,13 @@ export const menu: CoreMenu[] = [
         icon: 'check-circle',
         url: 'commons/warehouses'
       },
+      {
+        id: 'product',
+        title: 'Products',
+        type: 'item',
+        icon: 'check-circle',
+        url: 'commons/products'
+      },
     ]
   },
 ]
