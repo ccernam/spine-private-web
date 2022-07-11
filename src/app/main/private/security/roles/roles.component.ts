@@ -19,8 +19,6 @@ export class RolesComponent implements OnInit {
       private modal: NgbModal
    ) { }
 
-   public contentHeader: object
-
    // Lifecycle Hooks
    // -----------------------------------------------------------------------------------------------------
 
@@ -28,34 +26,9 @@ export class RolesComponent implements OnInit {
     * On init
     */
    ngOnInit() {
-
       this._securityService.findRole().subscribe(apiResponseDto => {
          this.roles = apiResponseDto.data;
-         console.log(this.roles);
-      })
-
-      this.contentHeader = {
-         headerTitle: 'Roles',
-         actionButton: false,
-         breadcrumb: {
-            type: '',
-            links: [
-               {
-                  name: 'Home',
-                  isLink: true,
-                  link: '/',
-               },
-               {
-                  name: 'Security',
-                  isLink: false,
-               },
-               {
-                  name: 'Role',
-                  isLink: false,
-               }
-            ]
-         }
-      }
+      });
    }
 
    createRole() {

@@ -6,7 +6,7 @@ import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserComponent } from './user/user.component';
+import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
 import { RoleComponent } from './role/role.component';
 
@@ -18,14 +18,14 @@ const routes: Routes = [
    },
    {
       path: 'users',
-      component: RolesComponent,
+      component: UsersComponent,
    }
 ];
 
 @NgModule({
    declarations: [
       RolesComponent,
-      UserComponent,
+      UsersComponent,
       RoleComponent,
    ],
    imports: [

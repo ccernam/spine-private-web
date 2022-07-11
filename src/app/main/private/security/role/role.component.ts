@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ApiResponseDto } from 'app/core/dtos/api-response.dto';
+import { ToastrService } from 'ngx-toastr';
 import { RoleDto } from 'app/core/dtos/security/role.dto';
 import { SecurityService } from 'app/core/services/security.service';
-import { timeStamp } from 'console';
 
 @Component({
    selector: 'app-role',
@@ -17,7 +16,8 @@ export class RoleComponent implements OnInit {
 
    constructor(
       private _securityService: SecurityService,
-      private _activeModal: NgbActiveModal
+      private _activeModal: NgbActiveModal,
+      private _toastrService: ToastrService
    ) { }
 
    ngOnInit(): void {
@@ -26,7 +26,18 @@ export class RoleComponent implements OnInit {
    }
 
    saveRole(): void {
-      // validations
+      let isValid: boolean = false;
+
+      if(!this.role.name || !this.role.name.trim()) {
+         this._toastrService.warning("'Nombre' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+      } else if (!this.role.description || !this.role.description.trim()) {
+         this._toastrService.warning("'Descripción' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+      } else {
+         isValid = true;
+      }
+
+      if (!isValid) return;
+
       if ((this.role.id ?? 0) == 0) {
          this.role.status = 1;
          this.role.reportingStatus = 1;

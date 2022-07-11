@@ -4,3 +4,25 @@
 
 // Bootstrap variables
 $primary: #aa4637;
+
+// Dark layout variables
+//Body
+$theme-dark-body-bg: #212223 !default;
+$theme-dark-border-color: #434852 !default;
+
+//Card
+$theme-dark-card-bg: #343a40 !default;
+
+//Input
+$theme-dark-input-bg: rgba(33, 34, 35, .5) !default;
+$theme-dark-input-placeholder-color: #343a40 !default;
+$theme-dark-input-border-color: #3f4850 !default;
+$theme-dark-input-disabled-bg: #212223 !default;
+$theme-dark-input-disabled-border-color: #3f4850 !default;
+
+//Table
+$theme-dark-table-bg: #343a40 !default;
+$theme-dark-table-header-bg: #212223 !default;
+$theme-dark-table-row-bg: #343a40 !default;
+$theme-dark-table-hover-bg: #2c2f31 !default;
+$theme-dark-table-striped-bg: #2c2f31 !default;

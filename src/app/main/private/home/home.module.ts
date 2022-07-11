@@ -7,12 +7,14 @@ import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 
 import { HomeComponent } from './home.component';
+import { AuthGuard } from 'app/auth/helpers';
 
 // routing
 const routes = [
    {
       path: 'home',
-      component: HomeComponent
+      component: HomeComponent,
+      canActivate: [AuthGuard]
    }
 ];
 
