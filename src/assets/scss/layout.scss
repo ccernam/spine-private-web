@@ -3,8 +3,21 @@
 	src: url("../fonts/homeet.woff") format("woff");
 }
 
+@function toRem($value) {
+   $remValue: ($value / 16px) * 1rem;
+   @return $remValue * 1.4;
+}
+
+* {
+   font-family: "Homeet", sans-serif !important;
+}
+
 body {
-   font-family: "Homeet", sans-serif;
+   font-size: toRem($base-font-size);
+}
+
+.navigation {
+   font-size: toRem($base-font-size);
 }
 
 .main-menu .navbar-header {
@@ -78,20 +91,6 @@ body {
    background-color: $menu-dark-bg-color  !important;
 }
 
-textarea {
-   resize: none;
-}
-
-.btn-sm,
-.btn-group-sm>.btn {
-   line-height: 1.2;
-}
-
-.table thead th {
-   text-align: center;
-   vertical-align: middle;
-}
-
 .card .card-header {
    border-bottom: $card-border-width solid $card-border-color;
    padding: 0.8rem 1rem !important;
@@ -110,6 +109,57 @@ textarea {
    background: transparent !important;
    transform: translate(0px, 8px) !important;
    box-shadow: none !important;
+}
+
+.card .card-title,
+.modal-title {
+   font-weight: 600;
+}
+
+label {
+   font-size: toRem($base-font-size);
+}
+
+.badge {
+   font-size: 90%;
+}
+
+.btn {
+   display: flex;
+   align-items: center;
+}
+
+.btn-sm, .btn-group-sm > .btn {
+   line-height: 1.2;
+   padding: 0.4rem 1rem;
+   font-size: toRem($base-font-size);
+}
+
+.form-control-sm {
+   font-size: toRem($base-font-size);
+}
+
+textarea {
+   resize: none;
+}
+
+.table-responsive {
+   border-radius: 0.357rem !important;
+}
+
+.table {
+   border-collapse: separate !important;
+   border-spacing: 0 !important;
+}
+
+.table thead th {
+   text-align: center;
+   vertical-align: middle;
+}
+
+.table thead th, .table tfoot th {
+   font-size: toRem($base-font-size);
+   text-transform: none;
 }
 
 @media (min-width: 576px) {
