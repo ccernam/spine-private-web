@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { BranchDto } from "../dtos/commons/branch.dto";
 import { CategoryDto } from "../dtos/commons/category.dto";
 import { ProductDto } from "../dtos/commons/product.dto";
+import { StockDto } from "../dtos/commons/stock.dto";
 import { WarehouseDto } from "../dtos/commons/warehouse.dto";
 import { ServiceBase } from "./base.service";
 
@@ -88,5 +89,9 @@ export class CommonsService extends ServiceBase {
             .set("status", (parameters.status ?? -1).toString())
             .set("reportingStatus", (parameters.reportingStatus ?? -1).toString());
         return this._httpClient.get<ProductDto[]>(`${this.getPartialUrl()}/product`, { params: queryString });
+    }
+
+    public findStock(productId: number): Observable<StockDto[]> {
+        return this._httpClient.get<StockDto[]>(`${this.getPartialUrl()}/product/findStock/${productId}`, {});
     }
 }

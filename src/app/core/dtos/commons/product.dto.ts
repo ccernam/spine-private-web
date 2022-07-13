@@ -5,4 +5,6 @@ export class ProductDto extends MasterDto {
    public measurementUnitId: number;
    public code: string;
    public description: string;
+
+   public measurementUnitName: string;
 } 

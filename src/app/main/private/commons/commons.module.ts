@@ -13,6 +13,7 @@ import { BranchComponent } from './branch/branch.component';
 import { WarehousesComponent } from './warehouses/warehouses.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 import { ProductsComponent } from './products/products.component';
+import { StocksComponent } from './stocks/stocks.component';
 
 // routing
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
     BranchComponent,
     WarehousesComponent,
     WarehouseComponent,
-    ProductsComponent
+    ProductsComponent,
+    StocksComponent
   ],
   imports: [
     RouterModule.forChild(routes),
