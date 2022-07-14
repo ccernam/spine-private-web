@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleDto } from 'app/core/dtos/security/role.dto'
 import { SecurityService } from 'app/core/services/security.service'
 import { RoleComponent } from '../role/role.component';
+import { RoleOptionComponent } from '../role-option/role-option.component';
 
 @Component({
    selector: 'app-security-role',
@@ -13,6 +14,7 @@ export class RolesComponent implements OnInit {
 
 
    public roles: RoleDto[] = [];
+   //public options: OptionDto[] = []
 
    constructor(
       private _securityService: SecurityService,
@@ -51,8 +53,10 @@ export class RolesComponent implements OnInit {
    }
 
    configureOptions(item: number, role: RoleDto) {
-      alert("configureOptions");
-      console.log("item", item);
-      console.log("role", role);
+      const modal = this.modal.open(RoleOptionComponent, { size: 'lg' });
+      modal.componentInstance.role = { ...role };
+      modal.result.then((result) => {
+
+      });
    }
 }

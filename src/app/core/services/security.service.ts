@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { Observable } from "rxjs";
 import { RoleDto } from "../dtos/security/role.dto";
+import { OptionDto } from "../dtos/configuration/option.dto";
 import { ServiceBase } from "./base.service";
 
 @Injectable({
@@ -30,5 +31,12 @@ export class SecurityService extends ServiceBase {
 
     public editRole(role: RoleDto): Observable<RoleDto> {
         return this._httpClient.put<RoleDto>(`${this.getPartialUrl()}/role`, role);
+    }
+
+    public findOptions(roleId: number, applicationId: number): Observable<OptionDto[]> {
+        let queryParams : HttpParams = new HttpParams()
+            .set("roleId", roleId.toString())
+            .set("applicationId", applicationId.toString());
+        return this._httpClient.get<OptionDto[]>(`${this.getPartialUrl()}/role/option`, { params: queryParams});
     }
 }
