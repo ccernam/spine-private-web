@@ -1,4 +1,4 @@
-<div class="content-wrapper container-xxl p-0">
+<div class="content-wrapper p-0">
    <div class="content-body">
       <!-- <app-content-header [contentHeader]="contentHeader"></app-content-header> -->
 
@@ -15,6 +15,28 @@
                            <button class="btn btn-primary btn-sm" (click)="create();" style="margin-left: 0;">
                               <i data-feather="plus" class="mr-1"></i>Nuevo
                            </button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-2 form-group">
+                           <label>Categoría</label>
+                           <!-- <select class="form-control form-control-sm" /*[(ngModel)]="filtros.status"*/> -->
+                           <select class="form-control form-control-sm">
+                              <option [ngValue]="-1">- Todos -</option>
+                              <option *ngFor="let categoryDto of categoryDtos;" [ngValue]="categoryDto.id">
+                                 {{categoryDto.name}}
+                              </option>
+                           </select>
+                        </div>
+                        <div class="col-md-10 form-group">
+                           <label>Categoría</label>
+                           <!-- <select class="form-control form-control-sm" /*[(ngModel)]="filtros.status"*/> -->
+                           <select class="form-control form-control-sm">
+                              <option [ngValue]="-1">- Todos -</option>
+                              <option *ngFor="let categoryDto of categoryDtos;" [ngValue]="categoryDto.id">
+                                 {{categoryDto.name}}
+                              </option>
+                           </select>
                         </div>
                      </div>
                      <div class="row">
@@ -69,6 +91,12 @@
                                        </td>
                                        <td class="align-middle text-center" style="text-align: center; width: 32px;">
                                           <a href="javascript: void(0);" (click)="edit(item, productDto)"
+                                             title="Editar Producto...">
+                                             <i data-feather="edit"></i>
+                                          </a>
+                                       </td>
+                                       <td class="align-middle text-center" style="text-align: center; width: 32px;">
+                                          <a href="javascript: void(0);" (click)="findStock(item, productDto)"
                                              title="Editar Producto...">
                                              <i data-feather="edit"></i>
                                           </a>
