@@ -39,4 +39,11 @@ export class SecurityService extends ServiceBase {
             .set("applicationId", applicationId.toString());
         return this._httpClient.get<OptionDto[]>(`${this.getPartialUrl()}/role/option`, { params: queryParams});
     }
+
+    public saveOptions(roleId: number, applicationId: number, options: OptionDto[]): Observable<boolean>{
+        let queryParams : HttpParams = new HttpParams()
+            .set("roleId", roleId.toString())
+            .set("applicationId", applicationId.toString());
+        return this._httpClient.put<boolean>(`${this.getPartialUrl()}/role/option`, options, { params: queryParams});
+    }
 }

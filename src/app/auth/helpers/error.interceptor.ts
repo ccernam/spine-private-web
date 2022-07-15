@@ -16,14 +16,14 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
-    private _toasterService: ToastrService
+    private _toastrService: ToastrService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError(errorResponse => {
         if (errorResponse.status == 400) {
-          this._toasterService.warning(errorResponse.error, "Validación");
+          this._toastrService.warning(errorResponse.error, "Validación");
         }
         else if ([401, 403].indexOf(errorResponse.status) !== -1) {
           // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
@@ -32,6 +32,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           // ? Can also logout and reload if needed
           // this._authenticationService.logout();
           // location.reload(true);
+        }
+        else if (errorResponse.status == 500){
+          this._toastrService.error(errorResponse.error, "Error");
         }
         // throwError
         const error = errorResponse.error.message || errorResponse.statusText;

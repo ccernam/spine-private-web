@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { OptionDto } from 'app/core/dtos/configuration/option.dto';
 import { RoleDto } from 'app/core/dtos/security/role.dto';
 import { SecurityService } from 'app/core/services/security.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-role-option',
@@ -17,7 +18,8 @@ export class RoleOptionComponent implements OnInit {
 
   constructor(
     private _activeModal: NgbActiveModal,
-    private _securityService: SecurityService
+    private _securityService: SecurityService,
+    private _toastrService : ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,18 @@ export class RoleOptionComponent implements OnInit {
   }
 
   saveRoleOption(): void {
-    console.log(this.options);
+    //console.log(this.options);
+    this._securityService.saveOptions(this.role.id, 1, this.options).subscribe(response => {
+      if (response)
+      {
+        this._toastrService.success(`Opciones actualizadas correctamenta para ${ this.role.name }` )
+        this._activeModal.close({ success: true });
+      }
+      else
+      {
+        this._toastrService.warning("No se pudo actualizar las opciones")
+      }
+    });
   }
 
   activateOption(optionId: number, value: boolean){
