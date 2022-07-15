@@ -6,6 +6,7 @@ import { ModalResultModel } from 'app/core/models/modal-result.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
 import { forkJoin, Observable } from 'rxjs';
+import { PricesComponent } from '../prices/prices.component';
 import { StocksComponent } from '../stocks/stocks.component';
 
 @Component({
@@ -47,10 +48,15 @@ export class ProductsComponent implements OnInit {
    }
 
    findStock(item: number, productDto: ProductDto): void {
-      const modal = this._modalService.open(StocksComponent, { size: 'lg' });
+      const modal = this._modalService.open(StocksComponent, { size: 'xl' });
       modal.componentInstance.productDto = { ...productDto }
       /*modal.result.then((modalResultModel: ModalResultModel<boolean>) => {
          
       });*/
+   }
+
+   showPrices(productDto: ProductDto): void {
+      const modal = this._modalService.open(PricesComponent, { size: 'lg' });
+      modal.componentInstance.productDto = { ...productDto }
    }
 }
