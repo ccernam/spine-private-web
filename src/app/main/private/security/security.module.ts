@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
 import { RoleComponent } from './role/role.component';
+import { RoleOptionComponent } from './role-option/role-option.component';
 
 // routing
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
       RolesComponent,
       UsersComponent,
       RoleComponent,
+      RoleOptionComponent,
    ],
    imports: [
       RouterModule.forChild(routes),
