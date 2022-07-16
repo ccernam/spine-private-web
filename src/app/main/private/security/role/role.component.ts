@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { RoleDto } from 'app/core/dtos/security/role.dto';
 import { SecurityService } from 'app/core/services/security.service';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
    selector: 'app-role',
@@ -17,7 +17,7 @@ export class RoleComponent implements OnInit {
    constructor(
       private _securityService: SecurityService,
       private _activeModal: NgbActiveModal,
-      private _toastrService: ToastrService
+      private _toastrService: CustomToastrService
    ) { }
 
    ngOnInit(): void {
@@ -29,9 +29,9 @@ export class RoleComponent implements OnInit {
       let isValid: boolean = false;
 
       if (!this.role.name || !this.role.name.trim()) {
-         this._toastrService.warning("'Nombre' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+         this._toastrService.warning("'Nombre' es requerido!");
       } else if (!this.role.description || !this.role.description.trim()) {
-         this._toastrService.warning("'Descripción' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+         this._toastrService.warning("'Descripción' es requerido!");
       } else {
          isValid = true;
       }

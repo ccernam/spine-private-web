@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { User, Role } from 'app/auth/models';
-import { ToastrService } from 'ngx-toastr';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,7 +20,7 @@ export class AuthenticationService {
    * @param {HttpClient} _http
    * @param {ToastrService} _toastrService
    */
-  constructor(private _http: HttpClient, private _toastrService: ToastrService) {
+  constructor(private _http: HttpClient, private _toastrService: CustomToastrService) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -67,8 +67,7 @@ export class AuthenticationService {
                 'You have successfully logged in as an ' +
                   user.role +
                   ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.firstName + '!',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
+                '👋 Welcome, ' + user.firstName + '!'
               );
             }, 2500);
 
