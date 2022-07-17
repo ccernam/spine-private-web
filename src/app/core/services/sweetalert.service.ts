@@ -13,7 +13,7 @@ export class SweetAlertService {
          text: text ?? '¿Está seguro que desea continuar?',
          icon: 'warning',
          showCancelButton: true,
-         confirmButtonText: 'Yes',
+         confirmButtonText: 'Si',
          cancelButtonText: 'No',
          allowOutsideClick: false,
          allowEscapeKey: false,
