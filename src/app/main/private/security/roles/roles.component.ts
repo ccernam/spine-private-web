@@ -4,6 +4,7 @@ import { RoleDto } from 'app/core/dtos/security/role.dto'
 import { SecurityService } from 'app/core/services/security.service'
 import { RoleComponent } from '../role/role.component';
 import { RoleOptionComponent } from '../role-option/role-option.component';
+import { LoadingService } from 'app/core/services/loading.service';
 
 @Component({
    selector: 'app-security-role',
@@ -17,6 +18,7 @@ export class RolesComponent implements OnInit {
    //public options: OptionDto[] = []
 
    constructor(
+      private _loadingService: LoadingService,
       private _securityService: SecurityService,
       private modal: NgbModal
    ) { }
@@ -28,7 +30,9 @@ export class RolesComponent implements OnInit {
     * On init
     */
    ngOnInit() {
+      this._loadingService.show();
       this._securityService.findRole().subscribe(data => {
+         this._loadingService.hide();
          this.roles = data;
       });
    }
@@ -36,6 +40,7 @@ export class RolesComponent implements OnInit {
    createRole() {
       const modal = this.modal.open(RoleComponent, { size: 'm' });
       modal.result.then((result) => {
+         console.log("EDIT");
          if (result != null && result.success == true) {
             this.roles.push(result.role);
          }

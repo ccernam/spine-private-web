@@ -10,7 +10,6 @@ import * as Waves from 'node-waves';
 import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreConfigService } from '@core/services/config.service';
-import { CoreLoadingScreenService } from '@core/services/loading-screen.service';
 import { CoreTranslationService } from '@core/services/translation.service';
 
 import { menu } from 'app/menu/menu';
@@ -18,6 +17,7 @@ import { locale as menuEnglish } from 'app/menu/i18n/en';
 import { locale as menuFrench } from 'app/menu/i18n/fr';
 import { locale as menuGerman } from 'app/menu/i18n/de';
 import { locale as menuPortuguese } from 'app/menu/i18n/pt';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param {ElementRef} _elementRef
    * @param {CoreConfigService} _coreConfigService
    * @param {CoreSidebarService} _coreSidebarService
-   * @param {CoreLoadingScreenService} _coreLoadingScreenService
+   * @param {LoadingService} _loadingService
    * @param {CoreMenuService} _coreMenuService
    * @param {CoreTranslationService} _coreTranslationService
    * @param {TranslateService} _translateService
@@ -54,10 +54,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private _elementRef: ElementRef,
     public _coreConfigService: CoreConfigService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreLoadingScreenService: CoreLoadingScreenService,
     private _coreMenuService: CoreMenuService,
     private _coreTranslationService: CoreTranslationService,
-    private _translateService: TranslateService
+    private _translateService: TranslateService,
+    private _loadingService: LoadingService
   ) {
     // Get the application main menu
     this.menu = menu;
