@@ -1,0 +1,18 @@
+.table-responsive {
+   border-radius: 0.357rem !important;
+}
+
+.table {
+   border-collapse: separate !important;
+   border-spacing: 0 !important;
+}
+
+.table thead th {
+   text-align: center;
+   vertical-align: middle;
+}
+
+.table thead th, .table tfoot th {
+   font-size: toRem($base-font-size);
+   text-transform: none;
+}

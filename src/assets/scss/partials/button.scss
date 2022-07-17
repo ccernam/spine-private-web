@@ -1,0 +1,11 @@
+.btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.btn-sm, .btn-group-sm > .btn {
+   line-height: 1.2;
+   padding: 0.4rem 1rem;
+   font-size: toRem($base-font-size);
+}

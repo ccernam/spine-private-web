@@ -78,6 +78,7 @@ const appRoutes: Routes = [
     ToastrModule.forRoot({
       toastClass: 'toast ngx-toastr',
       preventDuplicates: true,
+      progressBar: true,
       closeButton: true,
     }),
     TranslateModule.forRoot(),

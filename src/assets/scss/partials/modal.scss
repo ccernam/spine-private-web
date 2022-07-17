@@ -1,0 +1,14 @@
+.modal .modal-header .close,
+.dark-layout .modal .modal-header .close {
+   background: transparent !important;
+   transform: translate(0px, 8px) !important;
+   box-shadow: none !important;
+}
+
+.modal-title {
+   font-weight: 600;
+}
+
+.modal .modal-footer {
+   padding: 0.55rem 1.4rem !important;
+}

@@ -1,0 +1,20 @@
+@font-face {
+	font-family: "Homeet";
+	src: url("../../fonts/homeet.woff") format("woff");
+}
+
+* {
+   font-family: "Homeet", sans-serif !important;
+}
+
+body {
+   font-size: toRem($base-font-size);
+}
+
+label {
+   font-size: toRem($base-font-size);
+}
+
+.badge {
+   font-size: 90%;
+}

@@ -36,7 +36,7 @@ const routes: Routes = [
       NgbModule,
       FormsModule,
       ReactiveFormsModule,
-      CoreCommonModule,
+      CoreCommonModule
    ]
 })
 export class SecurityModule { }
