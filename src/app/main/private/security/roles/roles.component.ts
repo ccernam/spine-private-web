@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleDto } from 'app/core/dtos/security/role.dto'
 import { SecurityService } from 'app/core/services/security.service'
 import { RoleComponent } from '../role/role.component';
 import { RoleOptionComponent } from '../role-option/role-option.component';
 import { LoadingService } from 'app/core/services/loading.service';
+import { DatatableAction, DatatableColumn } from 'app/core/types/datatable';
 
 @Component({
    selector: 'app-security-role',
@@ -16,6 +17,16 @@ export class RolesComponent implements OnInit {
 
    public roles: RoleDto[] = [];
    //public options: OptionDto[] = []
+
+   public columns: DatatableColumn[] = [
+      { name: 'name', title: 'Nombre', width: 80 },
+      { name: 'description', title: 'Descripción', width: 80 },
+   ]
+
+   public actions: DatatableAction[] = [
+      { name: 'edit-role', icon: 'edit' },
+      { name: 'config-options', icon: 'list' },
+   ]
 
    constructor(
       private _loadingService: LoadingService,
@@ -33,14 +44,13 @@ export class RolesComponent implements OnInit {
       this._loadingService.show();
       this._securityService.findRole().subscribe(data => {
          this._loadingService.hide();
-         this.roles = data;
+         this.roles = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
       });
    }
 
    createRole() {
       const modal = this.modal.open(RoleComponent, { size: 'm' });
       modal.result.then((result) => {
-         console.log("EDIT");
          if (result != null && result.success == true) {
             this.roles.push(result.role);
          }
@@ -63,5 +73,12 @@ export class RolesComponent implements OnInit {
       modal.result.then((result) => {
 
       });
+   }
+
+   action({ name, index, row }) {
+      if (name === 'edit-role')
+         this.editRole(index, row);
+      else if (name === 'config-options')
+         this.configureOptions(index, row);
    }
 }

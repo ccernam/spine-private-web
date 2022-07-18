@@ -1,0 +1,39 @@
+@import '@core/scss/angular/libs/datatables.component.scss';
+
+.datatable-scroll {
+  width: auto !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header {
+  height: auto !important;
+  text-transform: none !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header .datatable-header-cell,
+.ngx-datatable.bootstrap.core-bootstrap .datatable-body-row .datatable-body-cell {
+  padding: 0.3rem 0.5rem !important;
+  border-left: 1px solid #ebe9f1 !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header .datatable-header-cell:last-child,
+.ngx-datatable.bootstrap.core-bootstrap .datatable-body-row .datatable-body-cell:last-child {
+  border-right: 1px solid #ebe9f1 !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header .datatable-header-cell {
+  font-size: 1.05rem !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-row-wrapper:last-child .datatable-body-row {
+  border-bottom: 1px solid #ebe9f1 !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-footer {
+  padding: 1rem 0 !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-footer .page-count {
+  line-height: normal !important;
+  height: auto !important;
+  padding: 0 !important;
+}
