@@ -64,7 +64,9 @@ export class LoadingService {
     * Show the loading screen
     */
    show(): void {
+      this._document.body.style.overflow = 'hidden';
       this.loadingScreenEl.style.display = 'block';
+
       this.animationPlayer = this._animationBuilder
          .build([
             style({
@@ -98,6 +100,7 @@ export class LoadingService {
          .create(this.loadingScreenEl);
 
       setTimeout(() => {
+         this._document.body.style.overflow = 'auto';
          this.loadingScreenEl.style.display = 'none';
          this.animationPlayer.play();
       }, 0);
