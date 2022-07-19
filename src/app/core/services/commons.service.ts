@@ -113,11 +113,11 @@ export class CommonsService extends ServiceBase {
         return this._httpClient.get<ProductDto[]>(`${this.getPartialUrl()}/product`, { params: queryString });
     }
 
-    public findStock(productId: number): Observable<StockDto[]> {
+    public findStocks(productId: number): Observable<StockDto[]> {
         return this._httpClient.get<StockDto[]>(`${this.getPartialUrl()}/product/findStock/${productId}`, {});
     }
 
-    public findPrice(productId: number, currencyId: number): Observable<PriceDto[]> {
+    public findPrices(productId: number, currencyId: number): Observable<PriceDto[]> {
         return this._httpClient.get<PriceDto[]>(`${this.getPartialUrl()}/product/findPrice/${productId}/${currencyId}`, {});
     }
 }

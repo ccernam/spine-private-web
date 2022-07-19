@@ -32,7 +32,7 @@ export class PricesComponent implements OnInit {
   changeCurrency(currencyId: number): void {
     this.priceDtos = [];
     if (currencyId > 0) {
-      this._commonsService.findPrice(this.productDto.id, currencyId).subscribe(data => {
+      this._commonsService.findPrices(this.productDto.id, currencyId).subscribe(data => {
         this.priceDtos = data;
       });
     }

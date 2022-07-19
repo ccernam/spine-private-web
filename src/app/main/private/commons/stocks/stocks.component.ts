@@ -22,7 +22,7 @@ export class StocksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._commonsService.findStock(this.productDto.id).subscribe(data => {
+    this._commonsService.findStocks(this.productDto.id).subscribe(data => {
       this.stockDtos = data;
     });
   }
