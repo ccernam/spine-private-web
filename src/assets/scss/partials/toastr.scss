@@ -1,0 +1,13 @@
+.toast {
+   font-size: toRem($base-font-size) !important;
+}
+
+.toast .toast-close-button {
+   font-size: 2.75rem;
+   top: -5px;
+}
+
+.toast .toast-title {
+   font-size: toRem($base-font-size) * 1.2 !important;
+   margin-bottom: 0.25rem !important;
+}
