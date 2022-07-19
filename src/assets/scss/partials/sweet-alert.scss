@@ -1,0 +1,60 @@
+.swal2-popup {
+   width: 28rem !important;
+}
+
+.swal2-popup.swal2-modal {
+   padding: 0 !important;
+}
+
+.swal2-header {
+   flex-direction: row !important;
+   border-radius: 0.3125em !important;
+   background-color: #f8f8f8 !important;
+   padding: 1rem 1.4rem 0.8rem 1.4rem !important;
+}
+
+.swal2-icon {
+   display: none !important;
+   height: 1rem !important;
+   width: 1rem !important;
+   margin: 0 !important;
+}
+
+.swal2-icon .swal2-icon-content {
+   font-size: 0.875rem !important;
+}
+
+.swal2-title {
+   margin: 0 !important;
+   line-height: 1.45 !important;
+   font-size: toRem($base-font-size) * 1.224 !important;
+}
+
+.swal2-content {
+   padding: 1rem 1.4rem !important;
+}
+
+.swal2-html-container {
+   text-align: left !important;
+}
+
+.swal2-actions {
+   margin: 0 !important;
+   justify-content: end !important;
+   padding: 0.55rem 1.4rem !important;
+   border-top: 1px solid rgba(34, 41, 47, 0.05) !important;
+}
+
+.swal2-actions > * {
+   margin: 0.25rem !important;
+}
+
+.swal2-styled.btn.btn-sm {
+   border-radius: 0.358rem !important;
+   border: 1px solid transparent !important;
+   line-height: 1.2 !important;
+   padding: 0.4rem 1rem !important;
+   font-size: 1.05rem !important;
+   text-decoration: none !important;
+   box-shadow: none !important;
+}

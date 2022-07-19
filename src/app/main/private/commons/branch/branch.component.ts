@@ -4,7 +4,7 @@ import { BranchDto } from 'app/core/dtos/commons/branch.dto';
 import { SelectItemModel } from 'app/core/models/select-item.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
-import { ToastrService } from 'ngx-toastr';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
   selector: 'app-branch',
@@ -21,7 +21,7 @@ export class BranchComponent implements OnInit {
   constructor(
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
-    private _toastrService: ToastrService,
+    private _toastrService: CustomToastrService,
     private _activeModalService: NgbActiveModal
 
   ) {
@@ -42,14 +42,14 @@ export class BranchComponent implements OnInit {
       if ((this.branchDto.id ?? 0) == 0) {
         this._commonsService.createBranch(this.branchDto).subscribe(data => {
           this.branchDto = data;
-          this._toastrService.success("Se creó sucursal exitosamente", "Ok");
+          this._toastrService.success("Se creó sucursal exitosamente");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.branchDto));
         });
       }
       else {
         this._commonsService.editBranch(this.branchDto).subscribe(data => {
           this.branchDto = data;
-          this._toastrService.success("Se editó sucursal exitosamente", "Ok");
+          this._toastrService.success("Se editó sucursal exitosamente");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.branchDto));
         });
       }

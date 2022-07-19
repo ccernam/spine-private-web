@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
 import { RoleComponent } from './role/role.component';
 import { RoleOptionComponent } from './role-option/role-option.component';
+import { DatatableModule } from 'app/main/components/datatable/datatable.module';
 
 // routing
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
       FormsModule,
       ReactiveFormsModule,
       CoreCommonModule,
+      DatatableModule
    ]
 })
 export class SecurityModule { }

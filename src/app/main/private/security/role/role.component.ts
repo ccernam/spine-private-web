@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
 import { RoleDto } from 'app/core/dtos/security/role.dto';
 import { SecurityService } from 'app/core/services/security.service';
+import { SweetAlertService } from 'app/core/services/sweetalert.service';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
    selector: 'app-role',
@@ -17,7 +18,8 @@ export class RoleComponent implements OnInit {
    constructor(
       private _securityService: SecurityService,
       private _activeModal: NgbActiveModal,
-      private _toastrService: ToastrService
+      private _toastrService: CustomToastrService,
+      private _sweetAlertService: SweetAlertService
    ) { }
 
    ngOnInit(): void {
@@ -25,18 +27,26 @@ export class RoleComponent implements OnInit {
          this.title = "Editar Rol";
    }
 
-   saveRole(): void {
-      let isValid: boolean = false;
-
+   isValid(): boolean {
       if (!this.role.name || !this.role.name.trim()) {
-         this._toastrService.warning("'Nombre' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+         this._toastrService.warning("'Nombre' es requerido!");
       } else if (!this.role.description || !this.role.description.trim()) {
-         this._toastrService.warning("'Descripción' es requerido!", "Rol", { toastClass: 'toast ngx-toastr', closeButton: true });
+         this._toastrService.warning("'Descripción' es requerido!");
       } else {
-         isValid = true;
+         return true;
       }
 
-      if (!isValid) return;
+      return false
+   }
+
+   async saveRole(): Promise<void> {
+      if (!this.isValid()) return;
+
+      const result: any = await this._sweetAlertService.confirm({
+         text: "¿Está seguro que desea guardar este rol?"
+      });
+
+      if(!result.value) return;
 
       if ((this.role.id ?? 0) == 0) {
          this.role.status = 1;
