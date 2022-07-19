@@ -1,9 +1,9 @@
-<div class="row mb-50">
+<div class="row mb-50" *ngIf="limit || search || export">
   <div class="col-md-6 col-12">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center" *ngIf="limit">
       <label class="d-flex align-items-center m-0">Mostrar
         <select class="form-control form-control-sm mx-25" [(ngModel)]="selectedLimit">
-          <option value="5">5</option>
+          <option value=" 5">5</option>
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -13,33 +13,41 @@
     </div>
   </div>
   <div class="col-md-6 col-12 d-flex justify-content-md-end">
-    <div class="d-flex align-items-center justify-content-end">
+    <div class="d-flex align-items-center justify-content-end" *ngIf="search || export">
       <label class="d-flex align-items-center mr-25 mb-0">
         Buscar:
-        <input type="search" placeholder="Buscar..." class="form-control form-control-sm ml-25" (keyup)="filterUpdate($event)"
-          (search)="filterUpdate($event)" />
+        <input type="search" placeholder="Buscar..." class="form-control form-control-sm ml-25"
+          (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" *ngIf="search" />
       </label>
 
       <a csvLink [data]="rows" class="btn btn-primary btn-sm ml-25" rippleEffect>
-        <i data-feather="file-text" class="mr-25"></i>Export CSV
+        <i data-feather="file-text" class="mr-25" *ngIf="export"></i>Export CSV
       </a>
     </div>
   </div>
 </div>
 
-<ngx-datatable #table class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" headerHeight="auto"
-  footerHeight="auto" rowHeight="auto" [limit]="selectedLimit" [columns]="columns" [rows]="rows" [messages]="messages">
+<ngx-datatable #table [class]="('bootstrap core-bootstrap ' + class).trim()" [columnMode]="ColumnMode.force"
+  headerHeight="auto" footerHeight="auto" rowHeight="auto" [limit]="selectedLimit" [columns]="
+  columns" [rows]="rows" [messages]="messages" [scrollbarH]="!class.includes('w100')">
 
   <ngx-datatable-column name="Nro." prop="number" [width]="100" [sortable]="false" cellClass="justify-content-center">
   </ngx-datatable-column>
 
-  <ngx-datatable-column *ngFor="let column of columns" [name]="column.title" [prop]="column.name" [width]="column.width"
-    [canAutoResize]="true"></ngx-datatable-column>
+  <ngx-datatable-column *ngFor="let column of columns" [name]="column.title" [prop]="column.name"
+    [width]="column.width ?? 190" [canAutoResize]="true" cellClass="justify-content-center">
+    <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
+      <span *ngIf="!column.custom">{{value}}</span>
+      <span *ngIf="column.custom && column.custom.type === ColumnType.badge" [class]="'badge ' + ((row.status === 1) ? 'badge-success' : 'badge-danger')">{{value}}</span>
+      <input *ngIf="column.custom && column.custom.type === ColumnType.input" type="text" [class]="column.custom.class"
+        [value]="value" />
+    </ng-template>
+  </ngx-datatable-column>
 
-  <ngx-datatable-column *ngFor="let action of actions" name="" [width]="100" [sortable]="false"
+  <ngx-datatable-column *ngFor="let action of actions" name="" [width]="action.width ?? 80" [sortable]="false"
     cellClass="justify-content-center">
-    <ng-template ngx-datatable-cell-template let-index="rowIndex" let-row="row">
-      <span (click)="emitAction({name: action.name, index, row})">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
+      <span (click)="emitAction({name: action.name, rowIndex, row})">
         <i [data-feather]="action.icon" class="text-primary cursor-pointer"></i>
       </span>
     </ng-template>

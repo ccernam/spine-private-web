@@ -9,10 +9,28 @@
   text-transform: none !important;
 }
 
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-header,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-header .datatable-header-inner,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-header .datatable-header-inner .datatable-row-center {
+  width: 100% !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-body,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-body .datatable-scroll,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-body .datatable-scroll .datatable-row-wrapper,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-body .datatable-scroll .datatable-row-wrapper .datatable-body-row,
+.ngx-datatable.bootstrap.core-bootstrap.w100 .datatable-body .datatable-scroll .datatable-row-wrapper .datatable-body-row .datatable-row-center{
+  width: 100% !important;
+}
+
 .ngx-datatable.bootstrap.core-bootstrap .datatable-header .datatable-header-cell,
 .ngx-datatable.bootstrap.core-bootstrap .datatable-body-row .datatable-body-cell {
   padding: 0.3rem 0.5rem !important;
   border-left: 1px solid #ebe9f1 !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-body-row .datatable-body-cell {
+  height: calc(100% + 1px) !important;
 }
 
 .ngx-datatable.bootstrap.core-bootstrap .datatable-header .datatable-header-cell:last-child,

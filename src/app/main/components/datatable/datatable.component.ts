@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { DatatableAction, DatatableColumn } from 'app/core/types/datatable';
+import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
 
 @Component({
   selector: 'app-datatable',
@@ -9,6 +9,12 @@ import { DatatableAction, DatatableColumn } from 'app/core/types/datatable';
   encapsulation: ViewEncapsulation.None
 })
 export class DatatableComponent implements OnInit {
+  @Input() search: boolean = false;
+  @Input() export: boolean = false;
+  @Input() limit: boolean = false;
+  @Input() selectedLimit: number = 10;
+  @Input() class: string = '';
+
   @Input() rows: any[] = [];
   @Input() columns: DatatableColumn[] = [];
   @Input() actions: DatatableAction[] = [];
@@ -26,7 +32,7 @@ export class DatatableComponent implements OnInit {
 
   // public
   public ColumnMode = ColumnMode;
-  public selectedLimit: number = 10;
+  public ColumnType = DatatableColumnType;
 
   /**
    * On init
@@ -39,7 +45,7 @@ export class DatatableComponent implements OnInit {
    * @param event
    */
   filterUpdate(event) {
-    if(!this.isFilter) {
+    if (!this.isFilter) {
       this.tempData = JSON.parse(JSON.stringify(this.rows));
       this.isFilter = true;
     }

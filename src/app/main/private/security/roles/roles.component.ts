@@ -5,7 +5,7 @@ import { SecurityService } from 'app/core/services/security.service'
 import { RoleComponent } from '../role/role.component';
 import { RoleOptionComponent } from '../role-option/role-option.component';
 import { LoadingService } from 'app/core/services/loading.service';
-import { DatatableAction, DatatableColumn } from 'app/core/types/datatable';
+import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
 
 @Component({
    selector: 'app-security-role',
@@ -19,8 +19,11 @@ export class RolesComponent implements OnInit {
    //public options: OptionDto[] = []
 
    public columns: DatatableColumn[] = [
-      { name: 'name', title: 'Nombre', width: 80 },
-      { name: 'description', title: 'Descripción', width: 80 },
+      { name: 'name', title: 'Nombre' },
+      { name: 'description', title: 'Descripción' },
+      { name: 'statusName', title: 'Estado', custom: {
+         type: DatatableColumnType.badge
+      } },
    ]
 
    public actions: DatatableAction[] = [
