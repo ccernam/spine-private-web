@@ -38,7 +38,8 @@
     [width]="column.width ?? 190" [canAutoResize]="true" cellClass="justify-content-center">
     <ng-template ngx-datatable-cell-template let-value="value" let-rowIndex="rowIndex" let-row="row">
       <span *ngIf="!column.custom">{{value}}</span>
-      <span *ngIf="column.custom && column.custom.type === ColumnType.badge" [class]="'badge ' + ((row.status === 1) ? 'badge-success' : 'badge-danger')">{{value}}</span>
+      <span *ngIf="column.custom && column.custom.type === ColumnType.badge"
+        [class]="'badge ' + ((row.status === 1) ? 'badge-success' : 'badge-danger')">{{value}}</span>
       <input *ngIf="column.custom && column.custom.type === ColumnType.input" type="text" [class]="column.custom.class"
         [value]="value" />
     </ng-template>
@@ -47,7 +48,7 @@
   <ngx-datatable-column *ngFor="let action of actions" name="" [width]="action.width ?? 80" [sortable]="false"
     cellClass="justify-content-center">
     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
-      <span (click)="emitAction({name: action.name, rowIndex, row})">
+      <span (click)="emitAction({name: action.name, rowIndex, row})" title="{{action.title}}">
         <i [data-feather]="action.icon" class="text-primary cursor-pointer"></i>
       </span>
     </ng-template>

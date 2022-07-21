@@ -15,6 +15,7 @@ import { WarehouseComponent } from './warehouse/warehouse.component';
 import { ProductsComponent } from './products/products.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { PricesComponent } from './prices/prices.component';
+import { DatatableModule } from 'app/main/components/datatable/datatable.module';
 
 // routing
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CoreCommonModule,
+    DatatableModule
   ]
 })
 export class CommonsModule { }
