@@ -17,7 +17,8 @@
         </div>
         <div class="col-md-3 form-group">
             <label>Moneda</label>
-            <select class="form-control form-control-sm" (change)="changeCurrency($event.target.value)">
+            <select class="form-control form-control-sm" (change)="changeCurrency($event.target.value)"
+                [(ngModel)]="editPricesDto.currencyId">
                 <option [value]="-1">- Seleccione -</option>
                 <option *ngFor="let currencyDto of currencyDtos;" [value]="currencyDto.id">
                     {{currencyDto.name}}
@@ -36,8 +37,9 @@
                             <th>Precio</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="priceDtos.length > 0;else emptyList">
-                        <tr *ngFor="let priceDto of priceDtos; let item = index;" id="{{item}}" class="btn-off">
+                    <tbody *ngIf="editPricesDto.priceDtos.length > 0;else emptyList">
+                        <tr *ngFor="let priceDto of editPricesDto.priceDtos; let item = index;" id="{{item}}"
+                            class="btn-off">
                             <td class="align-middle text-center">{{item + 1}}</td>
                             <td class="align-middle" style="white-space: nowrap;">
                                 {{priceDto.branchName}}

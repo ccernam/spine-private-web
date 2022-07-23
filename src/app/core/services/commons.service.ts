@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { BranchDto } from "../dtos/commons/branch.dto";
 import { CategoryDto } from "../dtos/commons/category.dto";
 import { CurrencyDto } from "../dtos/commons/currency.dto";
+import { EditPricesDto } from "../dtos/commons/edit-prices.dto";
 import { PriceDto } from "../dtos/commons/price.dto";
 import { ProductDto } from "../dtos/commons/product.dto";
 import { StockDto } from "../dtos/commons/stock.dto";
@@ -117,7 +118,11 @@ export class CommonsService extends ServiceBase {
         return this._httpClient.get<StockDto[]>(`${this.getPartialUrl()}/product/findStock/${productId}`, {});
     }
 
-    public findPrices(productId: number, currencyId: number): Observable<PriceDto[]> {
-        return this._httpClient.get<PriceDto[]>(`${this.getPartialUrl()}/product/findPrice/${productId}/${currencyId}`, {});
+    public getPrices(productId: number, currencyId: number): Observable<PriceDto[]> {
+        return this._httpClient.get<PriceDto[]>(`${this.getPartialUrl()}/product/getPrices/${productId}/${currencyId}`, {});
+    }
+
+    public editPrices(editPricesDto: EditPricesDto): Observable<boolean> {
+        return this._httpClient.put<boolean>(`${this.getPartialUrl()}/product/editPrices`, editPricesDto);
     }
 }

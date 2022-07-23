@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit {
    }
 
    findStock(item: number, productDto: ProductDto): void {
-      const modal = this._modalService.open(StocksComponent, { size: 'xl' });
+      const modal = this._modalService.open(StocksComponent, { size: 'lg' });
       modal.componentInstance.productDto = { ...productDto }
       /*modal.result.then((modalResultModel: ModalResultModel<boolean>) => {
          
