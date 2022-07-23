@@ -21,9 +21,11 @@ export class RoleListComponent implements OnInit {
    public columns: DatatableColumn[] = [
       { name: 'name', title: 'Nombre' },
       { name: 'description', title: 'Descripción' },
-      { name: 'statusName', title: 'Estado', custom: {
-         type: DatatableColumnType.badge
-      } },
+      {
+         name: 'statusName', title: 'Estado', custom: {
+            type: DatatableColumnType.badge
+         }
+      },
    ]
 
    public actions: DatatableAction[] = [
