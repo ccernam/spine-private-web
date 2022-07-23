@@ -22,15 +22,7 @@ export class RoleListComponent implements OnInit {
       {
          name: 'name',
          title: 'Nombre',
-         width: 480,
-         custom: {
-            name: 'name',
-            values: [
-               { value: 'Administradora', class: 'badge-secondary' },
-               { value: 'Carlos', class: 'badge-warning' },
-            ],
-            type: DatatableColumnType.badge,
-         }
+         width: 480
       },
       {
          name: 'description',
