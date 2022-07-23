@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleDto } from 'app/core/dtos/security/role.dto'
 import { SecurityService } from 'app/core/services/security.service'
@@ -19,18 +19,43 @@ export class RoleListComponent implements OnInit {
    //public options: OptionDto[] = []
 
    public columns: DatatableColumn[] = [
-      { name: 'name', title: 'Nombre' },
-      { name: 'description', title: 'Descripción' },
       {
-         name: 'statusName', title: 'Estado', custom: {
-            type: DatatableColumnType.badge
+         name: 'name',
+         title: 'Nombre',
+         width: 480,
+         custom: {
+            name: 'name',
+            values: [
+               { value: 'Administradora', class: 'badge-secondary' },
+               { value: 'Carlos', class: 'badge-warning' },
+            ],
+            type: DatatableColumnType.badge,
          }
       },
+      {
+         name: 'description',
+         title: 'Descripción',
+         width: 820,
+      },
+      {
+         name: 'statusName',
+         title: 'Estado',
+         width: 100,
+         class: 'justify-content-center',
+         custom: {
+            name: 'status',
+            values: [
+               { value: 0, class: 'badge-danger' },
+               { value: 1, class: 'badge-success' },
+            ],
+            type: DatatableColumnType.badge
+         }
+      }
    ]
 
    public actions: DatatableAction[] = [
-      { name: 'edit-role', icon: 'edit' },
-      { name: 'config-options', icon: 'list' },
+      { name: 'edit-role', icon: 'edit', width: 50 },
+      { name: 'config-options', icon: 'list', width: 50 },
    ]
 
    constructor(
@@ -39,12 +64,6 @@ export class RoleListComponent implements OnInit {
       private modal: NgbModal
    ) { }
 
-   // Lifecycle Hooks
-   // -----------------------------------------------------------------------------------------------------
-
-   /**
-    * On init
-    */
    ngOnInit() {
       this._loadingService.show();
       this._securityService.findRole().subscribe(data => {
@@ -80,7 +99,13 @@ export class RoleListComponent implements OnInit {
       });
    }
 
-   action({ name, index, row }) {
+   editEvent({ value, name, row }) {
+      this.roles = this.roles.map((item: RoleDto) => {
+         return (item.id === row.id) ? { ...item, [name]: value } : item;
+      });
+   }
+
+   actionEvent({ name, index, row }) {
       if (name === 'edit-role')
          this.editRole(index, row);
       else if (name === 'config-options')
