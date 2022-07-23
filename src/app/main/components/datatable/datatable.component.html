@@ -34,7 +34,6 @@
 <ngx-datatable #table [class]="('bootstrap core-bootstrap ' + class).trim()" [columnMode]="ColumnMode.force"
    headerHeight="auto" footerHeight="auto" rowHeight="auto" [limit]="selectedLimit" [columns]="
   columns" [rows]="rows" [messages]="messages" [scrollbarH]="true">
-
    <!--Number row-->
    <ngx-datatable-column name="Nro." prop="number" [width]="50" [sortable]="false" cellClass="justify-content-center">
    </ngx-datatable-column>
@@ -60,7 +59,7 @@
    <ngx-datatable-column *ngFor="let action of actions" name="" [width]="action.width" [sortable]="false"
       cellClass="justify-content-center">
       <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row">
-         <span (click)="emitAction(action.name, rowIndex, row)">
+         <span (click)="emitAction(action.name, rowIndex, row)" [title]="action.title">
             <i [data-feather]="action.icon" class="text-primary cursor-pointer"></i>
          </span>
       </ng-template>

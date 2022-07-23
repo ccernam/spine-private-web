@@ -12,6 +12,7 @@ export interface DatatableAction {
    name: string,
    icon: string,
    width: number,
+   title?: string
 }
 
 export interface DatatableColumnCustom {
