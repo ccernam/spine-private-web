@@ -10,69 +10,91 @@ import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/
 import { CategoryComponent } from '../category/category.component';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+   selector: 'app-categories',
+   templateUrl: './categories.component.html',
+   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor(
-    private _commonsService: CommonsService,
-    private _globalService: GlobalService,
-    private _modalService: NgbModal,
-    private _loadingService: LoadingService
-  ) { }
+   constructor(
+      private _commonsService: CommonsService,
+      private _globalService: GlobalService,
+      private _modalService: NgbModal,
+      private _loadingService: LoadingService
+   ) { }
 
-  public categoryDtos: CategoryDto[] = [];
+   public categoryDtos: CategoryDto[] = [];
 
-  public columns: DatatableColumn[] = [
-    { name: 'name', title: 'Nombre' },
-    {
-      name: 'statusName', title: 'Estado', custom: {
-        type: DatatableColumnType.badge
-      }
-    },
-    {
-      name: 'reportingStatusName', title: 'Estado de Reportería', custom: {
-        type: DatatableColumnType.badge
-      }
-    },
-  ]
+   public columns: DatatableColumn[] = [
+      {
+         name: 'name',
+         title: 'Nombre',
+         width: 1000
+      },
+      {
+         name: 'statusName',
+         title: 'Estado',
+         width: 100,
+         class: 'justify-content-center',
+         custom: {
+            name: 'status',
+            values: [
+               { value: 1, class: 'badge-success' },
+               { value: 2, class: 'badge-danger' },
+            ],
+            type: DatatableColumnType.badge
+         }
+      },
+      {
+         name: 'reportingStatusName',
+         title: 'Estado de Reportería',
+         width: 100,
+         class: 'justify-content-center',
+         custom: {
+            name: 'reportingStatus',
+            values: [
+               { value: 1, class: 'badge-success' },
+               { value: 2, class: 'badge-danger' },
+            ],
+            type: DatatableColumnType.badge
+         }
+      },
+   ]
 
-  public actions: DatatableAction[] = [
-    { name: 'edit-category', icon: 'edit', title: 'Editar' }
-  ]
+   public actions: DatatableAction[] = [
+      { name: 'edit-category', icon: 'edit', width: 50, title: 'Editar' }
+   ]
 
-  ngOnInit(): void {
-    this._loadingService.show();
-    this._commonsService.findCategory({ companyId: 1 }).subscribe(data => {
-      this.categoryDtos = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
-      this._loadingService.hide();
-    });
-  }
+   ngOnInit(): void {
+      this._loadingService.show();
+      this._commonsService.findCategory({ companyId: 1 }).subscribe(data => {
+         this.categoryDtos = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
+         this._loadingService.hide();
+      });
+   }
 
-  create(): void {
-    const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
-    modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
-      if (modalResultModel != null && modalResultModel.success == true) {
-        this.categoryDtos.push(modalResultModel.data);
-        this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
-      }
-    });
-  }
+   create(): void {
+      const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
+      modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
+         if (modalResultModel != null && modalResultModel.success == true) {
+            this.categoryDtos.push(modalResultModel.data);
+            this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
+         }
+      });
+   }
 
-  edit(item: number, categoryDto: CategoryDto): void {
-    const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
-    modal.componentInstance.categoryDto = { ...categoryDto }
-    modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
-      if (modalResultModel != null && modalResultModel.success == true) {
-        this.categoryDtos[item] = modalResultModel.data;
-        this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
-      }
-    });
-  }
+   edit(item: number, categoryDto: CategoryDto): void {
+      const modal = this._modalService.open(CategoryComponent, { size: 'sm' });
+      modal.componentInstance.categoryDto = { ...categoryDto }
+      modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
+         if (modalResultModel != null && modalResultModel.success == true) {
+            this.categoryDtos[item] = modalResultModel.data;
+            this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
+         }
+      });
+   }
 
-  action({ name, index, row }) {
-    this.edit(index, row);
-  }
+   action({ name, index, row }) {
+      this.edit(index, row);
+   }
 }

@@ -55,3 +55,18 @@
   height: auto !important;
   padding: 0 !important;
 }
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header-cell {
+   display: flex;
+   align-items: center;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header-cell .datatable-header-cell-template-wrap {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-header-cell .datatable-header-cell-template-wrap .datatable-header-cell-label {
+   line-height: normal;
+}

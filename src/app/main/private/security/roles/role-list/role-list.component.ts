@@ -54,8 +54,8 @@ export class RoleListComponent implements OnInit {
    ]
 
    public actions: DatatableAction[] = [
-      { name: 'edit-role', icon: 'edit', width: 50 },
-      { name: 'config-options', icon: 'list', width: 50 },
+      { name: 'edit-role', title: 'Editar', icon: 'edit', width: 50 },
+      { name: 'config-options', title: 'Opciones', icon: 'list', width: 50 },
    ]
 
    constructor(
