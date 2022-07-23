@@ -2,17 +2,17 @@ import { Component, EventEmitter, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleDto } from 'app/core/dtos/security/role.dto'
 import { SecurityService } from 'app/core/services/security.service'
-import { RoleComponent } from '../role/role.component';
+import { RoleFormComponent } from '../role-form/role-form.component';
 import { RoleOptionComponent } from '../role-option/role-option.component';
 import { LoadingService } from 'app/core/services/loading.service';
 import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
 
 @Component({
    selector: 'app-security-role',
-   templateUrl: './roles.component.html',
-   styleUrls: ['./roles.component.scss']
+   templateUrl: './role-list.component.html',
+   styleUrls: ['./role-list.component.scss']
 })
-export class RolesComponent implements OnInit {
+export class RoleListComponent implements OnInit {
 
 
    public roles: RoleDto[] = [];
@@ -52,7 +52,7 @@ export class RolesComponent implements OnInit {
    }
 
    createRole() {
-      const modal = this.modal.open(RoleComponent, { size: 'm' });
+      const modal = this.modal.open(RoleFormComponent, { size: 'm' });
       modal.result.then((result) => {
          if (result != null && result.success == true) {
             this.roles.push(result.role);
@@ -61,7 +61,7 @@ export class RolesComponent implements OnInit {
    }
 
    editRole(item: number, role: RoleDto) {
-      const modal = this.modal.open(RoleComponent, { size: 'm' });
+      const modal = this.modal.open(RoleFormComponent, { size: 'm' });
       modal.componentInstance.role = { ...role };
       modal.result.then((result) => {
          if (result != null && result.success == true) {

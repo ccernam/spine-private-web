@@ -1,44 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CoreCommonModule } from '@core/common.module';
-
-import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsersComponent } from './users/users.component';
-import { RolesComponent } from './roles/roles.component';
-import { RoleComponent } from './role/role.component';
-import { RoleOptionComponent } from './role-option/role-option.component';
-import { DatatableModule } from 'app/main/components/datatable/datatable.module';
-
-// routing
 const routes: Routes = [
    {
       path: 'roles',
-      component: RolesComponent,
+      loadChildren: () => import('./role/role.module').then(m => m.RoleModule)
    },
    {
       path: 'users',
-      component: UsersComponent,
+      loadChildren: () => import('./user/user.module').then(m => m.UserModule)
    }
 ];
 
 @NgModule({
-   declarations: [
-      RolesComponent,
-      UsersComponent,
-      RoleComponent,
-      RoleOptionComponent,
-   ],
+   declarations: [],
    imports: [
-      RouterModule.forChild(routes),
-      ContentHeaderModule,
-      NgbModule,
-      FormsModule,
-      ReactiveFormsModule,
-      CoreCommonModule,
-      DatatableModule
+      CommonModule,
+      RouterModule.forChild(routes)
    ]
 })
 export class SecurityModule { }

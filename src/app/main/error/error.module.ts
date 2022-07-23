@@ -12,12 +12,12 @@ import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 // routing
 const routes: Routes = [
    {
-      path: 'not-found',
+      path: '404',
       component: NotFoundComponent,
       data: { animation: 'error' }
    },
    {
-      path: 'not-authorized',
+      path: 'unauthorized',
       component: NotAuthorizedComponent,
       data: { animation: 'error' }
    },

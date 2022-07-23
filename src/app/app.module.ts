@@ -29,77 +29,71 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { HomeModule } from './main/private/home/home.module';
 
 const appRoutes: Routes = [
-  {
-    path: 'auth',
-    loadChildren: () => import('./main/auth/auth.module').then(m => m.AuthModule)
-  },
-  {
-    path: 'error',
-    loadChildren: () => import('./main/error/error.module').then(m => m.ErrorModule)
-  },
-  {
-    path: 'commons',
-    loadChildren: () => import('./main/private/commons/commons.module').then(m => m.CommonsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'security',
-    loadChildren: () => import('./main/private/security/security.module').then(m => m.SecurityModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: '/error/not-found' //Error 404 - Page not found
-  }
+   {
+      path: '',
+      redirectTo: '/home',
+      pathMatch: 'full'
+   },
+   {
+      path: 'auth',
+      loadChildren: () => import('./main/auth/auth.module').then(m => m.AuthModule)
+   },
+   {
+      path: 'error',
+      loadChildren: () => import('./main/error/error.module').then(m => m.ErrorModule)
+   },
+   {
+      path: '',
+      loadChildren: () => import('./main/private/private.module').then(m => m.PrivateModule),
+      canActivate: [AuthGuard]
+   },
+   {
+      path: '**',
+      redirectTo: '/error/404' //Error 404 - Page not found
+   }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {
-      delay: 0,
-      passThruUnknownUrl: true
-    }),
-    RouterModule.forRoot(appRoutes, {
-      scrollPositionRestoration: 'enabled', // Add options right here
-      relativeLinkResolution: 'legacy'
-    }),
-    NgbModule,
-    ToastrModule.forRoot({
-      toastClass: 'toast ngx-toastr',
-      preventDuplicates: true,
-      progressBar: true,
-      closeButton: true,
-    }),
-    TranslateModule.forRoot(),
-    ContextMenuModule,
-    CoreModule.forRoot(coreConfig),
-    CoreCommonModule,
-    CoreSidebarModule,
-    CoreThemeCustomizerModule,
-    CardSnippetModule,
-    LayoutModule,
-    ContentHeaderModule,
-    HomeModule
-  ],
+   declarations: [
+      AppComponent
+   ],
+   imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      HttpClientModule,
+      HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {
+         delay: 0,
+         passThruUnknownUrl: true
+      }),
+      RouterModule.forRoot(appRoutes, {
+         scrollPositionRestoration: 'enabled', // Add options right here
+         relativeLinkResolution: 'legacy'
+      }),
+      NgbModule,
+      ToastrModule.forRoot({
+         toastClass: 'toast ngx-toastr',
+         preventDuplicates: true,
+         progressBar: true,
+         closeButton: true,
+      }),
+      TranslateModule.forRoot(),
+      ContextMenuModule,
+      CoreModule.forRoot(coreConfig),
+      CoreCommonModule,
+      CoreSidebarModule,
+      CoreThemeCustomizerModule,
+      CardSnippetModule,
+      LayoutModule,
+      ContentHeaderModule
+   ],
 
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+   providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-    // ! IMPORTANT: Provider used to create fake backend, comment while using real API
-    fakeBackendProvider
-  ],
-  bootstrap: [AppComponent]
+      // ! IMPORTANT: Provider used to create fake backend, comment while using real API
+      fakeBackendProvider
+   ],
+   bootstrap: [AppComponent]
 })
 export class AppModule { }
