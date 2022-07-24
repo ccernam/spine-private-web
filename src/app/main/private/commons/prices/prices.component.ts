@@ -31,11 +31,13 @@ export class PricesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._loadingService.show();
     this.editPricesDto.productId = this.productDto.id;
     this.editPricesDto.currencyId = -1;
     this.editPricesDto.priceDtos = [];
     this._commonsService.findCurrency({ companyId: 1 }).subscribe(data => {
       this.currencyDtos = data;
+      this._loadingService.hide();
     });
   }
 

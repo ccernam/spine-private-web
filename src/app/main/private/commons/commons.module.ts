@@ -16,6 +16,8 @@ import { ProductsComponent } from './products/products.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { PricesComponent } from './prices/prices.component';
 import { DatatableModule } from 'app/main/components/datatable/datatable.module';
+import { MeasurementUnitsComponent } from './measurement-units/measurement-units.component';
+import { MeasurementUnitComponent } from './measurement-unit/measurement-unit.component';
 
 // routing
 const routes: Routes = [
@@ -24,17 +26,22 @@ const routes: Routes = [
     component: BranchesComponent,
   },
   {
+    path: 'warehouses',
+    component: WarehousesComponent,
+  },
+  {
     path: 'categories',
     component: CategoriesComponent,
+  },
+  {
+    path: 'measurement-units',
+    component: MeasurementUnitsComponent,
   },
   {
     path: 'products',
     component: ProductsComponent,
   },
-  {
-    path: 'warehouses',
-    component: WarehousesComponent,
-  }
+
 ];
 
 @NgModule({
@@ -47,7 +54,9 @@ const routes: Routes = [
     WarehouseComponent,
     ProductsComponent,
     StocksComponent,
-    PricesComponent
+    PricesComponent,
+    MeasurementUnitsComponent,
+    MeasurementUnitComponent
   ],
   imports: [
     RouterModule.forChild(routes),

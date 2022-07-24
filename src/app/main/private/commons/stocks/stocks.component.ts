@@ -4,6 +4,7 @@ import { ProductDto } from 'app/core/dtos/commons/product.dto';
 import { StockDto } from 'app/core/dtos/commons/stock.dto';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
+import { LoadingService } from 'app/core/services/loading.service';
 
 @Component({
   selector: 'app-stocks',
@@ -18,12 +19,15 @@ export class StocksComponent implements OnInit {
   constructor(
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
-    private _activeModalService: NgbActiveModal
+    private _activeModalService: NgbActiveModal,
+    private _loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
-    this._commonsService.findStocks(this.productDto.id).subscribe(data => {
+    this._loadingService.show();
+    this._commonsService.getStocks(this.productDto.id).subscribe(data => {
       this.stockDtos = data;
+      this._loadingService.hide();
     });
   }
 
