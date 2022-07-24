@@ -18,9 +18,15 @@ import { PricesComponent } from './prices/prices.component';
 import { DatatableModule } from 'app/main/components/datatable/datatable.module';
 import { MeasurementUnitsComponent } from './measurement-units/measurement-units.component';
 import { MeasurementUnitComponent } from './measurement-unit/measurement-unit.component';
+import { CurrenciesComponent } from './currencies/currencies.component';
+import { CurrencyComponent } from './currency/currency.component';
 
 // routing
 const routes: Routes = [
+  {
+    path: 'currencies',
+    component: CurrenciesComponent,
+  },
   {
     path: 'branches',
     component: BranchesComponent,
@@ -56,7 +62,9 @@ const routes: Routes = [
     StocksComponent,
     PricesComponent,
     MeasurementUnitsComponent,
-    MeasurementUnitComponent
+    MeasurementUnitComponent,
+    CurrenciesComponent,
+    CurrencyComponent
   ],
   imports: [
     RouterModule.forChild(routes),
