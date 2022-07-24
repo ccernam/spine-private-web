@@ -32,10 +32,17 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'common',
-    title: 'Commons',
+    title: 'Comunes',
     type: 'collapsible',
     icon: 'list',
     children: [
+      {
+        id: 'currency',
+        title: 'Monedas',
+        type: 'item',
+        icon: 'check-circle',
+        url: 'commons/currencies'
+      },
       {
         id: 'branch',
         title: 'Sucursales',

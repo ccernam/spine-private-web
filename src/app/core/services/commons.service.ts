@@ -34,10 +34,10 @@ export class CommonsService extends ServiceBase {
         return this._httpClient.get<CurrencyDto[]>(`${this.getPartialUrl()}/currency`, { params: queryString });
     }
     public createCurrency(currencyDto: CurrencyDto): Observable<CurrencyDto> {
-        return this._httpClient.post<CurrencyDto>(`${this.getPartialUrl()}/category`, currencyDto);
+        return this._httpClient.post<CurrencyDto>(`${this.getPartialUrl()}/currency`, currencyDto);
     }
     public editCurrency(currencyDto: CurrencyDto): Observable<CurrencyDto> {
-        return this._httpClient.put<CurrencyDto>(`${this.getPartialUrl()}/category`, currencyDto);
+        return this._httpClient.put<CurrencyDto>(`${this.getPartialUrl()}/currency`, currencyDto);
     }
 
 
@@ -119,13 +119,15 @@ export class CommonsService extends ServiceBase {
 
 
     // Product
-    public findProduct(parameters?: { id?: number, companyId?: number, code?: string, status?: number, reportingStatus?: number }): Observable<ProductDto[]> {
+    public findProduct(parameters?: { id?: number, companyId?: number, code?: string, name?: string, categoryId?: number, status?: number, reportingStatus?: number }): Observable<ProductDto[]> {
         if (parameters == null)
             parameters = {};
         let queryString: HttpParams = new HttpParams()
             .set("id", (parameters.id ?? -1).toString())
             .set("companyId", (parameters.companyId ?? -1).toString())
             .set("code", (parameters.code ?? "").toString())
+            .set("name", (parameters.name ?? "").toString())
+            .set("categoryId", (parameters.categoryId ?? -1).toString())
             .set("status", (parameters.status ?? -1).toString())
             .set("reportingStatus", (parameters.reportingStatus ?? -1).toString());
         return this._httpClient.get<ProductDto[]>(`${this.getPartialUrl()}/product`, { params: queryString });
