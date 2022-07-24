@@ -7,10 +7,10 @@ import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
    selector: 'app-role',
-   templateUrl: './role.component.html',
-   styleUrls: ['./role.component.scss']
+   templateUrl: './role-form.component.html',
+   styleUrls: ['./role-form.component.scss']
 })
-export class RoleComponent implements OnInit {
+export class RoleFormComponent implements OnInit {
 
    role: RoleDto = new RoleDto();
    title: string = "Crear Rol";

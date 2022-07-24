@@ -3,19 +3,27 @@ import { EventEmitter } from "@angular/core";
 export interface DatatableColumn {
    name: string,
    title: string,
-   width?: number,
-   custom?: DatatableColumnOption,
+   width: number,
+   class?: string,
+   custom?: DatatableColumnCustom,
 }
 
 export interface DatatableAction {
    name: string,
    icon: string,
-   width?: number,
+   width: number,
    title?: string
 }
 
-export interface DatatableColumnOption {
+export interface DatatableColumnCustom {
+   name: string,
+   class?: string,
    type?: DatatableColumnType,
+   values?: DatatableColumnCustomValue[],
+}
+
+export interface DatatableColumnCustomValue {
+   value: any,
    class?: string,
 }
 
