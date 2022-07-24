@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from 'app/auth/service';
 import { CustomToastrService } from 'app/core/services/toastr.service';
+import { LoadingService } from 'app/core/services/loading.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -16,12 +17,14 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private _router: Router,
     private _authenticationService: AuthenticationService,
-    private _toastrService: CustomToastrService
+    private _toastrService: CustomToastrService,
+    private _loadingService: LoadingService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError(errorResponse => {
+        this._loadingService.hide();
         if (errorResponse.status == 400) {
           this._toastrService.warning(errorResponse.error);
         }
@@ -33,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           // this._authenticationService.logout();
           // location.reload(true);
         }
-        else if (errorResponse.status == 500){
+        else if (errorResponse.status == 500) {
           this._toastrService.error(errorResponse.error);
         }
         // throwError

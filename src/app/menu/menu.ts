@@ -37,29 +37,37 @@ export const menu: CoreMenu[] = [
     icon: 'list',
     children: [
       {
-        id: 'category',
-        title: 'Categories',
-        type: 'item',
-        icon: 'check-circle',
-        url: 'commons/categories'
-      },
-      {
         id: 'branch',
-        title: 'Branches',
+        title: 'Sucursales',
         type: 'item',
         icon: 'check-circle',
         url: 'commons/branches'
       },
       {
         id: 'warehouse',
-        title: 'Warehouses',
+        title: 'Almacénes',
         type: 'item',
         icon: 'check-circle',
         url: 'commons/warehouses'
       },
+
+      {
+        id: 'category',
+        title: 'Categorías',
+        type: 'item',
+        icon: 'check-circle',
+        url: 'commons/categories'
+      },
+      {
+        id: 'measurement-unit',
+        title: 'Unidades de Medida',
+        type: 'item',
+        icon: 'check-circle',
+        url: 'commons/measurement-units'
+      },
       {
         id: 'product',
-        title: 'Products',
+        title: 'Productos',
         type: 'item',
         icon: 'check-circle',
         url: 'commons/products'
