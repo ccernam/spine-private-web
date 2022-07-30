@@ -13,13 +13,18 @@ const routes: Routes = [
       loadChildren: () => import('./commons/commons.module').then(m => m.CommonsModule)
    },
    {
+      path : 'logistics',
+      loadChildren: () => import('./logistics/logistics.module').then(m => m.LogisticsModule)
+   },
+   {
       path: 'security',
       loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
    },
 ];
 
 @NgModule({
-   declarations: [],
+   declarations: [
+  ],
    imports: [
       CommonModule,
       RouterModule.forChild(routes),

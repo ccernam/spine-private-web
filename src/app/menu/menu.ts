@@ -81,4 +81,19 @@ export const menu: CoreMenu[] = [
       },
     ]
   },
+  {
+    id: 'logistics',
+    title: 'Logistics',
+    type: 'collapsible',
+    icon : 'edit',
+    children: [
+      {
+        id: 'product-movement',
+        title: 'Movimiento Almacén',
+        type: 'item',
+        icon: 'list',
+        url: 'logistics/product-movement'
+      },
+    ]
+  },
 ]
