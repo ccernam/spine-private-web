@@ -9,7 +9,8 @@ import { DatatableAction, DatatableColumn, DatatableColumnCustom, DatatableColum
    encapsulation: ViewEncapsulation.None
 })
 export class DatatableComponent implements OnInit {
-   @Input() search: boolean = false;
+   @Input() add: boolean = true;
+   @Input() search: boolean = true;
    @Input() export: boolean = false;
    @Input() limit: boolean = false;
    @Input() selectedLimit: number = 10;
@@ -18,8 +19,9 @@ export class DatatableComponent implements OnInit {
    @Input() rows: any[] = [];
    @Input() columns: DatatableColumn[] = [];
    @Input() actions: DatatableAction[] = [];
-   @Output() editEvent: EventEmitter<any> = new EventEmitter<any>();
-   @Output() actionEvent: EventEmitter<any> = new EventEmitter<any>();
+   @Output() create: EventEmitter<any> = new EventEmitter<any>();
+   @Output() edit: EventEmitter<any> = new EventEmitter<any>();
+   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
    messages: any = {
       emptyMessage: 'No se encontraron registros',
@@ -60,11 +62,15 @@ export class DatatableComponent implements OnInit {
       this.rows = temp;
    }
 
+   emitCreate() {
+      this.create.emit();
+   }
+
    emitEdit(event: any, name: string, row: any) {
-      this.editEvent.emit({ value: event.target.value, name, row });
+      this.edit.emit({ value: event.target.value, name, row });
    }
 
    emitAction(name: string, index: number, row: any) {
-      this.actionEvent.emit({ name, index, row });
+      this.action.emit({ name, index, row });
    }
 }

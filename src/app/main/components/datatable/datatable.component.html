@@ -1,8 +1,16 @@
-<div class="row mb-50" *ngIf="limit || search || export">
+<div class="row mb-50" *ngIf="create || limit || search || export">
    <div class="col-md-6 col-12">
-      <!--Number of rows select-->
-      <div class="d-flex justify-content-between align-items-center" *ngIf="limit">
-         <label class="d-flex align-items-center m-0">Mostrar
+      <div class="row align-items-center m-0" *ngIf="create || limit">
+         <!--New row-->
+         <div className="col-auto d-flex" *ngIf="create">
+            <button class="btn btn-primary btn-sm" (click)="emitCreate()">
+               <i data-feather="plus" class="mr-25"></i>Nuevo
+            </button>
+         </div>
+
+         <!--Number of rows select-->
+         <label class="col-auto d-flex align-items-center m-0" *ngIf="limit">
+            Mostrar
             <select class="form-control form-control-sm mx-25" [(ngModel)]="selectedLimit">
                <option value=" 5">5</option>
                <option value="10">10</option>
@@ -10,7 +18,8 @@
                <option value="50">50</option>
                <option value="100">100</option>
             </select>
-            registros</label>
+            registros
+         </label>
       </div>
    </div>
 
@@ -35,7 +44,10 @@
    headerHeight="auto" footerHeight="auto" rowHeight="auto" [limit]="selectedLimit" [columns]="
   columns" [rows]="rows" [messages]="messages" [scrollbarH]="true">
    <!--Number row-->
-   <ngx-datatable-column name="Nro." prop="number" [width]="50" [sortable]="false" cellClass="justify-content-center">
+   <ngx-datatable-column name="Nro." [width]="70" cellClass="justify-content-center">
+      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+         <span>{{rowIndex + 1}}</span>
+      </ng-template>
    </ngx-datatable-column>
 
    <!--Columns-->
