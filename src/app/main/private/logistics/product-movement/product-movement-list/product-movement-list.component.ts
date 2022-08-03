@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductMovementDto } from 'app/core/dtos/logistics/product-movement.dto';
+import { ConfigurationService } from 'app/core/services/configuration.service';
 import { LoadingService } from 'app/core/services/loading.service';
 import { LogisticsService } from 'app/core/services/logistics.service';
+import { SweetAlertService } from 'app/core/services/sweetalert.service';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
+import { ProductMovementFormComponent } from '../product-movement-form/product-movement-form.component';
 import { ProductMovement } from '../product-movement.module';
 
 @Component({
@@ -87,7 +91,10 @@ export class ProductMovementListComponent implements OnInit {
   constructor(
     private _loadingService: LoadingService,
     private _logisticsService: LogisticsService,
-    private modal: NgbModal
+    private _configurationService: ConfigurationService,
+    private modal: NgbModal,
+    private _toastrService: CustomToastrService,
+    private _sweetAlertService: SweetAlertService
   ) { }
 
   ngOnInit(): void {
@@ -96,10 +103,18 @@ export class ProductMovementListComponent implements OnInit {
       this._loadingService.hide();
       this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
     });
+    this._loadingService.show();
+    this._configurationService.findCatalogMaster(["0701", "0702", "0703", "0704"]).subscribe(data => {
+      this._loadingService.hide();
+      console.log(data);
+    });
   }
 
   createProductMovement(){
+    const modal = this.modal.open(ProductMovementFormComponent, { size: 'lg' });
+    modal.result.then((result) => {
 
+    });
   }
 
   actionEvent({ name, index, row }) {
@@ -122,14 +137,30 @@ export class ProductMovementListComponent implements OnInit {
   }
 
   editProductMovement(item: number, productMovement: ProductMovementDto) {
-
+    console.log(productMovement);
   }
 
-  rollbackProductMovement(item: number, productMovement: ProductMovementDto) {
+  async rollbackProductMovement(item: number, productMovement: ProductMovementDto) {
+    if (productMovement.status != 1)
+    {
+      this._toastrService.error("Solo se pueden anular los movimientos activos");
+    }
+    else
+    {
+      const result: any = await this._sweetAlertService.confirm({
+        text: "¿Está seguro que desea anular éste movimiento de almacén?"
+      });
 
+      if(!result.value) return;
+
+      
+      this._logisticsService.rollbackProductMovement(productMovement.id).subscribe(data => {
+        this._toastrService.success("Anulado correctamente");
+      });
+    }
   }
 
   viewProductMovement(item: number, productMovement: ProductMovementDto) {
-    
+    console.log(productMovement);
   }
 }

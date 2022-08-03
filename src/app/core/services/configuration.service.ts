@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "environments/environment";
 import { Observable } from "rxjs";
+import { CatalogDto } from "../dtos/configuration/catalog.dto";
 import { OptionDto } from "../dtos/configuration/option.dto";
 import { ServiceBase } from "./base.service";
 
@@ -29,5 +30,9 @@ export class ConfigurationService extends ServiceBase{
             .set("id", (parameters.id ?? -1).toString())
             .set("status", (parameters.status ?? -1).toString());      
         return this._httpClient.get<OptionDto[]>(`${this.getPartialUrl()}/option/`, { params: queryString });
+    }
+
+    public findCatalogMaster(codeList: string[]): Observable<CatalogDto[]> {
+        return this._httpClient.post<CatalogDto[]>(`${this.getPartialUrl()}/catalog/master`, codeList);
     }
 }
