@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CoreCommonModule } from '@core/common.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -73,7 +74,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CoreCommonModule,
-    DatatableModule
+    DatatableModule,
+    NgSelectModule
   ]
 })
 export class CommonsModule { }

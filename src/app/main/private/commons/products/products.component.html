@@ -28,12 +28,9 @@
                         </div>
                         <div class="col-md-2 form-group">
                            <label>Categoría</label>
-                           <select class="form-control form-control-sm" [(ngModel)]="parameters.categoryId">
-                              <option [ngValue]="-1">- Todos -</option>
-                              <option *ngFor="let categoryDto of categoryDtos;" [ngValue]="categoryDto.id">
-                                 {{categoryDto.name}}
-                              </option>
-                           </select>
+                           <ng-select [items]="categoryDtos" bindLabel="name" bindValue="id"
+                              [(ngModel)]="parameters.categoryId">
+                           </ng-select>
                         </div>
                         <div class="col-md-2 form-group">
                            <label> </label>

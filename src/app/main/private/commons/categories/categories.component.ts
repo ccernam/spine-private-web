@@ -34,7 +34,7 @@ export class CategoriesComponent implements OnInit {
       {
          name: 'statusName',
          title: 'Estado',
-         width: 10,
+         width: 60,
          class: 'justify-content-center',
          custom: {
             name: 'status',
@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
       {
          name: 'reportingStatusName',
          title: 'Estado de Reportería',
-         width: 10,
+         width: 60,
          class: 'justify-content-center',
          custom: {
             name: 'reportingStatus',
@@ -78,7 +78,7 @@ export class CategoriesComponent implements OnInit {
       modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
          if (modalResultModel != null && modalResultModel.success == true) {
             this.categoryDtos.push(modalResultModel.data);
-            this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
+            this.categoryDtos = [...this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))];
          }
       });
    }
@@ -89,7 +89,7 @@ export class CategoriesComponent implements OnInit {
       modal.result.then((modalResultModel: ModalResultModel<CategoryDto>) => {
          if (modalResultModel != null && modalResultModel.success == true) {
             this.categoryDtos[item] = modalResultModel.data;
-            this.categoryDtos = this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))
+            this.categoryDtos = [...this.categoryDtos.sort((a, b) => (a.name.localeCompare(b.name)))]
          }
       });
    }

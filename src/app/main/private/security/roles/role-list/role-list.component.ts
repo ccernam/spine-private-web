@@ -60,7 +60,7 @@ export class RoleListComponent implements OnInit {
       this._loadingService.show();
       this._securityService.findRole().subscribe(data => {
          this._loadingService.hide();
-         this.roles = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
+         this.roles = [...data];
       });
    }
 
@@ -69,6 +69,7 @@ export class RoleListComponent implements OnInit {
       modal.result.then((result) => {
          if (result != null && result.success == true) {
             this.roles.push(result.role);
+            this.roles = [...this.roles.sort((a, b) => (a.name.localeCompare(b.name)))];
          }
       });
    }
@@ -78,7 +79,9 @@ export class RoleListComponent implements OnInit {
       modal.componentInstance.role = { ...role };
       modal.result.then((result) => {
          if (result != null && result.success == true) {
-            this.roles[item] = result.role;
+            this.roles = this.roles.map((item: RoleDto) => (item.id === result.role.id) ? result.role : item);
+            this.roles[item] = result.data;
+            this.roles = [...this.roles.sort((a, b) => (a.name.localeCompare(b.name)))]
          }
       });
    }

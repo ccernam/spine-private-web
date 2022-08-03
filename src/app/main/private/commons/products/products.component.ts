@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit {
       this._loadingService.show();
       this.getInitialData().subscribe(data => {
          this._loadingService.hide();
-         this.categoryDtos = data[0];
+         this.categoryDtos = [{ id: -1, name: '- Todos -' }, ...data[0]];
       });
    }
 
@@ -63,7 +63,7 @@ export class ProductsComponent implements OnInit {
       const modal = this._modalService.open(StocksComponent, { size: 'lg' });
       modal.componentInstance.productDto = { ...productDto }
       /*modal.result.then((modalResultModel: ModalResultModel<boolean>) => {
-         
+
       });*/
    }
 
