@@ -141,4 +141,10 @@ export class CommonsService extends ServiceBase {
     public editPrices(editPricesDto: EditPricesDto): Observable<boolean> {
         return this._httpClient.put<boolean>(`${this.getPartialUrl()}/product/editPrices`, editPricesDto);
     }
+    public createProduct(productDto: ProductDto): Observable<ProductDto> {
+        return this._httpClient.post<ProductDto>(`${this.getPartialUrl()}/product`, productDto);
+    }
+    public editProduct(productDto: ProductDto): Observable<ProductDto> {
+        return this._httpClient.put<ProductDto>(`${this.getPartialUrl()}/product`, productDto);
+    }
 }

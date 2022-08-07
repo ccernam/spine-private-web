@@ -47,18 +47,19 @@
                                     <tr>
                                        <th style="position: sticky; top: -2px; z-index: 1; width: 40px;">
                                           Nro</th>
-                                       <th style="position: sticky; top: -2px; z-index: 1;">Código</th>
-                                       <th style="position: sticky; top: -2px; z-index: 1;">Nombre</th>
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 20%;">Nombre</th>
                                        <th style="position: sticky; top: -2px; z-index: 1;">Descripción
                                        </th>
-                                       <th style="position: sticky; top: -2px; z-index: 1;">Categoría</th>
-                                       <th style="position: sticky; top: -2px; z-index: 1;">Und. Medida
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 12%;">Categoría</th>
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 12%;">Und. Medida
                                        </th>
-                                       <th style="position: sticky; top: -2px; z-index: 1; width: 10px;">
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">Control de
+                                          Stock</th>
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
                                           Estado</th>
-                                       <th style="position: sticky; top: -2px; z-index: 1; width: 10px;">
+                                       <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
                                           Estado de Reportería</th>
-                                       <th colspan="3" style="position: sticky; top: -2px; z-index: 1; width: 96px;">
+                                       <th colspan="3" style="position: sticky; top: -2px; z-index: 1; width: 6%;">
                                           Opciones</th>
                                     </tr>
                                  </thead>
@@ -67,19 +68,20 @@
                                        class="btn-off">
                                        <td class="align-middle text-center">{{item + 1}}</td>
                                        <td class="align-middle" style="white-space: nowrap;">
-                                          {{productDto.code}}
-                                       </td>
-                                       <td class="align-middle" style="white-space: nowrap;">
                                           {{productDto.name}}
                                        </td>
                                        <td class="align-middle" style="white-space: nowrap;">
                                           {{productDto.description}}
                                        </td>
+
                                        <td class="align-middle" style="white-space: nowrap;">
                                           {{productDto.categoryName}}
                                        </td>
                                        <td class="align-middle" style="white-space: nowrap;">
                                           {{productDto.measurementUnitName}}
+                                       </td>
+                                       <td class="align-middle text-center">
+                                          <input type="checkbox" [checked]="productDto.stockControl" disabled>
                                        </td>
                                        <td class="text-center">
                                           <span [ngClass]="_globalService.getStatusClass(productDto.status)">{{
