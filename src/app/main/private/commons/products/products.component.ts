@@ -8,6 +8,7 @@ import { GlobalService } from 'app/core/services/global.service';
 import { LoadingService } from 'app/core/services/loading.service';
 import { forkJoin, Observable } from 'rxjs';
 import { PricesComponent } from '../prices/prices.component';
+import { ProductComponent } from '../product/product.component';
 import { StocksComponent } from '../stocks/stocks.component';
 
 @Component({
@@ -43,7 +44,6 @@ export class ProductsComponent implements OnInit {
    }
 
    find(): void {
-      console.log(this.parameters);
       this._loadingService.show();
       this._commonsService.findProduct(this.parameters).subscribe(data => {
          this.productDtos = data;
@@ -52,11 +52,24 @@ export class ProductsComponent implements OnInit {
    }
 
    create(): void {
-      alert("create")
+      const modal = this._modalService.open(ProductComponent, { size: 'sm' });
+      modal.result.then((modalResultModel: ModalResultModel<ProductDto>) => {
+         if (modalResultModel != null && modalResultModel.success == true) {
+            this.productDtos.push(modalResultModel.data);
+            this.productDtos = this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))
+         }
+      });
    }
 
    edit(item: number, productDto: ProductDto): void {
-      alert("edit");
+      const modal = this._modalService.open(ProductComponent, { size: 'sm' });
+      modal.componentInstance.productDto = { ...productDto };
+      modal.result.then((modalResultModel: ModalResultModel<ProductDto>) => {
+         if (modalResultModel != null && modalResultModel.success == true) {
+            this.productDtos.push(modalResultModel.data);
+            this.productDtos = this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))
+         }
+      });
    }
 
    findStock(item: number, productDto: ProductDto): void {

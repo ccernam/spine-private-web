@@ -21,6 +21,7 @@ import { MeasurementUnitsComponent } from './measurement-units/measurement-units
 import { MeasurementUnitComponent } from './measurement-unit/measurement-unit.component';
 import { CurrenciesComponent } from './currencies/currencies.component';
 import { CurrencyComponent } from './currency/currency.component';
+import { ProductComponent } from './product/product.component';
 
 // routing
 const routes: Routes = [
@@ -65,7 +66,8 @@ const routes: Routes = [
     MeasurementUnitsComponent,
     MeasurementUnitComponent,
     CurrenciesComponent,
-    CurrencyComponent
+    CurrencyComponent,
+    ProductComponent
   ],
   imports: [
     RouterModule.forChild(routes),
