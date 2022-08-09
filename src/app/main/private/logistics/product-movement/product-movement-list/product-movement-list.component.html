@@ -7,18 +7,55 @@
                         <div class="card-header">
                             <h4 class="card-title">Movimientos de Almacén</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body"> 
                             <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <button class="btn btn-primary btn-sm" (click)="createProductMovement();" style="margin-left: 0;">
-                                       <i data-feather="plus" class="mr-25"></i>Nuevo
+                                <div class="col-md-2 form-group">
+                                    <label>Sucursal</label>
+                                    <ng-select [items]="branches" bindLabel="name" bindValue="id">                                        
+                                    </ng-select>
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label>Almacén</label>
+                                    <ng-select [items]="warehouses" bindLabel="name" bindValue="id">                                        
+                                    </ng-select>
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label>Tipo Mov.</label>
+                                    <ng-select [items]="types" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
+                                    </ng-select>
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label>Motivo Mov.</label>
+                                    <ng-select name="reasonMovCbo" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
+                                    </ng-select>
+                                </div>      
+
+                                <div class="col-md-2 form-group">
+                                    <label>Estado Mov.</label>
+                                    <ng-select [items]="statuses" bindLabel="name" bindValue="numericValue">                                        
+                                    </ng-select>
+                                </div>
+                                
+                                <div class="col-md-2 form-group">
+                                    <label>Fecha Movimiento</label>
+                                    <input type="date" class="form-control"/>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label> </label>
+                                    <button class="btn btn-primary btn-sm" (click)="find();">
+                                       <i data-feather="search" class="mr-1"></i>Buscar
                                     </button>
                                  </div>
-                            </div>
+                            </div>                     
                             <div class="row">
                                 <div class="col-md-12">
                                     <app-datatable class="w100" [columns]="columns" [rows]="productMovements" [actions]="actions"
-                                        (actionEvent)="actionEvent($event)" (editEvent)="editEvent($event)" [search]="true">                                        
+                                        (action)="actionEvent($event)" (create)="createMovement()" (edit)="editEvent($event)" [search]="false">                                        
                                     </app-datatable>
                                 </div>
                             </div>

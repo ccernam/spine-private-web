@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { CoreCommonModule } from '@core/common.module'
 import { DatatableModule } from 'app/main/components/datatable/datatable.module'
+import { NgSelectModule } from '@ng-select/ng-select'
 
 const routes : Routes = [
     {
@@ -31,7 +32,8 @@ const routes : Routes = [
         FormsModule,
         ReactiveFormsModule,
         CoreCommonModule,
-        DatatableModule
+        DatatableModule,
+        NgSelectModule
     ]
 })
 

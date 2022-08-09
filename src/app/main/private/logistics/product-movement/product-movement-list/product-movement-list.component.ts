@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BranchDto } from 'app/core/dtos/commons/branch.dto';
+import { ProductDto } from 'app/core/dtos/commons/product.dto';
+import { WarehouseDto } from 'app/core/dtos/commons/warehouse.dto';
+import { CatalogDetailDto } from 'app/core/dtos/configuration/catalog-detail.dto';
+import { CatalogDto } from 'app/core/dtos/configuration/catalog.dto';
 import { ProductMovementDto } from 'app/core/dtos/logistics/product-movement.dto';
+import { CommonsService } from 'app/core/services/commons.service';
 import { ConfigurationService } from 'app/core/services/configuration.service';
 import { LoadingService } from 'app/core/services/loading.service';
 import { LogisticsService } from 'app/core/services/logistics.service';
@@ -18,6 +24,17 @@ import { ProductMovement } from '../product-movement.module';
 export class ProductMovementListComponent implements OnInit {
 
   public productMovements: ProductMovementDto[] = [];
+  
+  
+  public branches : BranchDto[] = [];
+  public warehouses : WarehouseDto[] = [];
+  public statuses : CatalogDetailDto[] = [];
+  public types: CatalogDetailDto[] = [];
+  public reasons : CatalogDetailDto[] = [];
+  public products :  ProductDto[] = [];
+
+  private inboundReasons : CatalogDetailDto[] = [];
+  private outboundReasons : CatalogDetailDto[] = [];
 
   public columns: DatatableColumn[] = [
     {
@@ -91,6 +108,7 @@ export class ProductMovementListComponent implements OnInit {
   constructor(
     private _loadingService: LoadingService,
     private _logisticsService: LogisticsService,
+    private _commonsService : CommonsService,
     private _configurationService: ConfigurationService,
     private modal: NgbModal,
     private _toastrService: CustomToastrService,
@@ -100,21 +118,28 @@ export class ProductMovementListComponent implements OnInit {
   ngOnInit(): void {
     this._loadingService.show();
     this._logisticsService.findProductMovementHeader().subscribe(data => {
-      this._loadingService.hide();
       this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
     });
-    this._loadingService.show();
+
+    this._commonsService.findBranch({ companyId: 1, status : 1 }).subscribe(data => {
+      this.branches = data;
+    });
+
     this._configurationService.findCatalogMaster(["0701", "0702", "0703", "0704"]).subscribe(data => {
-      this._loadingService.hide();
-      console.log(data);
+      this.statuses = data.find(x => x.code == "0701").details;
+      this.types = data.find(x => x.code == "0702").details;
+      this.inboundReasons = data.find(x => x.code == "0703").details;
+      this.outboundReasons = data.find(x => x.code == "0704").details;
     });
-  }
 
-  createProductMovement(){
-    const modal = this.modal.open(ProductMovementFormComponent, { size: 'lg' });
-    modal.result.then((result) => {
-
+    this._commonsService.findWarehouse({ status : 1 }).subscribe(data => {
+      this.warehouses = data;
     });
+
+    this._commonsService.findProduct({ status : 1 }).subscribe(data => {
+      this.products = data;
+    });
+    this._loadingService.hide();
   }
 
   actionEvent({ name, index, row }) {
@@ -162,5 +187,38 @@ export class ProductMovementListComponent implements OnInit {
 
   viewProductMovement(item: number, productMovement: ProductMovementDto) {
     console.log(productMovement);
+  }
+
+  createMovement() {
+    const modal = this.modal.open(ProductMovementFormComponent, { size: 'xl' });
+    modal.result.then((result) => {
+
+    });
+  }
+  movementTypeChanged(selected :CatalogDetailDto){
+    if (selected == null)
+    {
+      this.reasons = [];
+    }
+    else
+    {
+      if (selected.numericValue == 1)
+      {
+        this.reasons = this.inboundReasons;
+      }
+      else if (selected.numericValue == 2)
+      {
+        this.reasons = this.outboundReasons;
+      }
+      else
+      {
+        this.reasons = [];
+      }
+    }    
+  }
+
+  find()
+  {
+    
   }
 }
