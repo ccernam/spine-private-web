@@ -191,10 +191,20 @@ export class ProductMovementListComponent implements OnInit {
 
   createMovement() {
     const modal = this.modal.open(ProductMovementFormComponent, { size: 'xl' });
+    modal.componentInstance.branches = [ ...this.branches ];
+    modal.componentInstance.warehouses = [ ...this.warehouses ];    
+    modal.componentInstance.types = [ ...this.types ];
+    //modal.componentInstance.reasons = [ ...this.reasons ];
+    modal.componentInstance.products = [ ...this.products ];
+
+    modal.componentInstance.inboundReasons = [ ...this.inboundReasons ];
+    modal.componentInstance.outboundReasons = [ ...this.outboundReasons ];
+    modal.componentInstance.title = "Crear movimiento de almacén"
     modal.result.then((result) => {
 
     });
   }
+
   movementTypeChanged(selected :CatalogDetailDto){
     if (selected == null)
     {

@@ -5,8 +5,72 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="row">     
+        <h4 class="col-md-12">Datos del movimiento</h4>
+    </div>
     <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Sucursal</label>
+            <ng-select [items]="branches" bindLabel="name" bindValue="id">                                        
+            </ng-select>
+        </div>
 
+        <div class="col-md-2 form-group">
+            <label>Almacén</label>
+            <ng-select [items]="warehouses" bindLabel="name" bindValue="id">                                        
+            </ng-select>
+        </div>
+
+        <div class="col-md-2 form-group">
+            <label>Tipo Mov.</label>
+            <ng-select [items]="types" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
+            </ng-select>
+        </div>
+
+        <div class="col-md-2 form-group">
+            <label>Motivo Mov.</label>
+            <ng-select name="reasonMovCbo" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
+            </ng-select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Fecha Movimiento</label>
+            <input type="date" class="form-control"/>
+        </div>
+    </div>
+    <div class="row" id="#newDetailSection">     
+        <h4 class="col-md-12">Detalle</h4>
+    </div>
+    <div class="row">     
+        <div class="col-md-2 form-group">
+            <label>Producto</label>
+            <ng-select [items]="products" bindLabel="name" bindValue="id">                                        
+            </ng-select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Cantidad</label>
+            <input type="number" class="form-control"/>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Monto Pagado</label>
+            <input type="number" class="form-control"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Comentarios</label>
+            <input type="number" class="form-control"/>
+        </div>
+        <div class="col-md-2 form-group">
+            <label> </label>
+            <button class="btn btn-primary btn-sm" (click)="addDetail();">
+               <i data-feather="plus" class="mr-1"></i>Agregar
+            </button>
+         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <app-datatable class="w100" [add]="false" [search]="false">
+
+            </app-datatable>
+        </div>
     </div>
 </div>
 <div class="modal-footer">
