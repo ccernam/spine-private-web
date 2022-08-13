@@ -11,30 +11,30 @@
     <div class="row">
         <div class="col-md-2 form-group">
             <label>Sucursal</label>
-            <ng-select [items]="branches" bindLabel="name" bindValue="id">                                        
+            <ng-select [items]="branches" [(ngModel)]="productMovementDto.branchId"  bindLabel="name" bindValue="id">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Almacén</label>
-            <ng-select [items]="warehouses" bindLabel="name" bindValue="id">                                        
+            <ng-select [items]="warehouses" [(ngModel)]="productMovementDto.warehouseId" bindLabel="name" bindValue="id">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Tipo Mov.</label>
-            <ng-select [items]="types" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
+            <ng-select [items]="types" [(ngModel)]="productMovementDto.type" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Motivo Mov.</label>
-            <ng-select name="reasonMovCbo" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
+            <ng-select name="reasonMovCbo" [(ngModel)]="productMovementDto.reason" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
             </ng-select>
         </div>
         <div class="col-md-2 form-group">
             <label>Fecha Movimiento</label>
-            <input type="date" class="form-control"/>
+            <input type="date" [(ngModel)]="productMovementDto.issueDate"  class="form-control"/>
         </div>
     </div>
     <div class="row" id="#newDetailSection">     
@@ -43,20 +43,20 @@
     <div class="row">     
         <div class="col-md-2 form-group">
             <label>Producto</label>
-            <ng-select [items]="products" bindLabel="name" bindValue="id">                                        
+            <ng-select [items]="products" [(ngModel)]="productMovementDetailDto.productId" bindLabel="name" bindValue="id">                                        
             </ng-select>
         </div>
         <div class="col-md-2 form-group">
             <label>Cantidad</label>
-            <input type="number" class="form-control"/>
+            <input type="number" [(ngModel)]="productMovementDetailDto.quantity" class="form-control"/>
         </div>
         <div class="col-md-2 form-group">
             <label>Monto Pagado</label>
-            <input type="number" class="form-control"/>
+            <input type="number" [(ngModel)]="productMovementDetailDto.billedAmount" class="form-control"/>
         </div>
         <div class="col-md-4 form-group">
             <label>Comentarios</label>
-            <input type="number" class="form-control"/>
+            <input type="text" maxlength="300" [(ngModel)]="productMovementDetailDto.comments" class="form-control"/>
         </div>
         <div class="col-md-2 form-group">
             <label> </label>
@@ -67,7 +67,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <app-datatable class="w100" [add]="false" [search]="false">
+            <app-datatable [columns]="columns" [rows]= "productMovementDetails" class="w100" [add]="false" [search]="false" 
+            (action)="actionEvent($event)" [actions] ="actions">
 
             </app-datatable>
         </div>

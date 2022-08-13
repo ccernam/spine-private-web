@@ -1,4 +1,5 @@
 import { DtoBase } from "../base.dto"
+import { ProductMovementDetailDto } from "./product-movement-detail.dto";
 
 export class ProductMovementDto extends DtoBase {
     public parentId?: number;
@@ -21,4 +22,5 @@ export class ProductMovementDto extends DtoBase {
     public saleDocumentNumber: string;
     public buyDocumentNumber: string;
     public supplierName: string;
+    public detail:ProductMovementDetailDto[]
 }

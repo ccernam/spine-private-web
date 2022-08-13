@@ -162,7 +162,12 @@ export class ProductMovementListComponent implements OnInit {
   }
 
   editProductMovement(item: number, productMovement: ProductMovementDto) {
-    console.log(productMovement);
+    if (productMovement.status != 3){
+      this._toastrService.warning("Solo se pueden editar movimientos de almacén en borrador");
+      return;
+    }
+
+    this.openDetailModal(2, "Editar movimiento de almacén");
   }
 
   async rollbackProductMovement(item: number, productMovement: ProductMovementDto) {
@@ -190,6 +195,10 @@ export class ProductMovementListComponent implements OnInit {
   }
 
   createMovement() {
+    this.openDetailModal(1, "Crear movimiento de almacén");
+  }
+
+  openDetailModal(type:number, title:string): void {
     const modal = this.modal.open(ProductMovementFormComponent, { size: 'xl' });
     modal.componentInstance.branches = [ ...this.branches ];
     modal.componentInstance.warehouses = [ ...this.warehouses ];    
@@ -199,7 +208,9 @@ export class ProductMovementListComponent implements OnInit {
 
     modal.componentInstance.inboundReasons = [ ...this.inboundReasons ];
     modal.componentInstance.outboundReasons = [ ...this.outboundReasons ];
-    modal.componentInstance.title = "Crear movimiento de almacén"
+
+    modal.componentInstance.title = title
+    modal.componentInstance.formType = type;
     modal.result.then((result) => {
 
     });
