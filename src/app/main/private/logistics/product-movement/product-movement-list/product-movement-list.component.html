@@ -11,37 +11,37 @@
                             <div class="row">
                                 <div class="col-md-2 form-group">
                                     <label>Sucursal</label>
-                                    <ng-select [items]="branches" bindLabel="name" bindValue="id">                                        
+                                    <ng-select [items]="branches" [(ngModel)]="parameters.branchId"  bindLabel="name" bindValue="id">                                        
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-2 form-group">
                                     <label>Almacén</label>
-                                    <ng-select [items]="warehouses" bindLabel="name" bindValue="id">                                        
+                                    <ng-select [items]="warehouses" [(ngModel)]="parameters.warehouseId" bindLabel="name" bindValue="id">                                        
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-2 form-group">
                                     <label>Tipo Mov.</label>
-                                    <ng-select [items]="types" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
+                                    <ng-select [items]="types" [(ngModel)]="parameters.type" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
                                     </ng-select>
                                 </div>
 
                                 <div class="col-md-2 form-group">
                                     <label>Motivo Mov.</label>
-                                    <ng-select name="reasonMovCbo" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
+                                    <ng-select name="reasonMovCbo" [(ngModel)]="parameters.reason" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
                                     </ng-select>
                                 </div>      
 
                                 <div class="col-md-2 form-group">
                                     <label>Estado Mov.</label>
-                                    <ng-select [items]="statuses" bindLabel="name" bindValue="numericValue">                                        
+                                    <ng-select [items]="statuses" [(ngModel)]="parameters.status" bindLabel="name" bindValue="numericValue">                                        
                                     </ng-select>
                                 </div>
                                 
                                 <div class="col-md-2 form-group">
                                     <label>Fecha Movimiento</label>
-                                    <input type="date" class="form-control"/>
+                                    <input type="date" name="issueDate" #issueDate="ngModel" [ngModel]="parameters.issueDate|date:'yyyy-MM-dd'" [value]="parameters.issueDate|date:'yyyy-MM-dd'" (ngModelChange)="updateIssueDate($event)" class="form-control"/>
                                 </div>
                             </div> 
                             <div class="row">

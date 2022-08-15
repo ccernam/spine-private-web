@@ -32,6 +32,7 @@ export class ProductMovementListComponent implements OnInit {
   public types: CatalogDetailDto[] = [];
   public reasons : CatalogDetailDto[] = [];
   public products :  ProductDto[] = [];
+  public parameters :{ companyId?:number, branchId?:number, warehouseId?:number, type?:number, reason?:number, supplierId?:number, status?:number, saleDocumentId?:number, buyDocumentId?:number, issueDate?:string } = {};
 
   private inboundReasons : CatalogDetailDto[] = [];
   private outboundReasons : CatalogDetailDto[] = [];
@@ -116,10 +117,7 @@ export class ProductMovementListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._loadingService.show();
-    this._logisticsService.findProductMovementHeader().subscribe(data => {
-      this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
-    });
+    this._loadingService.show();   
 
     this._commonsService.findBranch({ companyId: 1, status : 1 }).subscribe(data => {
       this.branches = data;
@@ -167,7 +165,7 @@ export class ProductMovementListComponent implements OnInit {
       return;
     }
 
-    this.openDetailModal(2, "Editar movimiento de almacén");
+    this.openDetailModal(2, "Editar movimiento de almacén", productMovement);
   }
 
   async rollbackProductMovement(item: number, productMovement: ProductMovementDto) {
@@ -191,19 +189,18 @@ export class ProductMovementListComponent implements OnInit {
   }
 
   viewProductMovement(item: number, productMovement: ProductMovementDto) {
-    console.log(productMovement);
+    this.openDetailModal(3, "Movimiento de almacén", productMovement);
   }
 
   createMovement() {
-    this.openDetailModal(1, "Crear movimiento de almacén");
+    this.openDetailModal(1, "Crear movimiento de almacén", null);
   }
 
-  openDetailModal(type:number, title:string): void {
+  openDetailModal(type:number, title:string, productMovement:ProductMovementDto): void {
     const modal = this.modal.open(ProductMovementFormComponent, { size: 'xl' });
     modal.componentInstance.branches = [ ...this.branches ];
     modal.componentInstance.warehouses = [ ...this.warehouses ];    
     modal.componentInstance.types = [ ...this.types ];
-    //modal.componentInstance.reasons = [ ...this.reasons ];
     modal.componentInstance.products = [ ...this.products ];
 
     modal.componentInstance.inboundReasons = [ ...this.inboundReasons ];
@@ -211,6 +208,12 @@ export class ProductMovementListComponent implements OnInit {
 
     modal.componentInstance.title = title
     modal.componentInstance.formType = type;
+
+    if (type == 2 || type == 3)
+    {
+      modal.componentInstance.productMovementDto = { ...productMovement };
+    }
+
     modal.result.then((result) => {
 
     });
@@ -240,6 +243,12 @@ export class ProductMovementListComponent implements OnInit {
 
   find()
   {
-    
+    this._logisticsService.findProductMovementHeader({ companyId :1, branchId:1, warehouseId:this.parameters.warehouseId, type:this.parameters.type, reason: this.parameters.reason, supplierId: this.parameters.supplierId, status:this.parameters.status, issueDate: this.parameters.issueDate }).subscribe(data => {
+      this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
+    });
+  }
+
+  updateIssueDate(event : any) {
+    this.parameters.issueDate = new Date(event).toJSON().toString();
   }
 }

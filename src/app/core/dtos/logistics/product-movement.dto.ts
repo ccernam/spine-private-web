@@ -22,5 +22,5 @@ export class ProductMovementDto extends DtoBase {
     public saleDocumentNumber: string;
     public buyDocumentNumber: string;
     public supplierName: string;
-    public detail:ProductMovementDetailDto[]
+    public productMovementDetails:ProductMovementDetailDto[]
 }

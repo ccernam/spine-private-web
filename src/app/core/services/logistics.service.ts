@@ -15,11 +15,13 @@ export class LogisticsService extends ServiceBase {
         super(environment.apiUrl, 'logistics', _httpClient);
     }
 
-    public findProductMovementHeader(parameters?: { companyId?:number, branchId?:number, warehouseId?:number, type?:number, reason?:number, supplierId?:number, status?:number, saleDocumentId?:number, buyDocumentId?:number }) : Observable<ProductMovementDto[]> {
+    public findProductMovementHeader(parameters?: { companyId?:number, branchId?:number, warehouseId?:number, type?:number, reason?:number, supplierId?:number, status?:number, saleDocumentId?:number, buyDocumentId?:number, issueDate?:string }) : Observable<ProductMovementDto[]> {
         if (parameters == null)
         {
             parameters = {};
-        }
+        }       
+        
+
         let queryString : HttpParams = new HttpParams()
             .set("companyId", (parameters.companyId ?? -1).toString())
             .set("branchId", (parameters.branchId ?? -1).toString())
@@ -29,7 +31,23 @@ export class LogisticsService extends ServiceBase {
             .set("supplierId", (parameters.supplierId ?? -1).toString())
             .set("status", (parameters.status ?? -1).toString())
             .set("saleDocumentId", (parameters.saleDocumentId ?? -1).toString())
+            .set("buyDocumentId", (parameters.buyDocumentId ?? -1).toString())
+            .set("issueDate", parameters.issueDate);
+
+        if (parameters.issueDate == undefined)
+        {
+            queryString = new HttpParams()
+            .set("companyId", (parameters.companyId ?? -1).toString())
+            .set("branchId", (parameters.branchId ?? -1).toString())
+            .set("warehouseId", (parameters.warehouseId ?? -1).toString())
+            .set("type", (parameters.type ?? -1).toString())
+            .set("reason", (parameters.reason ?? -1).toString())
+            .set("supplierId", (parameters.supplierId ?? -1).toString())
+            .set("status", (parameters.status ?? -1).toString())
+            .set("saleDocumentId", (parameters.saleDocumentId ?? -1).toString())
             .set("buyDocumentId", (parameters.buyDocumentId ?? -1).toString());
+        }
+        
         return this._httpClient.get<ProductMovementDto[]>(`${this.getPartialUrl()}/product/movement/header`, { params: queryString});
     }
 

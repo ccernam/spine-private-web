@@ -11,36 +11,42 @@
     <div class="row">
         <div class="col-md-2 form-group">
             <label>Sucursal</label>
-            <ng-select [items]="branches" [(ngModel)]="productMovementDto.branchId"  bindLabel="name" bindValue="id">                                        
+            <ng-select [items]="branches" [disabled]="formType == 3" [(ngModel)]="productMovementDto.branchId"  bindLabel="name" bindValue="id">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Almacén</label>
-            <ng-select [items]="warehouses" [(ngModel)]="productMovementDto.warehouseId" bindLabel="name" bindValue="id">                                        
+            <ng-select [items]="warehouses" [disabled]="formType == 3" [(ngModel)]="productMovementDto.warehouseId" bindLabel="name" bindValue="id">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Tipo Mov.</label>
-            <ng-select [items]="types" [(ngModel)]="productMovementDto.type" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
+            <ng-select [items]="types" [disabled]="formType == 3" [(ngModel)]="productMovementDto.type" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
             </ng-select>
         </div>
 
         <div class="col-md-2 form-group">
             <label>Motivo Mov.</label>
-            <ng-select name="reasonMovCbo" [(ngModel)]="productMovementDto.reason" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
+            <ng-select name="reasonMovCbo" [disabled]="formType == 3" [(ngModel)]="productMovementDto.reason" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
             </ng-select>
         </div>
-        <div class="col-md-2 form-group">
-            <label>Fecha Movimiento</label>
-            <input type="date" [(ngModel)]="productMovementDto.issueDate"  class="form-control"/>
+        <div class="col-md-4 form-group">
+            <label>Comentarios</label>
+            <input type="text" maxlength="300" [disabled]="formType == 3" [(ngModel)]="productMovementDto.comments" class="form-control"/>
         </div>
     </div>
-    <div class="row" id="#newDetailSection">     
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Fecha Movimiento</label>
+            <input type="date" name="issueDate" [disabled]="formType == 3" (ngModelChange)="updateIssueDate($event)" #issueDate="ngModel" [ngModel]="productMovementDto.issueDate |date:'yyyy-MM-dd'" class="form-control"/>
+        </div>
+    </div>
+    <div class="row" id="#newDetailSection" *ngIf="formType != 3">     
         <h4 class="col-md-12">Detalle</h4>
     </div>
-    <div class="row">     
+    <div class="row" *ngIf="formType != 3">     
         <div class="col-md-2 form-group">
             <label>Producto</label>
             <ng-select [items]="products" [(ngModel)]="productMovementDetailDto.productId" bindLabel="name" bindValue="id">                                        
@@ -75,10 +81,10 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-primary" (click)="saveActiveProductMovent();">
+    <button type="button" class="btn btn-sm btn-primary" (click)="saveActiveProductMovent();" *ngIf="formType == 1 || formType == 2">
         <i data-feather="save" class="mr-1"></i>Guardar
      </button>
-     <button type="button" class="btn btn-sm btn-warning" (click)="saveTempProductMovent();">
+     <button type="button" class="btn btn-sm btn-warning" (click)="saveTempProductMovent();" *ngIf="formType == 1 || formType == 2">
         <i data-feather="save" class="mr-1"></i>Guardar Borrador
      </button>
      <button type="button" class="btn btn-sm btn-info" data-dismiss="modal" (click)="close();">
