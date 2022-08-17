@@ -34,7 +34,7 @@ export class CategoriesComponent implements OnInit {
       {
          name: 'statusName',
          title: 'Estado',
-         width: 60,
+         width: 160,
          class: 'justify-content-center',
          custom: {
             name: 'status',
@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
       {
          name: 'reportingStatusName',
          title: 'Estado de Reportería',
-         width: 60,
+         width: 160,
          class: 'justify-content-center',
          custom: {
             name: 'reportingStatus',
@@ -62,7 +62,7 @@ export class CategoriesComponent implements OnInit {
    ]
 
    public actions: DatatableAction[] = [
-      { name: 'edit-category', icon: 'edit', width: 35, title: 'Editar' }
+      { name: 'edit-category', icon: 'edit', width: 40, title: 'Editar' }
    ]
 
    ngOnInit(): void {
