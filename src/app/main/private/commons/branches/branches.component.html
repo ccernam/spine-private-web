@@ -11,71 +11,11 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <button class="btn btn-primary btn-sm" (click)="create();" style="margin-left: 0;">
-                                        <i data-feather="plus" class="mr-1"></i>Nuevo
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-responsive" style="max-height: 668px;">
-                                        <table class="table table-striped table-sm table-bordered dt-responsive nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 40px;">
-                                                        Nro</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 20%;">
-                                                        Nombre</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1;">Dirección</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Estado</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Estado de Reportería</th>
-                                                    <th colspan="2"
-                                                        style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="branchDtos.length > 0;else ListaVacia">
-                                                <tr *ngFor="let branchDto of branchDtos; let item = index;"
-                                                    id="{{item}}" class="btn-off">
-                                                    <td class="align-middle text-center">{{item + 1}}</td>
-                                                    <td class="align-middle" style="white-space: nowrap;">
-                                                        {{branchDto.name}}
-                                                    </td>
-                                                    <td class="align-middle" style="white-space: nowrap;">
-                                                        {{branchDto.address}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span
-                                                            [ngClass]="_globalService.getStatusClass(branchDto.status)">{{
-                                                            branchDto.statusName}}</span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span
-                                                            [ngClass]="_globalService.getStatusClass(branchDto.reportingStatus)">{{
-                                                            branchDto.reportingStatusName}}</span>
-                                                    </td>
-                                                    <td class="align-middle text-center"
-                                                        style="text-align: center; width: 32px;">
-                                                        <a href="javascript: void(0);" (click)="edit(item, branchDto)"
-                                                            title="Editar sucursal...">
-                                                            <i data-feather="edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <ng-template #ListaVacia>
-                                                <tbody>
-                                                    <td colspan="15">
-                                                        <p class="text-center m-0">Sin registros para mostrar</p>
-                                                    </td>
-                                                </tbody>
-                                            </ng-template>
-                                        </table>
-                                    </div>
-
+                                    <app-datatable class="w100" [columns]="columns" [rows]="branchDtos"
+                                        [selectedLimit]="25" [actions]="actions" (action)="action($event)"
+                                        (create)="create()">
+                                    </app-datatable>
                                 </div>
                             </div>
                         </div>

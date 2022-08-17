@@ -9,74 +9,11 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <button class="btn btn-primary btn-sm" (click)="create();" style="margin-left: 0;">
-                                        <i data-feather="plus" class="mr-1"></i>Nuevo
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-sm table-bordered dt-responsive nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 40px;">
-                                                        Nro</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; ">Nombre</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 12%;">
-                                                        Símbolo</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 12%;">
-                                                        Código Iso</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Estado</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Estado de Reportería</th>
-                                                    <th style="position: sticky; top: -2px; z-index: 1; width: 6%;">
-                                                        Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="currencyDtos.length > 0;else ListaVacia">
-                                                <tr *ngFor="let currencyDto of currencyDtos; let item = index;"
-                                                    id="{{item}}" class="btn-off">
-                                                    <td class="align-middle text-center">{{item + 1}}</td>
-                                                    <td class="align-middle" style="white-space: nowrap;">
-                                                        {{currencyDto.name}}
-                                                    </td>
-                                                    <td class="align-middle" style="white-space: nowrap;">
-                                                        {{currencyDto.symbol}}
-                                                    </td>
-                                                    <td class="align-middle" style="white-space: nowrap;">
-                                                        {{currencyDto.isoCode}}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span
-                                                            [ngClass]="_globalService.getStatusClass(currencyDto.status)">{{
-                                                            currencyDto.statusName}}</span>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <span
-                                                            [ngClass]="_globalService.getStatusClass(currencyDto.reportingStatus)">{{
-                                                            currencyDto.reportingStatusName}}</span>
-                                                    </td>
-                                                    <td class="align-middle text-center"
-                                                        style="text-align: center; width: 32px;">
-                                                        <a href="javascript: void(0);" (click)="edit(item, currencyDto)"
-                                                            title="Editar sucursal...">
-                                                            <i data-feather="edit"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <ng-template #ListaVacia>
-                                                <tbody>
-                                                    <td colspan="8">
-                                                        <p class="text-center m-0">Sin registros para mostrar</p>
-                                                    </td>
-                                                </tbody>
-                                            </ng-template>
-                                        </table>
-                                    </div>
+                                    <app-datatable class="w100" [columns]="columns" [rows]="currencyDtos"
+                                        [selectedLimit]="25" [actions]="actions" (action)="action($event)"
+                                        (create)="create()">
+                                    </app-datatable>
                                 </div>
                             </div>
                         </div>

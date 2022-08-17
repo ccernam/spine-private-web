@@ -4,6 +4,7 @@ import { BranchDto } from 'app/core/dtos/commons/branch.dto';
 import { SelectItemModel } from 'app/core/models/select-item.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
+import { SweetAlertService } from 'app/core/services/sweetalert.service';
 import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class BranchComponent implements OnInit {
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
     private _toastrService: CustomToastrService,
-    private _activeModalService: NgbActiveModal
+    private _activeModalService: NgbActiveModal,
+    private _sweetAlertService: SweetAlertService
 
   ) {
     this.branchDto.id = 0;
@@ -36,8 +38,12 @@ export class BranchComponent implements OnInit {
     this.reportingStatusModels = this._globalService.getReportingStatusModels();
   }
 
-  save(): void {
+  async save(): Promise<void> {
     if (this.validate()) {
+      let question: string = "¿Está seguro " + ((this.branchDto.id ?? 0) == 0 ? "crear" : "editar") + " sucursal?";
+      const result: any = await this._sweetAlertService.confirm({ text: question });
+      if (!result.value) return;
+
       this.branchDto.companyId = 1; // TODO:
       if ((this.branchDto.id ?? 0) == 0) {
         this._commonsService.createBranch(this.branchDto).subscribe(data => {
