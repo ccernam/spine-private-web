@@ -4,6 +4,8 @@ import { BranchDto } from 'app/core/dtos/commons/branch.dto';
 import { SelectItemModel } from 'app/core/models/select-item.model';
 import { CommonsService } from 'app/core/services/commons.service';
 import { GlobalService } from 'app/core/services/global.service';
+import { LoadingService } from 'app/core/services/loading.service';
+import { SweetAlertService } from 'app/core/services/sweetalert.service';
 import { CustomToastrService } from 'app/core/services/toastr.service';
 
 @Component({
@@ -22,8 +24,9 @@ export class BranchComponent implements OnInit {
     private _commonsService: CommonsService,
     private _globalService: GlobalService,
     private _toastrService: CustomToastrService,
-    private _activeModalService: NgbActiveModal
-
+    private _activeModalService: NgbActiveModal,
+    private _sweetAlertService: SweetAlertService,
+    private _loadingService: LoadingService
   ) {
     this.branchDto.id = 0;
     this.branchDto.status = -1;
@@ -36,14 +39,21 @@ export class BranchComponent implements OnInit {
     this.reportingStatusModels = this._globalService.getReportingStatusModels();
   }
 
-  save(): void {
+  async save(): Promise<void> {
     if (this.validate()) {
+      let question: string = "¿Está seguro " + ((this.branchDto.id ?? 0) == 0 ? "crear" : "editar") + " sucursal?";
+      const result: any = await this._sweetAlertService.confirm({ text: question });
+      if (!result.value) return;
+
+
+      this._loadingService.show();
       this.branchDto.companyId = 1; // TODO:
       if ((this.branchDto.id ?? 0) == 0) {
         this._commonsService.createBranch(this.branchDto).subscribe(data => {
           this.branchDto = data;
           this._toastrService.success("Se creó sucursal exitosamente");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.branchDto));
+          this._loadingService.hide();
         });
       }
       else {
@@ -51,6 +61,7 @@ export class BranchComponent implements OnInit {
           this.branchDto = data;
           this._toastrService.success("Se editó sucursal exitosamente");
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.branchDto));
+          this._loadingService.hide();
         });
       }
     }
