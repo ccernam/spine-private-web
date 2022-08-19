@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CatalogDetailDto } from 'app/core/dtos/configuration/catalog-detail.dto';
 import { CommonsService } from 'app/core/services/commons.service';
 
 @Component({
@@ -9,8 +10,10 @@ import { CommonsService } from 'app/core/services/commons.service';
 })
 export class PersonFormComponent implements OnInit {
 
-  title: string = "Crear nuevo movimiento de almacén"
+  title: string = "Crear persona"
   public formType: number = 1;
+  public personTypes: CatalogDetailDto[] = [];
+  public documentTypes : CatalogDetailDto[] = [];
 
   constructor(
     private _activeModal: NgbActiveModal,

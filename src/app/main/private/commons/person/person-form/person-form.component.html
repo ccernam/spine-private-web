@@ -5,7 +5,105 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="row">
+        <h4 class="col-md-12">Datos Personales</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-2 form-group">
+            <label>Tipo Persona</label>
+            <ng-select [items]="personTypes" bindLabel="name" bindValue="id"></ng-select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Tipo Doc</label>
+            <ng-select [items]="documentTypes" bindLabel="name" bindValue="id"></ng-select>
+        </div>
+        <div class="col-md-2 form-group">
+            <label>Documento</label>
+            <input type="text" class="form-control" />
+        </div>
+        <section name="natural" class="col-md-6 form-group">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <label>Apellido Paterno</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Apellido Materno</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Primer Nombre</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Segundo Nombre</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>            
+        </section>
+        <!-- <section name="artificial" class="col-md-6 form-group">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Razón Social</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Representante Legal</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </section> -->
+    </div>
+    <div class="row d-flex align-items-center">
+        <div class="col-md-4 form-group">
+            <label>Comentarios</label>
+            <input type="text" class="form-control"/>
+        </div>
+        <div class="col-md-1 form-group ">            
+            <div class="form-check form-check-inline">                
+                <input mdbRadio type="radio" class="form-check-input" id="customerRadio" name="actorType" />
+                <label class="form-check-label" for="customerRadio">Cliente</label>
+            </div>                                        
+        </div>
+        <div class="col-md-1 form-group">
+            <div class="form-check form-check-inline">                
+                <input mdbRadio type="radio" class="form-check-input " id="providerRadio" name="actorType"/>
+                <label class="form-check-label " for="providerRadio">Proveedor</label>
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <div class="row">
+                <h4 class="col-md-12">Direcciones</h4>
+            </div>
+            <div class="row">
 
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <app-datatable class="w100" [add]="false" [search]="false">
+                    
+                    </app-datatable>
+                </div>                                
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <div class="row">
+                <h4 class="col-md-12">Datos de contacto</h4>
+            </div>
+            <div class="row">
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <app-datatable class="w100" [add]="false" [search]="false">
+                    
+                    </app-datatable>
+                </div>                                
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-sm btn-primary" (click)="savePerson();" *ngIf="formType == 1 || formType == 2">
