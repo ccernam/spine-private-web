@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { ProductMovementListComponent } from './product-movement-list/product-movement-list.component'
 import { ProductMovementFormComponent } from './product-movement-form/product-movement-form.component'
-import { ProductMovementDetailComponent } from './product-movement-detail/product-movement-detail.component'
 import { CommonModule } from '@angular/common'
 import { RouterModule, Routes } from '@angular/router'
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module'
@@ -21,8 +20,7 @@ const routes : Routes = [
 @NgModule({
     declarations: [
         ProductMovementListComponent,
-        ProductMovementFormComponent,
-        ProductMovementDetailComponent
+        ProductMovementFormComponent
     ],
     imports: [
         CommonModule,

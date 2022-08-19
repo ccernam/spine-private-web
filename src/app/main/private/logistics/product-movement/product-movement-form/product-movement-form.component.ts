@@ -10,7 +10,6 @@ import { LogisticsService } from 'app/core/services/logistics.service';
 import { SweetAlertService } from 'app/core/services/sweetalert.service';
 import { CustomToastrService } from 'app/core/services/toastr.service';
 import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-product-movement-form',

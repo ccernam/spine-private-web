@@ -49,7 +49,10 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
   },
-
+  {
+    path: 'person',
+    loadChildren: () => import('./person/person.module').then(m => m.Person)
+  },
 ];
 
 @NgModule({

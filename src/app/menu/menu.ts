@@ -73,6 +73,13 @@ export const menu: CoreMenu[] = [
         url: 'commons/measurement-units'
       },
       {
+        id: 'person',
+        title: 'Persona',
+        type: 'item',
+        icon: 'users',
+        url: 'commons/person'
+      },
+      {
         id: 'product',
         title: 'Productos',
         type: 'item',
@@ -83,7 +90,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'logistics',
-    title: 'Logistics',
+    title: 'Logistica',
     type: 'collapsible',
     icon : 'edit',
     children: [
