@@ -11,93 +11,150 @@
     <div class="row">
         <div class="col-md-2 form-group">
             <label>Tipo Persona</label>
-            <ng-select [items]="personTypes" bindLabel="name" bindValue="id"></ng-select>
+            <ng-select [items]="personTypes" [disabled]="formType == 3" [(ngModel)]="personDto.type" bindLabel="name" bindValue="id"></ng-select>
         </div>
         <div class="col-md-2 form-group">
             <label>Tipo Doc</label>
-            <ng-select [items]="documentTypes" bindLabel="name" bindValue="id"></ng-select>
+            <ng-select [items]="documentTypes" [disabled]="formType == 3" [(ngModel)]="personDto.docType" bindLabel="name" bindValue="id"></ng-select>
         </div>
         <div class="col-md-2 form-group">
             <label>Documento</label>
-            <input type="text" class="form-control" />
+            <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.document" class="form-control" />
         </div>
         <section name="natural" class="col-md-6 form-group">
             <div class="row">
                 <div class="col-md-3 form-group">
                     <label>Apellido Paterno</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.paternalLastName" class="form-control" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Apellido Materno</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.maternalLastName" class="form-control" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Primer Nombre</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.firstName" class="form-control" />
                 </div>
                 <div class="col-md-3 form-group">
                     <label>Segundo Nombre</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.middleName" class="form-control" />
                 </div>
             </div>            
-        </section>
-        <!-- <section name="artificial" class="col-md-6 form-group">
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Razón Social</label>
-                    <input type="text" class="form-control" />
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Representante Legal</label>
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-        </section> -->
+        </section>        
     </div>
-    <div class="row d-flex align-items-center">
-        <div class="col-md-4 form-group">
+    <div class="row d-flex align-items-end">
+        <div class="col-md-3 form-group">
+            <label>Razón Social</label>
+            <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.businessName" class="form-control" />
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Representante Legal</label>
+            <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.businessRepresentative" class="form-control" />
+        </div>
+        <div class="col-md-3 form-group">
             <label>Comentarios</label>
-            <input type="text" class="form-control"/>
+            <input type="text" [disabled]="formType == 3" [(ngModel)]="personDto.comments" class="form-control"/>
         </div>
         <div class="col-md-1 form-group ">            
             <div class="form-check form-check-inline">                
-                <input mdbRadio type="radio" class="form-check-input" id="customerRadio" name="actorType" />
+                <input mdbRadio type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input" id="customerRadio" name="actorType" [value]="true"/>
                 <label class="form-check-label" for="customerRadio">Cliente</label>
             </div>                                        
         </div>
         <div class="col-md-1 form-group">
             <div class="form-check form-check-inline">                
-                <input mdbRadio type="radio" class="form-check-input " id="providerRadio" name="actorType"/>
+                <input mdbRadio type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input " id="providerRadio" name="actorType" [value]="false" />
                 <label class="form-check-label " for="providerRadio">Proveedor</label>
             </div>            
         </div>
+        <div class="col-md-1 form-group">
+            <div class="form-check">
+                <input  type="checkbox" [disabled]="formType == 3" class="form-check-input " (change)="changePersonStatus()" id="statusPerson" checked = "statusPerson" />
+                <label class="form-check-label " for="statusPerson">Activo</label>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <div class="row">
+    <div class="row  mt-1">
+        <div class="col-md-6 form-group border border-1 px-1">
+            <div class="row mt-1">
                 <h4 class="col-md-12">Direcciones</h4>
             </div>
-            <div class="row">
-
+            <div class="row d-flex align-items-end">
+                <div class="col-md-10 form-group">
+                    <label>Dirección</label>
+                    <input type="text" [(ngModel)]="personAddressDto.address" class="form-control" />
+                </div>
+                <div class="col-md-2 form-group">
+                    <div class="form-check">
+                        <input  type="checkbox" class="form-check-input " (change)="changeFiscalAddress()" id="isFiscalAddress" checked = "isFiscalAddress" />
+                        <label class="form-check-label " for="isFiscalAddress">Dirección Fiscal</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex align-items-end">
+                <div class="col-md-10 form-group">
+                    <label>Referencia</label>
+                    <input type="text" [(ngModel)]="personAddressDto.addressReference" class="form-control" />
+                </div>
+                <div class="col-md-2 form-group">
+                    <label> </label>
+                    <button class="btn btn-primary btn-sm" (click)="addAddress();">
+                       <i data-feather="plus" class="mr-1"></i>Agregar
+                    </button>
+                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <app-datatable class="w100" [add]="false" [search]="false">
-                    
+                    <app-datatable class="w100" [columns]="addressColumns" [rows]="personAddresses" [add]="false" [search]="false"
+                        (action)="addressActionEvent($event)" [actions] ="addressActions">                    
                     </app-datatable>
                 </div>                                
             </div>
         </div>
-        <div class="col-md-6 form-group">
-            <div class="row">
+        <div class="col-md-6 form-group border border-1 px-1">
+            <div class="row mt-1">
                 <h4 class="col-md-12">Datos de contacto</h4>
             </div>
             <div class="row">
-                
+                <div class="col-md-6 form-group">
+                    <label>Nombre de contacto</label>
+                    <input type="text" [(ngModel)]="personContactDto.name" class="form-control" />
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>Cargo</label>
+                    <input type="text" [(ngModel)]="personContactDto.position" class="form-control" />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Teléfono</label>
+                    <input type="number" [(ngModel)]="personContactDto.phoneNumber" class="form-control" />
+                </div>                
+            </div>
+            <div class="row d-flex align-items-end">
+                <div class="col-md-4 form-group">
+                    <label>Celular</label>
+                    <input type="number" [(ngModel)]="personContactDto.mobileNumber" class="form-control" />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>E-Mail</label>
+                    <input type="text" [(ngModel)]="personContactDto.email" class="form-control" />
+                </div>                
+                <div class="col-md-2 form-group">
+                    <div class="form-check">
+                        <input  type="checkbox" class="form-check-input " (change)="changeBillingMail()" id="isBillingMail" checked = "isBillingMail" />
+                        <label class="form-check-label " for="isBillingMail">Contacto de facturación</label>
+                    </div>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label> </label>
+                    <button class="btn btn-primary btn-sm" (click)="addContact();">
+                       <i data-feather="plus" class="mr-1"></i>Agregar
+                    </button>
+                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <app-datatable class="w100" [add]="false" [search]="false">
+                    <app-datatable class="w100" [columns]="contactColumns" [rows]="personContacts" [add]="false" [search]="false"
+                        (action)="contactActionEvent($event)" [actions] ="contactActions">
                     
                     </app-datatable>
                 </div>                                

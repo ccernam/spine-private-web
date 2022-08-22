@@ -7,6 +7,7 @@ import { CategoryDto } from "../dtos/commons/category.dto";
 import { CurrencyDto } from "../dtos/commons/currency.dto";
 import { EditPricesDto } from "../dtos/commons/edit-prices.dto";
 import { MeasurementUnitDto } from "../dtos/commons/measurement-unit.dto";
+import { PersonDto } from "../dtos/commons/person.dto";
 import { PriceDto } from "../dtos/commons/price.dto";
 import { ProductDto } from "../dtos/commons/product.dto";
 import { StockDto } from "../dtos/commons/stock.dto";
@@ -146,5 +147,40 @@ export class CommonsService extends ServiceBase {
     }
     public editProduct(productDto: ProductDto): Observable<ProductDto> {
         return this._httpClient.put<ProductDto>(`${this.getPartialUrl()}/product`, productDto);
+    }
+
+    // Person
+    public findPersonHeader(parameters?: { companyId?:number, type?:number, docType?:number, document?:string, name?:string, isCustomer:boolean, isProvider:boolean, status?: number }) : Observable<PersonDto[]>
+    {
+        if (parameters == null)
+            parameters = { isProvider:true, isCustomer:false };
+        
+        let queryString: HttpParams = new HttpParams()
+            .set("companyId", (parameters.companyId ?? -1).toString())
+            .set("type", (parameters.type ?? -1).toString())
+            .set("docType", (parameters.docType ?? -1).toString())
+            .set("document", parameters.document ?? "")
+            .set("name", parameters.name ?? "")
+            .set("isCustomer", parameters.isCustomer)
+            .set("isProvider", parameters.isProvider)
+            .set("status", (parameters.status ?? -1).toString());
+        return this._httpClient.get<PersonDto[]>(`${this.getPartialUrl()}/person/header`, { params: queryString });
+    }
+
+    public findPersonDetail(parameters?: { personId: number }): Observable<PersonDto>
+    {
+        let queryString: HttpParams = new HttpParams()
+        .set("personId", parameters.personId.toString());
+        return this._httpClient.get<PersonDto>(`${this.getPartialUrl()}/person/detail`, { params: queryString });
+    }
+
+    public createPerson(personDto: PersonDto) : Observable<boolean>
+    {
+        return this._httpClient.post<boolean>(`${this.getPartialUrl()}/person`, personDto);
+    }
+
+    public editPerson(personDto: PersonDto) : Observable<boolean>
+    {
+        return this._httpClient.put<boolean>(`${this.getPartialUrl()}/person`, personDto);
     }
 }

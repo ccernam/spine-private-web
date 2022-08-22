@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CoreCommonModule } from '@core/common.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { CommonModule } from '@angular/common'
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -70,9 +70,10 @@ const routes: Routes = [
     MeasurementUnitComponent,
     CurrenciesComponent,
     CurrencyComponent,
-    ProductComponent
+    ProductComponent    
   ],
   imports: [
+    CommonModule,
     RouterModule.forChild(routes),
     ContentHeaderModule,
     NgbModule,
