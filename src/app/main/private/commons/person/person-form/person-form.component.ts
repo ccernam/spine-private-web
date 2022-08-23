@@ -5,6 +5,8 @@ import { PersonContactDto } from 'app/core/dtos/commons/person-contact.dto';
 import { PersonDto } from 'app/core/dtos/commons/person.dto';
 import { CatalogDetailDto } from 'app/core/dtos/configuration/catalog-detail.dto';
 import { CommonsService } from 'app/core/services/commons.service';
+import { SweetAlertService } from 'app/core/services/sweetalert.service';
+import { CustomToastrService } from 'app/core/services/toastr.service';
 import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
 
 @Component({
@@ -137,7 +139,9 @@ export class PersonFormComponent implements OnInit {
 
   constructor(
     private _activeModal: NgbActiveModal,
-    private _commonsService : CommonsService
+    private _commonsService : CommonsService,
+    private _toastrService: CustomToastrService,
+    private _sweetAlertService: SweetAlertService
   ) { }
 
   ngOnInit(): void {
@@ -229,6 +233,8 @@ export class PersonFormComponent implements OnInit {
     this.personContactDto.status = 1;
     this.personContactDto.statusName = "Activado";
     this.personContactDto.isBillingMail = this.isBillingMail;
+    this.personContactDto.phoneNumber = this.personContactDto.phoneNumber.toString();
+    this.personContactDto.mobileNumber = this.personContactDto.mobileNumber.toString();
     let newContact:PersonContactDto = { ...this.personContactDto };
     this.personContacts = [ ...this.personContacts, newContact ];
     this.clearContactValues();
@@ -252,4 +258,53 @@ export class PersonFormComponent implements OnInit {
   clearContactValues() {
     this.personContactDto = new PersonContactDto();
   }
+
+  async savePerson()
+  {
+    const result: any = await this._sweetAlertService.confirm({
+      text: "¿Está seguro que desea guardar ésta persona?"
+    });
+
+    if(!result.value) return;
+
+    if (this.personDto.isCustomer)
+    {
+      this.personDto.isProvider = false;
+    }
+    else
+    {
+      this.personDto.isProvider = true;
+    }
+
+    this.personDto = this.fillPersonEmptyStrings(this.personDto);
+    this.personDto.companyId = 1;
+    this.personDto.status = this.personStatus == true ? 1 : 2;
+    this.personDto.document = this.personDto.document.toString();
+    this.personDto.contacts = [ ...this.personContacts ];
+    this.personDto.addresses = [ ...this.personAddresses ]
+    
+    if (this.formType == 1)
+    {
+      this.personDto.id = 0;
+      this._commonsService.createPerson(this.personDto).subscribe(data => {
+        this._toastrService.success("Agregado correctamente");
+        this._activeModal.close({ success: true });
+      });
+    }
+    else if (this.formType == 2)
+    {
+
+    }
+  }
+
+  private fillPersonEmptyStrings(personDto: PersonDto) : PersonDto
+    {
+        personDto.firstName = personDto.firstName ?? "";
+        personDto.middleName = personDto.middleName ?? "";
+        personDto.maternalLastName = personDto.maternalLastName ?? "";
+        personDto.paternalLastName = personDto.paternalLastName ?? "";
+        personDto.businessName = personDto.businessName ?? "";
+        personDto.businessRepresentative = personDto.businessRepresentative ?? "";
+        return personDto;
+    }
 }

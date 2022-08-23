@@ -175,12 +175,12 @@ export class CommonsService extends ServiceBase {
     }
 
     public createPerson(personDto: PersonDto) : Observable<boolean>
-    {
+    {        
         return this._httpClient.post<boolean>(`${this.getPartialUrl()}/person`, personDto);
     }
 
     public editPerson(personDto: PersonDto) : Observable<boolean>
     {
         return this._httpClient.put<boolean>(`${this.getPartialUrl()}/person`, personDto);
-    }
+    }    
 }
