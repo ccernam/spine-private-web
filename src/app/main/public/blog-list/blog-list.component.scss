@@ -1,0 +1,34 @@
+@import '@core/scss/base/pages/page-blog';
+@import '@core/scss/base/pages/page-knowledge-base';
+
+.app-content.content {
+   padding-top: 0 !important;
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+}
+
+.blog-banner {
+   border-radius: 0 !important;
+}
+
+.blog-banner-bg {
+   min-height: 350px !important;
+   background-size: cover !important;
+   background-position: center center !important;
+   background-color: rgba(115, 103, 240, .12) !important;
+   background-image: url('https://img5.goodfon.com/wallpaper/nbig/e/37/interieur-restaurant-view.jpg') !important;
+
+   .card-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+   }
+}
+
+.blog-content-img {
+   height: 12rem;
+   display: flex;
+   overflow: hidden;
+   align-items: center;
+}

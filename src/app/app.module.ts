@@ -44,6 +44,10 @@ const appRoutes: Routes = [
    },
    {
       path: '',
+      loadChildren: () => import('./main/public/public.module').then(m => m.PublicModule)
+   },
+   {
+      path: '',
       loadChildren: () => import('./main/private/private.module').then(m => m.PrivateModule),
       canActivate: [AuthGuard]
    },
