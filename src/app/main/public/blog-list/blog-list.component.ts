@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CoreConfigService } from '@core/services/config.service';
+import { BlogData, Post } from 'app/core/types/blog';
+import { BlogListService } from './blog-list.service';
+import dayjs from 'dayjs';
 
 @Component({
    selector: 'app-blog',
@@ -9,14 +12,25 @@ import { CoreConfigService } from '@core/services/config.service';
 })
 export class BlogListComponent implements OnInit {
    //  Public
+   public dayjs = dayjs;
    public coreConfig: any;
+   public recentPosts: Post[] = [];
+   public pages: number[] = [];
+   public pageSize: number = 5;
+   public data: BlogData = {
+      posts: [],
+      total: 0,
+      page: 1,
+   };
 
    /**
     * Constructor
     *
+    * @param {BlogListService} _blogListService
     * @param {CoreConfigService} _coreConfigService
     */
    constructor(
+      private _blogListService: BlogListService,
       private _coreConfigService: CoreConfigService
    ) {
       // Configure the layout
@@ -27,7 +41,7 @@ export class BlogListComponent implements OnInit {
             },
             navbar: {
                type: 'navbar-static-top'
-             },
+            },
             footer: {
                hidden: true
             },
@@ -43,5 +57,22 @@ export class BlogListComponent implements OnInit {
    /**
     * On init
     */
-   ngOnInit(): void { }
+   ngOnInit(): void {
+      this.getRecentPosts();
+      this.getData(this.data.page);
+   }
+
+   onPageChange(page: number) {
+      if (page < 1 || page > this.pages.length) return;
+      this.getData(page);
+   }
+
+   getData(page: number) {
+      this.data = { ...this._blogListService.getData(page, this.pageSize) };
+      this.pages = Array.from({ length: Math.ceil(this.data.total / this.pageSize) }, (_, i) => i + 1);
+   }
+
+   getRecentPosts() {
+      this.recentPosts = this._blogListService.getRecentPosts();
+   }
 }

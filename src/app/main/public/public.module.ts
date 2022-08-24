@@ -10,6 +10,7 @@ import { CoreCommonModule } from '@core/common.module';
 import { BlogListComponent } from './blog-list/blog-list.component';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BlogListService } from './blog-list/blog-list.service';
 
 // routing
 const routes: Routes = [
@@ -30,6 +31,9 @@ const routes: Routes = [
       NgSelectModule,
       FormsModule,
       NgbModule
+   ],
+   providers: [
+      BlogListService
    ]
 })
 export class PublicModule { }
