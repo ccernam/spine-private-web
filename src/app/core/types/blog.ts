@@ -6,8 +6,9 @@ export interface Post {
    title: string,
    summary: string,
    content: string,
-   posted: Date,
+   postedAt: Date,
    likes: number,
+   views: number,
 }
 
 export interface BlogData{

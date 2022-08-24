@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CoreConfigService } from '@core/services/config.service';
 import { BlogData, Post } from 'app/core/types/blog';
-import { BlogListService } from './blog-list.service';
+import { BlogService } from '../blog.service';
 import dayjs from 'dayjs';
 
 @Component({
@@ -13,7 +13,6 @@ import dayjs from 'dayjs';
 export class BlogListComponent implements OnInit {
    //  Public
    public dayjs = dayjs;
-   public coreConfig: any;
    public recentPosts: Post[] = [];
    public pages: number[] = [];
    public pageSize: number = 5;
@@ -26,11 +25,11 @@ export class BlogListComponent implements OnInit {
    /**
     * Constructor
     *
-    * @param {BlogListService} _blogListService
+    * @param {BlogListService} _blogService
     * @param {CoreConfigService} _coreConfigService
     */
    constructor(
-      private _blogListService: BlogListService,
+      private _blogService: BlogService,
       private _coreConfigService: CoreConfigService
    ) {
       // Configure the layout
@@ -68,11 +67,11 @@ export class BlogListComponent implements OnInit {
    }
 
    getData(page: number) {
-      this.data = { ...this._blogListService.getData(page, this.pageSize) };
+      this.data = { ...this._blogService.getData(page, this.pageSize) };
       this.pages = Array.from({ length: Math.ceil(this.data.total / this.pageSize) }, (_, i) => i + 1);
    }
 
    getRecentPosts() {
-      this.recentPosts = this._blogListService.getRecentPosts();
+      this.recentPosts = this._blogService.getRecentPosts();
    }
 }

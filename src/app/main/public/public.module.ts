@@ -1,29 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoreCommonModule } from '@core/common.module';
 
-import { BlogListComponent } from './blog-list/blog-list.component';
-import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BlogListService } from './blog-list/blog-list.service';
 
 // routing
 const routes: Routes = [
    {
       path: 'blog',
-      component: BlogListComponent
-   }
+      loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)
+   },
 ];
 
 @NgModule({
-   declarations: [
-      BlogListComponent
-   ],
+   declarations: [],
    imports: [
       CommonModule,
       RouterModule.forChild(routes),
@@ -31,9 +26,6 @@ const routes: Routes = [
       NgSelectModule,
       FormsModule,
       NgbModule
-   ],
-   providers: [
-      BlogListService
    ]
 })
 export class PublicModule { }
