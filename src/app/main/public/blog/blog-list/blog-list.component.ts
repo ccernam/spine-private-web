@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
-import { BlogData, Post } from 'app/core/types/blog';
-import { BlogService } from '../blog.service';
-import dayjs from 'dayjs';
+import { BlogService } from '../../../../core/services/blog.service';
+import { BlogEntryDto } from 'app/core/dtos/marketing/blog-entry.dto';
 
 @Component({
    selector: 'app-blog',
@@ -12,15 +12,11 @@ import dayjs from 'dayjs';
 })
 export class BlogListComponent implements OnInit {
    //  Public
-   public dayjs = dayjs;
-   public recentPosts: Post[] = [];
    public pages: number[] = [];
-   public pageSize: number = 5;
-   public data: BlogData = {
-      posts: [],
-      total: 0,
-      page: 1,
-   };
+   public currentPage: number = 1;
+   public itemsPerPage: number = 5;
+   public totalEntries: number = 0;
+   public blogEntries: BlogEntryDto[] = [];
 
    /**
     * Constructor
@@ -29,6 +25,7 @@ export class BlogListComponent implements OnInit {
     * @param {CoreConfigService} _coreConfigService
     */
    constructor(
+      private router: Router,
       private _blogService: BlogService,
       private _coreConfigService: CoreConfigService
    ) {
@@ -57,21 +54,35 @@ export class BlogListComponent implements OnInit {
     * On init
     */
    ngOnInit(): void {
-      this.getRecentPosts();
-      this.getData(this.data.page);
+      this.findBlogEntries(this.currentPage);
    }
 
    onPageChange(page: number) {
       if (page < 1 || page > this.pages.length) return;
-      this.getData(page);
+      this.findBlogEntries(page);
    }
 
-   getData(page: number) {
-      this.data = { ...this._blogService.getData(page, this.pageSize) };
-      this.pages = Array.from({ length: Math.ceil(this.data.total / this.pageSize) }, (_, i) => i + 1);
+   findBlogEntries(page: number) {
+      this._blogService.findBlogEntries({ page, itemsPerPage: this.itemsPerPage, companyId: 1 }).subscribe(data => {
+         this.blogEntries = data;
+         this.pages = Array.from({ length: Math.ceil(this.totalEntries / this.itemsPerPage) }, (_, i) => i + 1);
+      });
    }
 
-   getRecentPosts() {
-      this.recentPosts = this._blogService.getRecentPosts();
+   viewBlogEntry(blogEntryId: number) {
+      this._blogService.viewBlogEntry(blogEntryId).subscribe(isSuccess => {
+         if (isSuccess) {
+            this.findBlogEntries(this.currentPage);
+            this.router.navigate(['/blog/details', blogEntryId]);
+         }
+      });
+   }
+
+   likeBlogEntry(blogEntryId: number) {
+      this._blogService.likeBlogEntry(blogEntryId).subscribe(isSuccess => {
+         if (isSuccess) {
+            this.findBlogEntries(this.currentPage);
+         }
+      });
    }
 }

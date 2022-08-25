@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   hmr: false,
+  apiUrl: 'https://localhost:44341',
   apiFakeUrl: 'http://localhost:4000',
-  apiUrl: 'http://homeetcoders-002-site1.itempurl.com'
 };
 
 /*

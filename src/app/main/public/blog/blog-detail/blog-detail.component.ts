@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CoreConfigService } from '@core/services/config.service';
-import { Post } from 'app/core/types/blog';
-import { BlogService } from '../blog.service';
+import { BlogService } from '../../../../core/services/blog.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import dayjs from 'dayjs';
+import { BlogEntryDto } from 'app/core/dtos/marketing/blog-entry.dto';
 
 @Component({
    selector: 'app-blog-detail',
@@ -13,9 +12,7 @@ import dayjs from 'dayjs';
 })
 export class BlogDetailComponent implements OnInit {
    //  Public
-   public dayjs = dayjs;
-   public recentPosts: Post[] = [];
-   public post: Post;
+   public blogEntry: BlogEntryDto;
 
    /**
     * Constructor
@@ -32,7 +29,7 @@ export class BlogDetailComponent implements OnInit {
       router.events.subscribe((val) => {
          if (val instanceof NavigationEnd) {
             this.configureLayout();
-            this.getPost();
+            this.viewBlogEntry();
          }
       });
    }
@@ -43,9 +40,7 @@ export class BlogDetailComponent implements OnInit {
    /**
     * On init
     */
-   ngOnInit(): void {
-      this.getRecentPosts();
-   }
+   ngOnInit(): void { }
 
    configureLayout() {
       // Configure the layout
@@ -66,14 +61,34 @@ export class BlogDetailComponent implements OnInit {
       };
    }
 
-   getPost() {
-      const postId: number = parseInt(this.route.snapshot.paramMap.get('id') || '0', 10);
-      const post: Post = this._blogService.getPostById(postId);
-      if (!post) this.router.navigate(['/blog']);
-      this.post = post;
+   getBlogEntryId() {
+      const blogEntryId: number = parseInt(this.route.snapshot.paramMap.get('id') || '0', 10);
+      return blogEntryId;
    }
 
-   getRecentPosts() {
-      this.recentPosts = this._blogService.getRecentPosts();
+   findBlogEntry(blogEntryId: number) {
+      this._blogService.findBlogEntries().subscribe(data => {
+         const blogEntry: BlogEntryDto = data.find(x => x.id === blogEntryId);
+         if (!blogEntry) this.router.navigate(['/blog']);
+         this.blogEntry = blogEntry;
+      });
+   }
+
+   viewBlogEntry() {
+      const blogEntryId: number = this.getBlogEntryId();
+      this._blogService.viewBlogEntry(blogEntryId).subscribe(isSuccess => {
+         if (isSuccess) {
+            this.findBlogEntry(blogEntryId);
+         }
+      });
+   }
+
+   likeBlogEntry() {
+      const blogEntryId: number = this.getBlogEntryId();
+      this._blogService.likeBlogEntry(blogEntryId).subscribe(isSuccess => {
+         if (isSuccess) {
+            this.findBlogEntry(blogEntryId);
+         }
+      });
    }
 }

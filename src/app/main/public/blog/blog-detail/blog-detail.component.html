@@ -3,41 +3,36 @@
       <!-- Blog List -->
       <section class="blog-content mt-3">
          <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-10">
                <!-- Blog -->
-               <div class="card">
-                  <img [src]="post.img" class="img-fluid card-img-top" alt="Blog Detail Pic" />
+               <div class="card" *ngIf="blogEntry">
+                  <img [src]="blogEntry.image" class="img-fluid card-img-top" alt="Blog Detail Image" />
                   <div class="card-body">
-                     <h4 class="card-title">{{ post.title }}</h4>
+                     <h4 class="card-title">{{ blogEntry.title }}</h4>
 
                      <div class="media mb-1">
-                        <div class="avatar mr-50">
-                           <img [src]="post.avatar" alt="Avatar" width="24" height="24" />
-                        </div>
                         <div class="media-body">
                            <small class="text-muted mr-25">by</small>
                            <small>
                               <a href="javascript:void(0);" class="text-body">
-                                 {{ post.username }}
+                                 {{ blogEntry.userName }}
                               </a>
                            </small>
-                           <span class="text-muted ml-50 mr-25">|</span>
-                           <small class="text-muted">{{ dayjs(post.postedAt).format("MMM DD, YYYY") }}</small>
                         </div>
                      </div>
 
-                     <p class="card-text mb-2" [innerHTML]="post.content"></p>
+                     <p class="card-text mb-2" [innerHTML]="blogEntry.content"></p>
 
                      <hr class="my-2" />
 
                      <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                            <div class="d-flex align-items-center mr-1">
-                              <a href="javascript:void(0);" class="mr-50">
+                              <a href="javascript:void(0);" class="mr-50" (click)="likeBlogEntry()">
                                  <i data-feather="thumbs-up" class="font-medium-5 text-body align-middle"></i>
                               </a>
                               <a href="javascript:void(0);">
-                                 <div class="text-body align-middle">{{ post.likes }}</div>
+                                 <div class="text-body align-middle">{{ blogEntry.likes }} Likes</div>
                               </a>
                            </div>
                            <div class="d-flex align-items-center">
@@ -45,37 +40,20 @@
                                  <i data-feather="eye" class="font-medium-5 text-body align-middle"></i>
                               </a>
                               <a href="javascript:void(0);">
-                                 <div class="text-body align-middle">{{ post.views }}</div>
+                                 <div class="text-body align-middle">{{ blogEntry.views }} Views</div>
                               </a>
                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                           <a routerLink="/blog" class="font-weight-bold">
+                              Back to Blog
+                           </a>
                         </div>
                      </div>
                   </div>
                </div>
                <!--/ Blog -->
-            </div>
-
-            <div class="col-3">
-               <!-- Blog Sidebar -->
-               <div class="blog-recent-posts">
-                  <h6 class="section-label">Recent Posts</h6>
-                  <div class="mt-75">
-                     <div class="media mb-2" *ngFor="let post of recentPosts">
-                        <a routerLink="/blog/details/{{ post.id }}" class="mr-2">
-                           <img class="rounded" [src]="post.img" width="100" height="70" alt="Recent Post Image" />
-                        </a>
-                        <div class="media-body">
-                           <h6 class="blog-recent-post-title">
-                              <a routerLink="/blog/details/{{ post.id }}" class="text-body-heading">
-                                 {{ post.title }}
-                              </a>
-                           </h6>
-                           <div class="text-muted mb-0">{{ dayjs(post.postedAt).format("MMM DD, YYYY") }}</div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!--/ Blog Sidebar -->
             </div>
          </div>
       </section>

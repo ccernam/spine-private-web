@@ -7,12 +7,11 @@ import { QuillModule } from 'ngx-quill';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { AuthGuard } from 'app/auth/helpers';
 import { CoreCommonModule } from '@core/common.module';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { BlogListComponent } from './blog-list/blog-list.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-import { BlogService } from './blog.service';
+import { BlogService } from '../../../core/services/blog.service';
 
 const routes: Routes = [
    {
@@ -37,7 +36,6 @@ const routes: Routes = [
       FormsModule,
       NgbModule
    ],
-
    providers: [
       BlogService
    ]
