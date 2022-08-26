@@ -110,11 +110,15 @@ export class ProductMovementFormComponent implements OnInit {
 
   saveProductMovement(status: number):void
   {
+    this.productMovementDto.issueDate = this.productMovementDto.issueDate ?? null;
     this.productMovementDto.status = status;
     this.productMovementDto.productMovementDetails = [... this.productMovementDetails];
     this.productMovementDto.companyId = 1;
-    this.productMovementDto.branchId = 1;
-    this.productMovementDto.issueDate = new Date(this.productMovementDto.issueDate);
+    //this.productMovementDto.branchId = 1;
+    if (this.productMovementDto.issueDate != null)
+    {
+      this.productMovementDto.issueDate = new Date(this.productMovementDto.issueDate);
+    }    
 
     if(this.isInvalidHeader())
     {
@@ -224,8 +228,13 @@ export class ProductMovementFormComponent implements OnInit {
   }
 
   updateIssueDate(event : any)
-  {
-    this.productMovementDto.issueDate = new Date(event);
+  {    
+    if (event!="")
+    {
+      this.productMovementDto.issueDate = new Date(event);
+      return;
+    }
+    this.productMovementDto.issueDate = null;
   }
 
   //Validations
@@ -249,7 +258,7 @@ export class ProductMovementFormComponent implements OnInit {
     
     if (this.productMovementDetailDto.comments == null || this.productMovementDetailDto.comments == undefined || this.productMovementDetailDto.comments == "")
     {
-      validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle.\r\n");
+      validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle .\r\n");
     }
 
     if(validationMessage.length > 0)
@@ -266,7 +275,7 @@ export class ProductMovementFormComponent implements OnInit {
 
     if (this.productMovementDto.branchId == null || this.productMovementDto.branchId == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar una suscursal . \r\n");
+      validationMessage = validationMessage.concat("Debe seleccionar una suscursal .\r\n");
     }
 
     if (this.productMovementDto.warehouseId == null || this.productMovementDto.warehouseId == undefined)

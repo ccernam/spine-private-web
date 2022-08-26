@@ -187,6 +187,11 @@ export class PersonFormComponent implements OnInit {
 
   addAddress()
   {
+    this.personAddressDto = this.fillAddressEmptyStrings(this.personAddressDto);
+    if (this.isInvalidAddress(this.personAddressDto))
+    {
+      return;
+    }
     this.personAddressDto.id = 0;
     this.personAddressDto.status = 1;
     this.personAddressDto.statusName = "Activado";
@@ -229,6 +234,11 @@ export class PersonFormComponent implements OnInit {
 
   addContact()
   {
+    this.personContactDto = this.fillContactEmptyStrings(this.personContactDto);
+    if (this.isInvalidContact(this.personContactDto))
+    {
+      return;
+    }
     this.personContactDto.id = 0;
     this.personContactDto.status = 1;
     this.personContactDto.statusName = "Activado";
@@ -261,11 +271,17 @@ export class PersonFormComponent implements OnInit {
 
   async savePerson()
   {
+    this.personDto = this.fillPersonEmptyStrings(this.personDto);
+    if (this.isValidPersonHeader(this.personDto))
+    {
+      return;
+    }
+
     const result: any = await this._sweetAlertService.confirm({
       text: "¿Está seguro que desea guardar ésta persona?"
     });
 
-    if(!result.value) return;
+    if(!result.value) return;    
 
     if (this.personDto.isCustomer)
     {
@@ -275,8 +291,7 @@ export class PersonFormComponent implements OnInit {
     {
       this.personDto.isProvider = true;
     }
-
-    this.personDto = this.fillPersonEmptyStrings(this.personDto);
+    
     this.personDto.companyId = 1;
     this.personDto.status = this.personStatus == true ? 1 : 2;
     this.personDto.document = this.personDto.document.toString();
@@ -298,13 +313,107 @@ export class PersonFormComponent implements OnInit {
   }
 
   private fillPersonEmptyStrings(personDto: PersonDto) : PersonDto
+  {
+      personDto.firstName = personDto.firstName ?? "";
+      personDto.middleName = personDto.middleName ?? "";
+      personDto.maternalLastName = personDto.maternalLastName ?? "";
+      personDto.paternalLastName = personDto.paternalLastName ?? "";
+      personDto.businessName = personDto.businessName ?? "";
+      personDto.businessRepresentative = personDto.businessRepresentative ?? "";
+      return personDto;
+  }
+
+  private fillAddressEmptyStrings(addressDto : PersonAddressDto) : PersonAddressDto
+  {
+    this.personAddressDto.address = this.personAddressDto.address?? "";
+    this.personAddressDto.addressReference = this.personAddressDto.addressReference?? "";
+    return addressDto;
+  }
+  
+  private fillContactEmptyStrings(contactDto: PersonContactDto) : PersonContactDto
+  {
+    this.personContactDto.name = this.personContactDto.name ?? "";
+    this.personContactDto.position = this.personContactDto.position ?? "";
+    this.personContactDto.phoneNumber = this.personContactDto.phoneNumber ?? "";
+    this.personContactDto.mobileNumber = this.personContactDto.mobileNumber ?? "";
+    this.personContactDto.email = this.personContactDto.email ?? "";
+    return contactDto;
+  }
+
+  private isValidPersonHeader(personDto: PersonDto) : boolean
+  {
+    let validationMessage:string = "";
+    if (this.personDto.type == null || this.personDto.type == undefined)
     {
-        personDto.firstName = personDto.firstName ?? "";
-        personDto.middleName = personDto.middleName ?? "";
-        personDto.maternalLastName = personDto.maternalLastName ?? "";
-        personDto.paternalLastName = personDto.paternalLastName ?? "";
-        personDto.businessName = personDto.businessName ?? "";
-        personDto.businessRepresentative = personDto.businessRepresentative ?? "";
-        return personDto;
+      validationMessage = validationMessage.concat("Debe seleccionar un tipo de persona . \r\n");
     }
+
+    if (this.personDto.docType == null || this.personDto.docType == undefined)
+    {
+      validationMessage = validationMessage.concat("Debe seleccionar un tipo de documento . \r\n");
+    }
+
+    if (this.personDto.document == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir un documento . \r\n");
+    }
+
+    if (this.personDto.paternalLastName == "" && this.personDto.maternalLastName == "" && this.personDto.firstName == "" && this.personDto.middleName == "" && personDto.businessName == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir un nombre o razón social . \r\n");
+    }
+
+    if (personDto.businessName != "" && personDto.businessRepresentative == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir un representante legal . \r\n");
+    }
+
+    if ((this.personDto.paternalLastName != "" || this.personDto.maternalLastName != "" || this.personDto.firstName != "" || this.personDto.middleName != "") && (this.personDto.paternalLastName == "" || this.personDto.maternalLastName == "" || this.personDto.firstName == ""))
+    {
+      validationMessage = validationMessage.concat("Debe completar los nombres y apellidos de la persona . \r\n");
+    }
+
+    if(validationMessage.length > 0)
+    {
+      this._toastrService.warning(validationMessage);
+      return true;
+    }
+    return false;   
+  }
+
+  private isInvalidContact(contactDto : PersonContactDto) : boolean
+  {
+    let validationMessage:string = "";
+    if (contactDto.name == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir el nombre de contacto .");
+    }
+
+    if (contactDto.mobileNumber == "" && contactDto.phoneNumber == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir al menos un número de contacto .");
+    }
+
+    if (contactDto.email == "")
+    {
+      validationMessage = validationMessage.concat("Debe escribir un email .");
+    }
+
+    if(validationMessage.length > 0)
+    {
+      this._toastrService.warning(validationMessage);
+      return true;
+    }
+    return false; 
+  }
+
+  private isInvalidAddress(addressDto : PersonAddressDto) : boolean
+  {
+    if (addressDto.address == "")
+    {
+      this._toastrService.warning("Debe escribir la dirección");
+      return true;
+    }
+    return false;
+  }
 }
