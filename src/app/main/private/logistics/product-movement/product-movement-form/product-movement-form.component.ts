@@ -110,15 +110,17 @@ export class ProductMovementFormComponent implements OnInit {
 
   saveProductMovement(status: number):void
   {
-    if(this.isInvalidHeader())
-    {
-      return;
-    }   
-
     this.productMovementDto.status = status;
     this.productMovementDto.productMovementDetails = [... this.productMovementDetails];
     this.productMovementDto.companyId = 1;
     this.productMovementDto.branchId = 1;
+    this.productMovementDto.issueDate = new Date(this.productMovementDto.issueDate);
+
+    if(this.isInvalidHeader())
+    {
+      return;
+    }
+    
     if(this.formType == 1)
     {      
       this._logisticsService.createProductMovement(this.productMovementDto).subscribe(data => {
@@ -127,7 +129,7 @@ export class ProductMovementFormComponent implements OnInit {
       });
     }
     else if (this.formType == 2)
-    {
+    {      
       this._logisticsService.editProductMovement(this.productMovementDto).subscribe(data => {
         this._toastrService.success("Editado correctamente");
         this._activeModal.close({ success: true });
@@ -287,7 +289,7 @@ export class ProductMovementFormComponent implements OnInit {
       validationMessage = validationMessage.concat("Debe escribir un comentario . \r\n");
     }
 
-    if (this.productMovementDto.issueDate == null || this.productMovementDto.issueDate == undefined || isNaN(this.productMovementDto.issueDate.getTime()) )
+    if (this.productMovementDto.issueDate == null || this.productMovementDto.issueDate == undefined || isNaN(this.productMovementDto.issueDate.getDate()) )
     {
       validationMessage = validationMessage.concat("Debe seleccionar una fecha de movimiento . \r\n");
     }

@@ -215,7 +215,10 @@ export class ProductMovementListComponent implements OnInit {
     }
 
     modal.result.then((result) => {
-
+      if ((type == 1 || type == 2) && result.success)
+      {
+        this.find();
+      }
     });
   }
 
@@ -249,6 +252,11 @@ export class ProductMovementListComponent implements OnInit {
   }
 
   updateIssueDate(event : any) {
-    this.parameters.issueDate = new Date(event).toJSON().toString();
+    if (event!="")
+    {
+      this.parameters.issueDate = new Date(event).toJSON().toString();
+      return;
+    }
+    this.parameters.issueDate = null;
   }
 }
