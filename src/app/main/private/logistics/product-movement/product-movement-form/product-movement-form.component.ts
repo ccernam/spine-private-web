@@ -110,15 +110,21 @@ export class ProductMovementFormComponent implements OnInit {
 
   saveProductMovement(status: number):void
   {
-    if(this.isInvalidHeader())
-    {
-      return;
-    }   
-
+    this.productMovementDto.issueDate = this.productMovementDto.issueDate ?? null;
     this.productMovementDto.status = status;
     this.productMovementDto.productMovementDetails = [... this.productMovementDetails];
     this.productMovementDto.companyId = 1;
-    this.productMovementDto.branchId = 1;
+    //this.productMovementDto.branchId = 1;
+    if (this.productMovementDto.issueDate != null)
+    {
+      this.productMovementDto.issueDate = new Date(this.productMovementDto.issueDate);
+    }    
+
+    if(this.isInvalidHeader())
+    {
+      return;
+    }
+    
     if(this.formType == 1)
     {      
       this._logisticsService.createProductMovement(this.productMovementDto).subscribe(data => {
@@ -127,7 +133,7 @@ export class ProductMovementFormComponent implements OnInit {
       });
     }
     else if (this.formType == 2)
-    {
+    {      
       this._logisticsService.editProductMovement(this.productMovementDto).subscribe(data => {
         this._toastrService.success("Editado correctamente");
         this._activeModal.close({ success: true });
@@ -222,8 +228,13 @@ export class ProductMovementFormComponent implements OnInit {
   }
 
   updateIssueDate(event : any)
-  {
-    this.productMovementDto.issueDate = new Date(event);
+  {    
+    if (event!="")
+    {
+      this.productMovementDto.issueDate = new Date(event);
+      return;
+    }
+    this.productMovementDto.issueDate = null;
   }
 
   //Validations
@@ -247,7 +258,7 @@ export class ProductMovementFormComponent implements OnInit {
     
     if (this.productMovementDetailDto.comments == null || this.productMovementDetailDto.comments == undefined || this.productMovementDetailDto.comments == "")
     {
-      validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle.\r\n");
+      validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle .\r\n");
     }
 
     if(validationMessage.length > 0)
@@ -264,7 +275,7 @@ export class ProductMovementFormComponent implements OnInit {
 
     if (this.productMovementDto.branchId == null || this.productMovementDto.branchId == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar una suscursal . \r\n");
+      validationMessage = validationMessage.concat("Debe seleccionar una suscursal .\r\n");
     }
 
     if (this.productMovementDto.warehouseId == null || this.productMovementDto.warehouseId == undefined)
@@ -287,7 +298,7 @@ export class ProductMovementFormComponent implements OnInit {
       validationMessage = validationMessage.concat("Debe escribir un comentario . \r\n");
     }
 
-    if (this.productMovementDto.issueDate == null || this.productMovementDto.issueDate == undefined || isNaN(this.productMovementDto.issueDate.getTime()) )
+    if (this.productMovementDto.issueDate == null || this.productMovementDto.issueDate == undefined || isNaN(this.productMovementDto.issueDate.getDate()) )
     {
       validationMessage = validationMessage.concat("Debe seleccionar una fecha de movimiento . \r\n");
     }

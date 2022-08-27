@@ -18,6 +18,7 @@ export class PersonDto extends MasterDto
     public isProvider : boolean;
     public typeName : string;
     public docTypeName : string;
+    public fullName : string;
     public contacts : PersonContactDto[];
     public addresses : PersonAddressDto[];
 }
