@@ -24,8 +24,8 @@ import { ProductMovement } from '../product-movement.module';
 export class ProductMovementListComponent implements OnInit {
 
   public productMovements: ProductMovementDto[] = [];
-  
-  
+
+
   public branches : BranchDto[] = [];
   public warehouses : WarehouseDto[] = [];
   public statuses : CatalogDetailDto[] = [];
@@ -117,7 +117,7 @@ export class ProductMovementListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._loadingService.show();   
+    this._loadingService.show();
 
     this._commonsService.findBranch({ companyId: 1, status : 1 }).subscribe(data => {
       this.branches = data;
@@ -176,12 +176,12 @@ export class ProductMovementListComponent implements OnInit {
     else
     {
       const result: any = await this._sweetAlertService.confirm({
-        text: "¿Está seguro que desea anular éste movimiento de almacén?"
+         content: "¿Está seguro que desea anular éste movimiento de almacén?"
       });
 
       if(!result.value) return;
 
-      
+
       this._logisticsService.rollbackProductMovement(productMovement.id).subscribe(data => {
         this._toastrService.success("Anulado correctamente");
       });
@@ -199,7 +199,7 @@ export class ProductMovementListComponent implements OnInit {
   openDetailModal(type:number, title:string, productMovement:ProductMovementDto): void {
     const modal = this.modal.open(ProductMovementFormComponent, { size: 'xl' });
     modal.componentInstance.branches = [ ...this.branches ];
-    modal.componentInstance.warehouses = [ ...this.warehouses ];    
+    modal.componentInstance.warehouses = [ ...this.warehouses ];
     modal.componentInstance.types = [ ...this.types ];
     modal.componentInstance.products = [ ...this.products ];
 
@@ -241,7 +241,7 @@ export class ProductMovementListComponent implements OnInit {
       {
         this.reasons = [];
       }
-    }    
+    }
   }
 
   find()

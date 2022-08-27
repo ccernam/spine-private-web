@@ -67,7 +67,7 @@ export class PricesComponent implements OnInit {
       return;
     }
 
-    const result: any = await this._sweetAlertService.confirm({ text: "¿Está seguro editar precios?" });
+    const result: any = await this._sweetAlertService.confirm({ content: "¿Está seguro editar precios?" });
     if (!result.value) return;
 
     this._loadingService.show();

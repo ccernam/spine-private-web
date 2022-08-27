@@ -93,14 +93,14 @@ export class ProductMovementFormComponent implements OnInit {
   }
 
   async saveActiveProductMovent()
-  {   
+  {
     const result: any = await this._sweetAlertService.confirm({
-      text: "¿Está seguro que desea guardar éste movimiento de almacén?"
+      content: "¿Está seguro que desea guardar éste movimiento de almacén?"
     });
 
     if(!result.value) return;
 
-    this.saveProductMovement(1);    
+    this.saveProductMovement(1);
   }
 
   saveTempProductMovent()
@@ -118,26 +118,26 @@ export class ProductMovementFormComponent implements OnInit {
     if (this.productMovementDto.issueDate != null)
     {
       this.productMovementDto.issueDate = new Date(this.productMovementDto.issueDate);
-    }    
+    }
 
     if(this.isInvalidHeader())
     {
       return;
     }
-    
+
     if(this.formType == 1)
-    {      
+    {
       this._logisticsService.createProductMovement(this.productMovementDto).subscribe(data => {
         this._toastrService.success("Agregado correctamente");
         this._activeModal.close({ success: true });
       });
     }
     else if (this.formType == 2)
-    {      
+    {
       this._logisticsService.editProductMovement(this.productMovementDto).subscribe(data => {
         this._toastrService.success("Editado correctamente");
         this._activeModal.close({ success: true });
-      });      
+      });
     }
   }
 
@@ -171,7 +171,7 @@ export class ProductMovementFormComponent implements OnInit {
 
   actionEvent({ name, index, row })
   {
-    
+
     if (name == 'delete-product-movement-detail')
     {
       this.deleteDetail(index, row);
@@ -179,8 +179,8 @@ export class ProductMovementFormComponent implements OnInit {
   }
 
   deleteDetail(item: number, productMovementDetail: ProductMovementDetailDto)
-  {    
-    this.deleteLocalProductMovementDetail(item, productMovementDetail);     
+  {
+    this.deleteLocalProductMovementDetail(item, productMovementDetail);
   }
 
   addDetail()
@@ -194,8 +194,8 @@ export class ProductMovementFormComponent implements OnInit {
     this.productMovementDetailDto.productName = this.products.find(x => x.id == this.productMovementDetailDto.productId).name;
     let newDetail : ProductMovementDetailDto = { ... this.productMovementDetailDto}
     this.productMovementDetails = [ ...this.productMovementDetails, newDetail  ]
-    this.clearDetailValues();  
-  }  
+    this.clearDetailValues();
+  }
 
   deleteLocalProductMovementDetail(index: number, productMovementDetail: ProductMovementDetailDto)
   {
@@ -224,11 +224,11 @@ export class ProductMovementFormComponent implements OnInit {
 
     this._logisticsService.findProductMovementDetail({ productMovementId: this.productMovementDto.id}).subscribe(data => {
       this.productMovementDetails = [ ...data  ];
-    });    
+    });
   }
 
   updateIssueDate(event : any)
-  {    
+  {
     if (event!="")
     {
       this.productMovementDto.issueDate = new Date(event);
@@ -255,7 +255,7 @@ export class ProductMovementFormComponent implements OnInit {
     {
       validationMessage = validationMessage.concat("Debe escribir el monto pagado .\r\n");
     }
-    
+
     if (this.productMovementDetailDto.comments == null || this.productMovementDetailDto.comments == undefined || this.productMovementDetailDto.comments == "")
     {
       validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle .\r\n");
@@ -266,7 +266,7 @@ export class ProductMovementFormComponent implements OnInit {
       this._toastrService.warning(validationMessage);
       return true;
     }
-    return false;    
+    return false;
   }
 
   isInvalidHeader(): boolean
