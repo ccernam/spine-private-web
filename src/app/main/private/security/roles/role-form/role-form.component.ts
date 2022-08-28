@@ -43,7 +43,7 @@ export class RoleFormComponent implements OnInit {
       if (!this.isValid()) return;
 
       const result: any = await this._sweetAlertService.confirm({
-         text: "¿Está seguro que desea guardar este rol?"
+         content: "¿Está seguro que desea guardar este rol?<br /> tendrá que asignarle permisos a este rol."
       });
 
       if(!result.value) return;

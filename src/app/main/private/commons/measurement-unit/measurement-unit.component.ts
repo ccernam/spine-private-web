@@ -42,7 +42,7 @@ export class MeasurementUnitComponent implements OnInit {
   async save(): Promise<void> {
     if (this.validate()) {
       let question: string = "¿Está seguro " + ((this.measurementUnitDto.id ?? 0) == 0 ? "crear" : "editar") + "  unidad de medida?";
-      const result: any = await this._sweetAlertService.confirm({ text: question });
+      const result: any = await this._sweetAlertService.confirm({ content: question });
       if (!result.value) return;
 
       this._loadingService.show();

@@ -42,7 +42,7 @@ export class BranchComponent implements OnInit {
   async save(): Promise<void> {
     if (this.validate()) {
       let question: string = "¿Está seguro " + ((this.branchDto.id ?? 0) == 0 ? "crear" : "editar") + " sucursal?";
-      const result: any = await this._sweetAlertService.confirm({ text: question });
+      const result: any = await this._sweetAlertService.confirm({ content: question });
       if (!result.value) return;
 
 

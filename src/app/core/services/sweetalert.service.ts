@@ -7,10 +7,10 @@ import Swal, { SweetAlertResult } from "sweetalert2";
 export class SweetAlertService {
    constructor() { }
 
-   async confirm({ title, text }: { title?: string, text?: string }): Promise<SweetAlertResult<any> | void> {
+   async confirm({ title, content }: { title?: string, content?: string }): Promise<SweetAlertResult<any> | void> {
       const result: SweetAlertResult<any> | void = await Swal.fire({
          title: title ?? 'Confirmar',
-         text: text ?? '¿Está seguro que desea continuar?',
+         html: content ?? '¿Está seguro que desea continuar?',
          icon: 'warning',
          showCancelButton: true,
          confirmButtonText: 'Si',

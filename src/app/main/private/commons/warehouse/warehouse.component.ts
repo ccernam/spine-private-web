@@ -48,7 +48,7 @@ export class WarehouseComponent implements OnInit {
   async save(): Promise<void> {
     if (this.validate()) {
       let question: string = "¿Está seguro " + ((this.warehouseDto.id ?? 0) == 0 ? "crear" : "editar") + " almacén?";
-      const result: any = await this._sweetAlertService.confirm({ text: question });
+      const result: any = await this._sweetAlertService.confirm({ content: question });
       if (!result.value) return;
 
       this._loadingService.show();
