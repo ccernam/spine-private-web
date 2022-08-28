@@ -37,7 +37,7 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title = ((this.categoryDto.id ?? 0) == 0 ? "Crear" : "Editar") + " Sucursal";
+    this.title = ((this.categoryDto.id ?? 0) == 0 ? "Crear" : "Editar") + " Categoría";
     this.statusModels = this._globalService.getStatusModels();
     this.reportingStatusModels = this._globalService.getReportingStatusModels();
   }
