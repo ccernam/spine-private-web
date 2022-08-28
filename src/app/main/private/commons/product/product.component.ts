@@ -71,6 +71,8 @@ export class ProductComponent implements OnInit {
         this._commonsService.editProduct(this.productDto).subscribe(data => {
           this.productDto = data;
           this._toastrService.success("Se editó producto exitosamente");
+          this.productDto.categoryName = this.categoryDtos.find(x => x.id == this.productDto.categoryId).name
+          this.productDto.measurementUnitName = this.measurementUnitDtos.find(x => x.id == this.productDto.measurementUnitId).name;
           this._activeModalService.close(this._globalService.getSuccessModalResult(this.productDto));
         });
       }

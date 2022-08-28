@@ -123,8 +123,8 @@ export class ProductsComponent implements OnInit {
       modal.componentInstance.productDto = { ...productDto };
       modal.result.then((modalResultModel: ModalResultModel<ProductDto>) => {
          if (modalResultModel != null && modalResultModel.success == true) {
-            this.productDtos.push(modalResultModel.data);
-            this.productDtos = this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))
+            this.productDtos[item] = modalResultModel.data;
+            this.productDtos = [ ...this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))]            
          }
       });
    }
