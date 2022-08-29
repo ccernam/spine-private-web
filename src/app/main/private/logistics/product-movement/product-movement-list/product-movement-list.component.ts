@@ -184,6 +184,7 @@ export class ProductMovementListComponent implements OnInit {
 
       this._logisticsService.rollbackProductMovement(productMovement.id).subscribe(data => {
         this._toastrService.success("Anulado correctamente");
+        this.findDisabled();
       });
     }
   }
@@ -247,6 +248,13 @@ export class ProductMovementListComponent implements OnInit {
   find()
   {
     this._logisticsService.findProductMovementHeader({ companyId :1, branchId:1, warehouseId:this.parameters.warehouseId, type:this.parameters.type, reason: this.parameters.reason, supplierId: this.parameters.supplierId, status:this.parameters.status, issueDate: this.parameters.issueDate }).subscribe(data => {
+      this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
+    });
+  }
+
+  findDisabled()
+  {
+    this._logisticsService.findProductMovementHeader({ companyId :1, branchId:1, status: 2 }).subscribe(data => {
       this.productMovements = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
     });
   }
