@@ -243,27 +243,27 @@ export class ProductMovementFormComponent implements OnInit {
     let validationMessage:string = "";
     if (this.productMovementDetailDto.productId == null || this.productMovementDetailDto.productId == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar un producto . \r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar un producto.</br>");
     }
 
     if (this.productMovementDetailDto.quantity == null || this.productMovementDetailDto.quantity == undefined)
     {
-      validationMessage = validationMessage.concat("Debe escribir la cantidad .\r\n");
+      validationMessage = validationMessage.concat("* Debe escribir la cantidad.</br>");
     }
 
-    if (this.productMovementDetailDto.billedAmount == null || this.productMovementDetailDto.productId == undefined)
+    if (this.productMovementDetailDto.billedAmount == null || this.productMovementDetailDto.billedAmount == undefined)
     {
-      validationMessage = validationMessage.concat("Debe escribir el monto pagado .\r\n");
+      validationMessage = validationMessage.concat(" * Debe escribir el monto pagado.</br>");
     }
 
     if (this.productMovementDetailDto.comments == null || this.productMovementDetailDto.comments == undefined || this.productMovementDetailDto.comments == "")
     {
-      validationMessage = validationMessage.concat("Debe escribir un comentario para el detalle .\r\n");
+      validationMessage = validationMessage.concat("* Debe escribir un comentario para el detalle.</br>");
     }
 
     if(validationMessage.length > 0)
     {
-      this._toastrService.warning(validationMessage);
+      this._toastrService.htmlWarning(validationMessage, 'Detalle incorrecto');
       return true;
     }
     return false;
@@ -275,42 +275,42 @@ export class ProductMovementFormComponent implements OnInit {
 
     if (this.productMovementDto.branchId == null || this.productMovementDto.branchId == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar una suscursal .\r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar una suscursal.</br>");
     }
 
     if (this.productMovementDto.warehouseId == null || this.productMovementDto.warehouseId == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar un almacén . \r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar un almacén.</br>");
     }
 
     if (this.productMovementDto.type == null || this.productMovementDto.type == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar un tipo de movimiento . \r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar un tipo de movimiento.</br>");
     }
 
     if (this.productMovementDto.reason == null || this.productMovementDto.reason == undefined)
     {
-      validationMessage = validationMessage.concat("Debe seleccionar un motivo de movimiento . \r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar un motivo de movimiento.</br>");
     }
 
     if (this.productMovementDto.comments == null || this.productMovementDto.comments == undefined || this.productMovementDto.comments == "")
     {
-      validationMessage = validationMessage.concat("Debe escribir un comentario . \r\n");
+      validationMessage = validationMessage.concat("* Debe escribir un comentario.</br>");
     }
 
     if (this.productMovementDto.issueDate == null || this.productMovementDto.issueDate == undefined || isNaN(this.productMovementDto.issueDate.getDate()) )
     {
-      validationMessage = validationMessage.concat("Debe seleccionar una fecha de movimiento . \r\n");
+      validationMessage = validationMessage.concat("* Debe seleccionar una fecha de movimiento.</br>");
     }
 
     if (this.productMovementDto.productMovementDetails == null || this.productMovementDto.productMovementDetails == undefined || this.productMovementDto.productMovementDetails.length == 0)
     {
-      validationMessage = validationMessage.concat("Debe agregar al menos un detalle en el movimiento . \r\n");
+      validationMessage = validationMessage.concat("* Debe agregar al menos un detalle en el movimiento.</br>");
     }
 
     if(validationMessage.length > 0)
     {
-      this._toastrService.warning(validationMessage);
+      this._toastrService.htmlWarning(validationMessage);
       return true;
     }
     return false;

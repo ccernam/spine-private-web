@@ -22,4 +22,9 @@ export class CustomToastrService {
    info(message: string, title?: string) {
       this._toastr.info(message, title ?? 'Información');
    }
+
+   htmlWarning(message: string, title?: string)
+   {
+      this._toastr.warning(message, title ?? 'Validación', { closeButton: true, timeOut: 4000, progressBar: true, enableHtml: true });
+   }
 }
