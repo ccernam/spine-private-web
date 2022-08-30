@@ -1,68 +1,75 @@
 <div class="content-wrapper p-0">
-    <div class="content-body">
-        <section id="logistics-product-movement">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Movimientos de Almacén</h4>
+   <div class="content-body">
+      <section id="logistics-product-movement">
+         <div class="row">
+            <div class="col-12">
+               <div class="card">
+                  <div class="card-header">
+                     <h4 class="card-title">Movimientos de Almacén</h4>
+                  </div>
+                  <div class="card-body">
+                     <div class="row">
+                        <div class="col-md-2 form-group">
+                           <label>Sucursal</label>
+                           <ng-select [items]="branches" [(ngModel)]="parameters.branchId" bindLabel="name"
+                              bindValue="id">
+                           </ng-select>
                         </div>
-                        <div class="card-body"> 
-                            <div class="row">
-                                <div class="col-md-2 form-group">
-                                    <label>Sucursal</label>
-                                    <ng-select [items]="branches" [(ngModel)]="parameters.branchId"  bindLabel="name" bindValue="id">                                        
-                                    </ng-select>
-                                </div>
 
-                                <div class="col-md-2 form-group">
-                                    <label>Almacén</label>
-                                    <ng-select [items]="warehouses" [(ngModel)]="parameters.warehouseId" bindLabel="name" bindValue="id">                                        
-                                    </ng-select>
-                                </div>
-
-                                <div class="col-md-2 form-group">
-                                    <label>Tipo Mov.</label>
-                                    <ng-select [items]="types" [(ngModel)]="parameters.type" bindLabel="name" bindValue="numericValue" (change) ="movementTypeChanged($event)">                                        
-                                    </ng-select>
-                                </div>
-
-                                <div class="col-md-2 form-group">
-                                    <label>Motivo Mov.</label>
-                                    <ng-select name="reasonMovCbo" [(ngModel)]="parameters.reason" [items]="reasons" bindLabel="name" bindValue="numericValue">                                        
-                                    </ng-select>
-                                </div>      
-
-                                <div class="col-md-2 form-group">
-                                    <label>Estado Mov.</label>
-                                    <ng-select [items]="statuses" [(ngModel)]="parameters.status" bindLabel="name" bindValue="numericValue">                                        
-                                    </ng-select>
-                                </div>
-                                
-                                <div class="col-md-2 form-group">
-                                    <label>Fecha Movimiento</label>
-                                    <input type="date" name="issueDate" #issueDate="ngModel" [ngModel]="parameters.issueDate|date:'yyyy-MM-dd'" [value]="parameters.issueDate|date:'yyyy-MM-dd'" (ngModelChange)="updateIssueDate($event)" class="form-control"/>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-md-2 form-group">
-                                    <label> </label>
-                                    <button class="btn btn-primary btn-sm" (click)="find();">
-                                       <i data-feather="search" class="mr-1"></i>Buscar
-                                    </button>
-                                 </div>
-                            </div>                     
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <app-datatable class="w100" [columns]="columns" [rows]="productMovements" [actions]="actions"
-                                        (action)="actionEvent($event)" (create)="createMovement()" (edit)="editEvent($event)" [search]="false">                                        
-                                    </app-datatable>
-                                </div>
-                            </div>
+                        <div class="col-md-2 form-group">
+                           <label>Almacén</label>
+                           <ng-select [items]="warehouses" [(ngModel)]="parameters.warehouseId" bindLabel="name"
+                              bindValue="id">
+                           </ng-select>
                         </div>
-                    </div>
-                </div>
+
+                        <div class="col-md-2 form-group">
+                           <label>Tipo Mov.</label>
+                           <ng-select [items]="types" [(ngModel)]="parameters.type" bindLabel="name"
+                              bindValue="numericValue" (change)="movementTypeChanged($event)">
+                           </ng-select>
+                        </div>
+
+                        <div class="col-md-2 form-group">
+                           <label>Motivo Mov.</label>
+                           <ng-select name="reasonMovCbo" [(ngModel)]="parameters.reason" [items]="reasons"
+                              bindLabel="name" bindValue="numericValue">
+                           </ng-select>
+                        </div>
+
+                        <div class="col-md-2 form-group">
+                           <label>Estado Mov.</label>
+                           <ng-select [items]="statuses" [(ngModel)]="parameters.status" bindLabel="name"
+                              bindValue="numericValue">
+                           </ng-select>
+                        </div>
+
+                        <div class="col-md-2 form-group">
+                           <label>Fecha Movimiento</label>
+                           <input type="date" name="issueDate" class="form-control" [(ngModel)]="parameters.issueDate"
+                              (ngModelChange)="updateIssueDate($event)" />
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-2 form-group">
+                           <label> </label>
+                           <button class="btn btn-primary btn-sm" (click)="find();">
+                              <i data-feather="search" class="mr-1"></i>Buscar
+                           </button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <app-datatable class="w100" [columns]="columns" [rows]="productMovements" [actions]="actions"
+                              (action)="actionEvent($event)" (create)="createMovement()" (edit)="editEvent($event)"
+                              [search]="false">
+                           </app-datatable>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </section>
-    </div>
+         </div>
+      </section>
+   </div>
 </div>
