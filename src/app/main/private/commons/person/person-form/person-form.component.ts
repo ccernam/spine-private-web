@@ -250,7 +250,7 @@ export class PersonFormComponent implements OnInit {
 
    async savePerson() {
       this.personDto = this.fillPersonEmptyStrings(this.personDto);
-      if (this.isValidPersonHeader(this.personDto)) {
+      if (this.isValidPerson(this.personDto)) {
          return;
       }
 
@@ -310,34 +310,44 @@ export class PersonFormComponent implements OnInit {
       return contactDto;
    }
 
-   private isValidPersonHeader(personDto: PersonDto): boolean {
+   private isValidPerson(personDto: PersonDto): boolean {
       let validationMessage: string = "";
       if (this.personDto.type == null || this.personDto.type == undefined) {
-         validationMessage = validationMessage.concat("Debe seleccionar un tipo de persona . \r\n");
+         validationMessage = validationMessage.concat("* Debe seleccionar un tipo de persona.<br>");
       }
 
       if (this.personDto.docType == null || this.personDto.docType == undefined) {
-         validationMessage = validationMessage.concat("Debe seleccionar un tipo de documento . \r\n");
+         validationMessage = validationMessage.concat("* Debe seleccionar un tipo de documento.<br>");
       }
 
       if (this.personDto.document == "") {
-         validationMessage = validationMessage.concat("Debe escribir un documento . \r\n");
+         validationMessage = validationMessage.concat("* Debe escribir un documento .<br>");
       }
 
       if (this.personDto.paternalLastName == "" && this.personDto.maternalLastName == "" && this.personDto.firstName == "" && this.personDto.middleName == "" && personDto.businessName == "") {
-         validationMessage = validationMessage.concat("Debe escribir un nombre o razón social . \r\n");
+         validationMessage = validationMessage.concat("* Debe escribir un nombre o razón social.<br>");
       }
 
       if (personDto.businessName != "" && personDto.businessRepresentative == "") {
-         validationMessage = validationMessage.concat("Debe escribir un representante legal . \r\n");
+         validationMessage = validationMessage.concat("* Debe escribir un representante legal.<br>");
       }
 
       if ((this.personDto.paternalLastName != "" || this.personDto.maternalLastName != "" || this.personDto.firstName != "" || this.personDto.middleName != "") && (this.personDto.paternalLastName == "" || this.personDto.maternalLastName == "" || this.personDto.firstName == "")) {
-         validationMessage = validationMessage.concat("Debe completar los nombres y apellidos de la persona . \r\n");
+         validationMessage = validationMessage.concat("* Debe completar los nombres y apellidos de la persona.<br>");
+      }
+
+      if (this.personContacts.length < 1)
+      {
+         validationMessage = validationMessage.concat("* Debe agregar al menos un contacto.<br>");
+      }
+
+      if (this.personAddresses.length < 1)
+      {
+         validationMessage = validationMessage.concat("* Debe agregar al menos una dirección.<br>");
       }
 
       if (validationMessage.length > 0) {
-         this._toastrService.warning(validationMessage);
+         this._toastrService.htmlWarning(validationMessage);
          return true;
       }
       return false;
@@ -346,19 +356,19 @@ export class PersonFormComponent implements OnInit {
    private isInvalidContact(contactDto: PersonContactDto): boolean {
       let validationMessage: string = "";
       if (contactDto.name == "") {
-         validationMessage = validationMessage.concat("Debe escribir el nombre de contacto .");
+         validationMessage = validationMessage.concat("* Debe escribir el nombre de contacto.<br>");
       }
 
       if (contactDto.mobileNumber == "" && contactDto.phoneNumber == "") {
-         validationMessage = validationMessage.concat("Debe escribir al menos un número de contacto .");
+         validationMessage = validationMessage.concat("* Debe escribir al menos un número de contacto.<br>");
       }
 
       if (contactDto.email == "") {
-         validationMessage = validationMessage.concat("Debe escribir un email .");
+         validationMessage = validationMessage.concat("* Debe escribir un email.<br>");
       }
 
       if (validationMessage.length > 0) {
-         this._toastrService.warning(validationMessage);
+         this._toastrService.htmlWarning(validationMessage);
          return true;
       }
       return false;

@@ -8,12 +8,51 @@
                             <h4 class="card-title">Persona</h4>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-
+                            <div class="row d-flex align-items-end">
+                                <div class="col-md-2 form-group">
+                                    <label>Tipo Persona</label>
+                                    <ng-select [items]="personTypes" [(ngModel)]="parameters.type" bindLabel="name" bindValue="numericValue"></ng-select>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label>Tipo Doc</label>
+                                    <ng-select [items]="documentTypes" [(ngModel)]="parameters.docType" bindLabel="name" bindValue="numericValue"></ng-select>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label>Documento</label>
+                                    <input type="number"  [(ngModel)]="parameters.document" class="form-control" />
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label>Nombre</label>
+                                    <input type="text"  [(ngModel)]="parameters.name" class="form-control" />
+                                </div>
+                                <div class="col-md-1 form-group ">            
+                                    <div class="form-check form-check-inline">                
+                                        <input mdbRadio type="radio" [(ngModel)]="parameters.isCustomer" class="form-check-input" id="customerRadio" name="actorType" [value]="true"/>
+                                        <label class="form-check-label" for="customerRadio">Cliente</label>
+                                    </div>                                        
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <div class="form-check form-check-inline">                
+                                        <input mdbRadio type="radio" [(ngModel)]="parameters.isCustomer" class="form-check-input " id="providerRadio" name="actorType" [value]="false" />
+                                        <label class="form-check-label " for="providerRadio">Proveedor</label>
+                                    </div>            
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <div class="form-check">
+                                        <input  type="checkbox" class="form-check-input " (change)="changePersonStatus()" id="statusPerson" checked = "statusPerson" />
+                                        <label class="form-check-label " for="statusPerson">Activo</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <label> </label>
+                                    <button class="btn btn-primary btn-sm" (click)="find();">
+                                       <i data-feather="search" class="mr-1"></i>Buscar
+                                    </button>
+                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <app-datatable class="w100" (create)="createPerson()" [search]="false">
+                                    <app-datatable class="w100" [columns]="columns"  [rows]="persons" [actions]="actions" (action)="actionEvent($event)" (create)="createPerson()" [search]="false">
                                     
                                     </app-datatable>
                                 </div>                                
