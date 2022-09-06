@@ -8,6 +8,7 @@ import { CommonsService } from 'app/core/services/commons.service';
 import { SweetAlertService } from 'app/core/services/sweetalert.service';
 import { CustomToastrService } from 'app/core/services/toastr.service';
 import { DatatableAction, DatatableColumn, DatatableColumnType } from 'app/core/types/datatable';
+import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
 
 @Component({
    selector: 'app-person-form',
@@ -28,7 +29,7 @@ export class PersonFormComponent implements OnInit {
    public personContacts: PersonContactDto[] = [];
    public personAddresses: PersonAddressDto[] = [];
 
-   public personStatus: boolean;
+   public personStatus: boolean = true;
    public isFiscalAddress: boolean;
    public isBillingMail: boolean;
 
@@ -148,23 +149,19 @@ export class PersonFormComponent implements OnInit {
       if (this.formType == 1) {
          this.personDto.isCustomer = true;
          this.personStatus = true;
-      }
+      }      
 
       this.isFiscalAddress = true;
       this.isBillingMail = true;
+
+      if (this.formType == 2 || this.formType == 3)
+      {
+         this.loadPersonValues();
+      }
    }
 
    close(): void {
       this._activeModal.close({ success: false });
-   }
-
-   changePersonStatus() {
-      if (this.personStatus) {
-         this.personStatus = false;
-      }
-      else {
-         this.personStatus = true;
-      }
    }
 
    changeFiscalAddress() {
@@ -249,6 +246,7 @@ export class PersonFormComponent implements OnInit {
    }
 
    async savePerson() {
+      debugger;
       this.personDto = this.fillPersonEmptyStrings(this.personDto);
       if (this.isValidPerson(this.personDto)) {
          return;
@@ -281,7 +279,10 @@ export class PersonFormComponent implements OnInit {
          });
       }
       else if (this.formType == 2) {
-
+         this._commonsService.editPerson(this.personDto).subscribe(data => {
+            this._toastrService.success("Editado correctamente");
+            this._activeModal.close({ success: true });
+         });
       }
    }
 
@@ -308,6 +309,31 @@ export class PersonFormComponent implements OnInit {
       this.personContactDto.mobileNumber = this.personContactDto.mobileNumber ?? "";
       this.personContactDto.email = this.personContactDto.email ?? "";
       return contactDto;
+   }
+
+   private loadPersonValues(){
+
+      if(this.formType == 3)
+      {
+         this.addressActions = [];
+         this.contactActions = [];
+      }      
+
+      this._commonsService.findPersonDetail({ personId:this.personDto.id }).subscribe(data => {    
+         if (data.status == 1)
+         {
+            this.personStatus = true;
+         }
+         else
+         {
+            this.personStatus = false;
+         }
+
+         this.personDto = { ...data }
+         this.personContacts = [ ...data.contacts  ];
+         this.personAddresses = [ ...data.addresses  ];
+         
+       });
    }
 
    private isValidPerson(personDto: PersonDto): boolean {

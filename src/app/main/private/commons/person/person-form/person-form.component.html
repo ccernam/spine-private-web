@@ -57,20 +57,20 @@
         </div>
         <div class="col-md-1 form-group ">            
             <div class="form-check form-check-inline">                
-                <input mdbRadio type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input" id="customerRadio" name="actorType" [value]="true"/>
-                <label class="form-check-label" for="customerRadio">Cliente</label>
+                <input type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input" id="customerRadioForm" name="actorTypeForm" [value]="true"/>
+                <label class="form-check-label" for="customerRadioForm">Cliente</label>
             </div>                                        
         </div>
         <div class="col-md-1 form-group">
             <div class="form-check form-check-inline">                
-                <input mdbRadio type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input " id="providerRadio" name="actorType" [value]="false" />
-                <label class="form-check-label " for="providerRadio">Proveedor</label>
+                <input type="radio" [disabled]="formType == 3" [(ngModel)]="personDto.isCustomer" class="form-check-input" id="providerRadioForm" name="actorTypeForm" [value]="false" />
+                <label class="form-check-label " for="providerRadioForm">Proveedor</label>
             </div>            
         </div>
         <div class="col-md-1 form-group">
             <div class="form-check">
-                <input  type="checkbox" [disabled]="formType == 3" class="form-check-input " (change)="changePersonStatus()" id="statusPerson" checked = "statusPerson" />
-                <label class="form-check-label " for="statusPerson">Activo</label>
+                <input mdbCheckbox type="checkbox" [disabled]="formType == 3" class="form-check-input" [(ngModel)]="this.personStatus" id="personStatus" [value]= "this.personStatus" />
+                <label class="form-check-label " for="personStatus">Activo</label>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
             <div class="row mt-1">
                 <h4 class="col-md-12">Direcciones</h4>
             </div>
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex align-items-end" *ngIf="formType == 1 || formType == 2">
                 <div class="col-md-10 form-group">
                     <label>Dirección</label>
                     <input type="text" [(ngModel)]="personAddressDto.address" class="form-control" />
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex align-items-end" *ngIf="formType == 1 || formType == 2">
                 <div class="col-md-10 form-group">
                     <label>Referencia</label>
                     <input type="text" [(ngModel)]="personAddressDto.addressReference" class="form-control" />
@@ -115,7 +115,7 @@
             <div class="row mt-1">
                 <h4 class="col-md-12">Datos de contacto</h4>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="formType == 1 || formType == 2">
                 <div class="col-md-6 form-group">
                     <label>Nombre de contacto</label>
                     <input type="text" [(ngModel)]="personContactDto.name" class="form-control" />
@@ -129,7 +129,7 @@
                     <input type="number" [(ngModel)]="personContactDto.phoneNumber" class="form-control" />
                 </div>                
             </div>
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex align-items-end" *ngIf="formType == 1 || formType == 2">
                 <div class="col-md-4 form-group">
                     <label>Celular</label>
                     <input type="number" [(ngModel)]="personContactDto.mobileNumber" class="form-control" />

@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-md-1 form-group">
                                     <div class="form-check">
-                                        <input  type="checkbox" class="form-check-input " (change)="changePersonStatus()" id="statusPerson" checked = "statusPerson" />
+                                        <input  type="checkbox" class="form-check-input " [(ngModel)]="personStatus" id="statusPerson" [value]="personStatus" />
                                         <label class="form-check-label " for="statusPerson">Activo</label>
                                     </div>
                                 </div>

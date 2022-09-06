@@ -120,12 +120,7 @@ export class PersonListComponent implements OnInit {
 
   createPerson()
   {
-    const modal = this.modal.open(PersonFormComponent, { size: 'xl' });    
-    modal.componentInstance.personTypes = [ ...this.personTypes ];
-    modal.componentInstance.documentTypes = [ ...this.documentTypes ]
-    modal.result.then((result) => {
-
-    });
+    this.openDetailModal(1, "Crear Persona", null);
   }
 
   actionEvent({ name, index, row }) {
@@ -139,12 +134,30 @@ export class PersonListComponent implements OnInit {
 
   editPerson(item:number, person: PersonDto)
   {
-
+    this.openDetailModal(2, "Editar Persona", person);
   }
 
   viewPerson(item:number, person: PersonDto)
   {
-    
+    this.openDetailModal(3, "Persona", person);
+  }
+
+  openDetailModal(type: number, title: string, person: PersonDto): void
+  {
+    const modal = this.modal.open(PersonFormComponent, { size: 'xl' });    
+    modal.componentInstance.personTypes = [ ...this.personTypes ];
+    modal.componentInstance.documentTypes = [ ...this.documentTypes ]
+
+    modal.componentInstance.title = title
+    modal.componentInstance.formType = type;
+
+    if (type == 2 || type == 3) {
+      modal.componentInstance.personDto = { ...person };
+    }
+
+    modal.result.then((result) => {
+
+    });
   }
 
   find() 
@@ -160,7 +173,7 @@ export class PersonListComponent implements OnInit {
     this.parameters.status = this.personStatus == true ? 1 : 2;
     this.parameters.document = this.parameters.document??"".toString();
     this._commonsService.findPersonHeader({ companyId: 1, type: this.parameters.type, docType: this.parameters.docType, document: this.parameters.document, name: this.parameters.name, isCustomer:this.parameters.isCustomer, isProvider:this.parameters.isProvider, status: this.parameters.status }).subscribe(data => {
-      this.persons = data.map((item: any, index: number) => ({ ...item, number: (index + 1) }));
+      this.persons = data.map((item: any, index: number) => ({ ...item, number: (index + 1), checked: item.status == 1 }));
     });
   }
 
