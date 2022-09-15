@@ -103,4 +103,19 @@ export const menu: CoreMenu[] = [
       },
     ]
   },
+  {
+    id: 'restaurant',
+    title: 'Restaurant',
+    type: 'collapsible',
+    icon : 'award',
+    children: [
+      {
+        id: 'meal',
+        title: 'Platos',
+        type: 'item',
+        icon: 'book-open',
+        url: 'restaurant/meal'
+      },
+    ]
+  },
 ]
