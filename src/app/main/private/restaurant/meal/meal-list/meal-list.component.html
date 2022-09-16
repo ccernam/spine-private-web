@@ -1,1 +1,40 @@
-<p>meal-list works!</p>
+<div class="content-wrapper p-0">
+    <div class="content-body">
+        <section id="restaurant-meal">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Platos</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-3 form-group">
+                                    <label>Tipo</label>
+                                    <ng-select [items]="mealTypes" bindLabel="name" bindValue="numericValue"></ng-select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <label> </label>
+                                    <button class="btn btn-primary btn-sm" (click)="find();">
+                                       <i data-feather="search" class="mr-1"></i>Buscar
+                                    </button>
+                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <app-datatable class="w100" [search]="false">
+
+                                    </app-datatable>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

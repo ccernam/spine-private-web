@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { CoreCommonModule } from "@core/common.module";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgSelectModule } from "@ng-select/ng-select";
 import { ContentHeaderModule } from "app/layout/components/content-header/content-header.module";
 import { DatatableModule } from "app/main/components/datatable/datatable.module";
 import { MealFormComponent } from "./meal-form/meal-form.component";
@@ -31,7 +32,8 @@ const routes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         CoreCommonModule,
-        DatatableModule
+        DatatableModule,
+        NgSelectModule
     ]
 })
 
