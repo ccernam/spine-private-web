@@ -24,6 +24,7 @@ export interface DatatableColumnCustom {
 
 export interface DatatableColumnCustomValue {
    value: any,
+   label?: string,
    class?: string,
 }
 

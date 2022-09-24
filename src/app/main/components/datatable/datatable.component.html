@@ -59,7 +59,9 @@
 
          <!--Badge Cell-->
          <span *ngIf="column.custom && column.custom.type === ColumnType.badge"
-            [class]="('badge ' + getClassBadgeCell(row, column.custom)).trim()">{{value}}</span>
+            [class]="('badge ' + getClassBadgeCell(row, column.custom)).trim()">
+            {{getBadgeValue(value, row, column.custom)}}
+         </span>
 
          <!--Input Cell-->
          <input *ngIf="column.custom && column.custom.type === ColumnType.input" type="text"

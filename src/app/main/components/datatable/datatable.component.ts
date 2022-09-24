@@ -46,6 +46,13 @@ export class DatatableComponent implements OnInit {
       return value?.class ?? 'badge-info';
    }
 
+   getBadgeValue(defaultValue: any, row: any, custom?: DatatableColumnCustom){
+      const name: string = custom?.name ?? '';
+      const values: DatatableColumnCustomValue[] = custom?.values ?? [];
+      const value = values.find((item: DatatableColumnCustomValue) => item.value === row[name]);
+      return value?.label ?? defaultValue;
+   }
+
    filterUpdate(event: any) {
       if (!this.isFilter) {
          this.tempData = JSON.parse(JSON.stringify(this.rows));

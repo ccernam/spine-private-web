@@ -52,6 +52,20 @@ export class ProductsComponent implements OnInit {
          width: 250
       },
       {
+         name: 'stockControl',
+         title: 'Control de Stock',
+         width: 250,
+         class: 'justify-content-center',
+         custom: {
+            name: 'stockControl',
+            values: [
+               { value: true, label: 'Si', class: 'badge-success' },
+               { value: false, label: 'No', class: 'badge-danger' },
+            ],
+            type: DatatableColumnType.badge
+         }
+      },
+      {
          name: 'statusName',
          title: 'Estado',
          width: 160,
@@ -91,12 +105,14 @@ export class ProductsComponent implements OnInit {
       this.getInitialData().subscribe(data => {
          this._loadingService.hide();
          this.categoryDtos = [{ id: -1, name: '- Todos -' }, ...data[0]];
+         this.productDtos = [...data[1]];
       });
    }
 
    getInitialData(): Observable<any> {
       return forkJoin([
-         this._commonsService.findCategory({ companyId: 1 })
+         this._commonsService.findCategory({ companyId: 1 }),
+         this._commonsService.findProduct(this.parameters)
       ]);
    }
 
@@ -124,7 +140,7 @@ export class ProductsComponent implements OnInit {
       modal.result.then((modalResultModel: ModalResultModel<ProductDto>) => {
          if (modalResultModel != null && modalResultModel.success == true) {
             this.productDtos[item] = modalResultModel.data;
-            this.productDtos = [ ...this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))]            
+            this.productDtos = [ ...this.productDtos.sort((a, b) => (a.name.localeCompare(b.name) || a.name.localeCompare(b.name)))]
          }
       });
    }
